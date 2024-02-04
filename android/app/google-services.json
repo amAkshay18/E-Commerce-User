@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "571382569162",
+    "project_id": "e-commerce-app-3a668",
+    "storage_bucket": "e-commerce-app-3a668.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571382569162:android:497dc24cfb98bae8e3bc33",
+        "android_client_info": {
+          "package_name": "com.example.leafloom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq9GqErQ907l9GHIDnpJrkqofD58GPTck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571382569162:android:f3a90cbe606776c5e3bc33",
+        "android_client_info": {
+          "package_name": "com.example.leafloom_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq9GqErQ907l9GHIDnpJrkqofD58GPTck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
