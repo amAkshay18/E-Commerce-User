@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
 import 'package:leafloom/view/cart/screen/cart.dart';
@@ -9,20 +10,14 @@ import 'package:provider/provider.dart';
 
 class ScreenNavWidget extends StatelessWidget {
   const ScreenNavWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NavBarBottom>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: provider.selectedIndex == 0
-            ? HomeScreen()
-            : provider.selectedIndex == 1
-                ? const SearchScreen()
-                : provider.selectedIndex == 2
-                    ? CartScreen()
-                    : const ScreenProfile(),
+        child: _getPage(provider.selectedIndex),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -31,39 +26,25 @@ class ScreenNavWidget extends StatelessWidget {
             BoxShadow(
               blurRadius: 20,
               color: Colors.black.withOpacity(.3),
-            )
+            ),
           ],
         ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
-              rippleColor: Colors.amber[300]!,
-              hoverColor: Colors.blue[300]!,
               gap: 7,
-              activeColor: Colors.white,
-              iconSize: 27,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: Colors.black,
-              color: Colors.black,
-              tabs: const [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Home',
-                ),
-                GButton(
-                  icon: Icons.search,
-                  text: 'Search',
-                ),
-                GButton(
-                  icon: Icons.shopping_cart_outlined,
-                  text: 'Cart',
-                ),
-                GButton(
-                  icon: Icons.person,
-                  text: 'Profile',
-                ),
+              activeColor: Colors.black,
+              iconSize: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              tabBackgroundColor: Colors.white,
+              color: Colors.grey,
+              tabs: [
+                _buildTab(Icons.home, 'Home', 0, provider.selectedIndex),
+                _buildTab(Icons.search, 'Search', 1, provider.selectedIndex),
+                _buildTab(Icons.shopping_cart_outlined, 'Cart', 2,
+                    provider.selectedIndex),
+                _buildTab(Icons.person, 'Profile', 3, provider.selectedIndex),
               ],
               selectedIndex: provider.selectedIndex,
               onTabChange: (index) {
@@ -74,5 +55,29 @@ class ScreenNavWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  GButton _buildTab(
+      IconData icon, String text, int tabIndex, int selectedIndex) {
+    return GButton(
+      icon: icon,
+      text: text,
+      textColor: selectedIndex == tabIndex ? Colors.black : Colors.grey,
+    );
+  }
+
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return HomeScreen();
+      case 1:
+        return const SearchScreen();
+      case 2:
+        return CartScreen();
+      case 3:
+        return const ScreenProfile();
+      default:
+        return HomeScreen();
+    }
   }
 }

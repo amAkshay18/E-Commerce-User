@@ -19,14 +19,14 @@ class HomeScreenWidget extends StatelessWidget {
       child: LayoutBuilder(builder: (context, constraints) {
         return ListView(
           children: [
-            Container(
-              decoration: const BoxDecoration(color: Colors.black),
-              height: 180,
-              child: Image.asset(
-                'assets/gardenia1.png',
-                fit: BoxFit.cover,
-              ),
-            ),
+            // Container(
+            //   decoration: const BoxDecoration(color: Colors.black),
+            //   height: 180,
+            //   child: Image.asset(
+            //     'assets/gardenia1.png',
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
             SizedBox(
               height: 130,
               child: Column(

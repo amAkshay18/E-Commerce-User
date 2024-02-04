@@ -33,13 +33,15 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          title: const Text('Welcome'),
+          title: const Text(
+            'LeafLoom',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
         body: TabBarView(
           children: [
             HomeScreenWidget(productCollection: productCollection),
             WishlistScreen()
-            // Icon(Icons.directions_transit, size: 350),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 ///********************Heading fontsize
@@ -6,14 +8,10 @@ const TextStyle kTitle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 /// *********************Colors************************************************
 
 const LinearGradient gcolor = LinearGradient(colors: [
-  Color.fromARGB(255, 109, 219, 236),
-  Color.fromARGB(255, 162, 245, 175),
+  Color.fromARGB(255, 76, 69, 121),
+  Color.fromARGB(255, 214, 143, 214),
 ], begin: Alignment.topLeft);
 
-///********************* Button
-///
-///
-///
 ///*********sizedbox */
 const kHeight50 = SizedBox(
   height: 50,

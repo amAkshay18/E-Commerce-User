@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/view/profile/screens/profile_body.dart';
 
@@ -13,8 +12,8 @@ class ScreenProfile extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.white,
           title: const Text(
-            'Account',
-            style: TextStyle(color: Colors.black),
+            'My Profile',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         body: const ProfileBody(),

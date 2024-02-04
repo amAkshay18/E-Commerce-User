@@ -16,7 +16,7 @@ class AboutUsProvider extends ChangeNotifier {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome to Gardenia - Your Green Haven!',
+                    'Welcome to LeafLoom - Your Green Haven!',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -24,7 +24,7 @@ class AboutUsProvider extends ChangeNotifier {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'About Gardenia:',
+                    'About LeafLoom:',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -32,7 +32,7 @@ class AboutUsProvider extends ChangeNotifier {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Gardenia is your one-stop destination for all things green! We specialize in providing a wide variety of indoor and outdoor plants to bring nature into your home and garden. Our passion for plants and commitment to quality make us your trusted partner in creating a lush, green environment.',
+                    'LeafLoom is your one-stop destination for all things green! We specialize in providing a wide variety of indoor and outdoor plants to bring nature into your home and garden. Our passion for plants and commitment to quality make us your trusted partner in creating a lush, green environment.',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 16),
@@ -45,12 +45,12 @@ class AboutUsProvider extends ChangeNotifier {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'At Gardenia, our mission is to inspire and enable people to embrace the beauty of nature. We strive to offer a curated selection of high-quality plants, along with a seamless shopping experience. Whether you are a seasoned plant enthusiast or just starting your green journey, Gardenia is here to cater to your plant needs.',
+                    'At LeafLoom, our mission is to inspire and enable people to embrace the beauty of nature. We strive to offer a curated selection of high-quality plants, along with a seamless shopping experience. Whether you are a seasoned plant enthusiast or just starting your green journey, LeafLoom is here to cater to your plant needs.',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'Why Choose Gardenia?',
+                    'Why Choose LeafLoom?',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class AboutUsProvider extends ChangeNotifier {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'Thank you for choosing Gardenia for all your plant needs!',
+                    'Thank you for choosing LeafLoom for all your plant needs!',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

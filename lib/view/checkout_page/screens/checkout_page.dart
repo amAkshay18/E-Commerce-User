@@ -124,7 +124,7 @@ class CheckoutScreen extends StatelessWidget {
                           var options = {
                             'key': 'rzp_test_EunImdr5xuJGFC',
                             'amount': totalPrice * 100,
-                            'name': 'Gardenia',
+                            'name': 'LeafLoom',
                             'description': name,
                             'retry': {'enabled': true, 'max_count': 1},
                             'send_sms_hash': true,
@@ -162,6 +162,7 @@ class CheckoutScreen extends StatelessWidget {
                           await context
                               .read<ProductPayment>()
                               .confirm(value: obj, context: context);
+                          // ignore: use_build_context_synchronously
                           value.showPaymentCompletedDialog(context);
                         }
                       },
@@ -178,12 +179,6 @@ class CheckoutScreen extends StatelessWidget {
 
   void handlePaymentErrorResponse(
       PaymentFailureResponse response, BuildContext context) {
-    /*
-    * PaymentFailureResponse contains three values:
-    * 1. Error Code
-    * 2. Error Description
-    * 3. Metadata
-    * */
     showAlertDialog(
         context, "Payment Failed", "\nDescription: ${response.message}}");
   }
@@ -209,12 +204,7 @@ class CheckoutScreen extends StatelessWidget {
       date: date,
     );
     context.read<ProductPayment>().confirm(value: obj, context: context);
-    /*
-    * Payment Success Response contains three values:
-    * 1. Order ID
-    * 2. Payment ID
-    * 3. Signature
-    * */
+
     showAlertDialog(
         context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
@@ -226,14 +216,12 @@ class CheckoutScreen extends StatelessWidget {
   }
 
   void showAlertDialog(BuildContext context, String title, String message) {
-    // set up the buttons
     Widget continueButton = ElevatedButton(
       child: const Text("Continue"),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),
       content: Text(message),
@@ -241,7 +229,6 @@ class CheckoutScreen extends StatelessWidget {
         continueButton,
       ],
     );
-    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {

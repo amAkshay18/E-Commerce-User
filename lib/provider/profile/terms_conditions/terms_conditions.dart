@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TermsandConditonsProvider extends ChangeNotifier {
   String termsAndConditionsText = '''
-Welcome to Gardenia, an ecommerce platform for the sale of indoor and outdoor plants. By accessing or using our app, you agree to comply with and be bound by the following terms and conditions. Please read these terms carefully before using our services.
+Welcome to LeafLoom, an ecommerce platform for the sale of indoor and outdoor plants. By accessing or using our app, you agree to comply with and be bound by the following terms and conditions. Please read these terms carefully before using our services.
 
 1. Acceptance of Terms:  By using our app, you agree to these terms and conditions. If you do not agree with any part of these terms, you may not use our services.
 
@@ -26,7 +26,7 @@ Welcome to Gardenia, an ecommerce platform for the sale of indoor and outdoor pl
 
 7. Privacy Policy: Your use of our app is also governed by our Privacy Policy, which can be found.
 
-8. Intellectual Property: All content on our app, including text, graphics, logos, and images, is the property of Gardenia and is protected by intellectual property laws.
+8. Intellectual Property: All content on our app, including text, graphics, logos, and images, is the property of LeafLoom and is protected by intellectual property laws.
 
 9. Limitation of Liability: We are not liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your use of our app or the products purchased through our app.
 
@@ -34,9 +34,9 @@ Welcome to Gardenia, an ecommerce platform for the sale of indoor and outdoor pl
 
 11. Governing Law: These terms and conditions are governed by the laws and regulations of India.
 
-If you have any questions or concerns about these terms and conditions, please contact us at ansertp47@gmail.com.
+If you have any questions or concerns about these terms and conditions, please contact us at thisisakshayp18@gmail.com.
 
-Thank you for using Gardenia
+Thank you for using LeafLoom
 ''';
   Future<dynamic> termsAndConditionsMethod(BuildContext context) {
     return showDialog(

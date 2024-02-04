@@ -19,94 +19,94 @@ class ProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Expanded(
-        child: Container(
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: gcolor,
-          ),
-          child: Column(
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 28.0),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(25),
+      child: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: gcolor,
+        ),
+        child: Column(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 28.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  height: 340,
+                  width: 350,
+                  child: Column(
+                    children: [
+                      AccountTile(
+                        icon: Icons.shopping_bag_rounded,
+                        name: 'Orders',
+                        voidCallback: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const OrderScreen(),
+                            ),
+                          );
+                        },
                       ),
-                    ),
-                    height: 340,
-                    width: 350,
-                    child: Column(
-                      children: [
-                        AccountTile(
-                          icon: CupertinoIcons.bag_fill,
-                          name: 'My Order',
-                          voidCallback: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const OrderScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                        AccountTile(
-                          icon: Icons.directions_bike,
-                          name: 'Address',
-                          voidCallback: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ScreenAddress(),
-                              ),
-                            );
-                          },
-                        ),
-                        AccountTile(
-                          icon: Icons.privacy_tip,
-                          name: 'Privacy and Policy',
-                          voidCallback: () {
-                            context
-                                .read<PrivacyPolicyProvider>()
-                                .privacyPolicyMethod(context);
-                          },
-                        ),
-                        AccountTile(
-                          icon: Icons.file_copy,
-                          name: 'Terms and Conditions',
-                          voidCallback: () {
-                            context
-                                .read<TermsandConditonsProvider>()
-                                .termsAndConditionsMethod(context);
-                          },
-                        ),
-                        AccountTile(
-                          icon: CupertinoIcons.info_circle_fill,
-                          name: 'About Us',
-                          voidCallback: () {
-                            context
-                                .read<AboutUsProvider>()
-                                .aboutUsMethod(context);
-                          },
-                        ),
-                      ],
-                    ),
+                      AccountTile(
+                        icon: Icons.article,
+                        // icon: Icons.directions_bike,
+                        name: 'Addresses',
+                        voidCallback: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ScreenAddress(),
+                            ),
+                          );
+                        },
+                      ),
+                      AccountTile(
+                        icon: Icons.privacy_tip,
+                        name: 'Privacy and Policy',
+                        voidCallback: () {
+                          context
+                              .read<PrivacyPolicyProvider>()
+                              .privacyPolicyMethod(context);
+                        },
+                      ),
+                      AccountTile(
+                        icon: Icons.file_copy,
+                        // icon: Icons.file_copy,
+                        name: 'Terms and Conditions',
+                        voidCallback: () {
+                          context
+                              .read<TermsandConditonsProvider>()
+                              .termsAndConditionsMethod(context);
+                        },
+                      ),
+                      AccountTile(
+                        icon: CupertinoIcons.info_circle_fill,
+                        name: 'About Us',
+                        voidCallback: () {
+                          context
+                              .read<AboutUsProvider>()
+                              .aboutUsMethod(context);
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 120,
-              ),
-              CommonButton(
-                name: 'Log Out',
-                voidCallback: () {
-                  FirebaseAuth.instance.signOut();
-                },
-              ),
-              const SizedBox(height: 160),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 120,
+            ),
+            CommonButton(
+              name: 'Log Out',
+              voidCallback: () {
+                FirebaseAuth.instance.signOut();
+              },
+            ),
+            const SizedBox(height: 160),
+          ],
         ),
       ),
     );

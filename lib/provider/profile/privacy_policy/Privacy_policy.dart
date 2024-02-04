@@ -1,13 +1,14 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PrivacyPolicyProvider extends ChangeNotifier {
   String privacy = '''
- Gardenia Ecommerce App Privacy Policy
+ LeafLoom Ecommerce App Privacy Policy
 
-Last Updated: 26-11-2023
+Last Updated: 26-01-2024
 
-Thank you for using the Gardenia Ecommerce App. This Privacy Policy outlines how we collect, use, and safeguard your personal information. By using our app, you consent to the terms described in this policy.
+Thank you for using the LeafLoom Ecommerce App. This Privacy Policy outlines how we collect, use, and safeguard your personal information. By using our app, you consent to the terms described in this policy.
 
  Information We Collect
 
@@ -51,7 +52,7 @@ We reserve the right to modify this privacy policy at any time. Please review it
 
  Contact Us
 
-If you have any questions about this Privacy Policy, please contact us at ansertp47@gmail.com.
+If you have any questions about this Privacy Policy, please contact us at thisisakshayp18@gmail.com@gmail.com.
 
 ---
  ''';

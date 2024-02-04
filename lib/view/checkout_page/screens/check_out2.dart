@@ -197,7 +197,7 @@ class CheckoutScreen2 extends StatelessWidget {
                         var options = {
                           'key': 'rzp_test_EunImdr5xuJGFC',
                           'amount': total * 100,
-                          'name': 'Gardenia',
+                          'name': 'LeafLoom',
                           'description': product.name ?? '',
                           'retry': {'enabled': true, 'max_count': 1},
                           'send_sms_hash': true,
