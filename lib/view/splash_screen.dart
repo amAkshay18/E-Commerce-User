@@ -36,7 +36,7 @@ class SplashScreen extends StatelessWidget {
             child: Scaffold(
               body: Center(
                 child: Image.asset(
-                  'assets/2.png',
+                  'assets/user_splash_image.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
