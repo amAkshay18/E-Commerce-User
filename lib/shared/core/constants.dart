@@ -8,8 +8,8 @@ const TextStyle kTitle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 /// *********************Colors************************************************
 
 const LinearGradient gcolor = LinearGradient(colors: [
-  Color.fromARGB(255, 76, 69, 121),
-  Color.fromARGB(255, 214, 143, 214),
+  Color.fromARGB(255, 36, 211, 124),
+  Color.fromARGB(255, 112, 161, 137),
 ], begin: Alignment.topLeft);
 
 ///*********sizedbox */

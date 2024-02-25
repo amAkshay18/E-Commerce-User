@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:leafloom/model/product_model.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/home/screens/home/home_grid.dart';
@@ -81,20 +80,6 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(
                 height: 20,
               ),
-              // Row(
-              //   children: [
-              //     // TextButton(
-              //     //   onPressed: () {
-              //     //     // Navigator.of(context).push(
-              //     //     //   MaterialPageRoute(
-              //     //     //     builder: (context) => const FilterScreen(),
-              //     //     //   ),
-              //     //     // );
-              //     //   },
-              //     //   child: const Text('Filter: Lowest price to Highest'),
-              //     // ),
-              //   ],
-              // ),
               kHeight30,
               searchValue.isEmpty
                   ? HomeScreenGrid(productCollection: productCollection)

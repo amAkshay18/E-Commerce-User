@@ -19,14 +19,14 @@ class HomeScreenWidget extends StatelessWidget {
       child: LayoutBuilder(builder: (context, constraints) {
         return ListView(
           children: [
-            // Container(
-            //   decoration: const BoxDecoration(color: Colors.black),
-            //   height: 180,
-            //   child: Image.asset(
-            //     'assets/gardenia1.png',
-            //     fit: BoxFit.cover,
-            //   ),
-            // ),
+            Container(
+              decoration: const BoxDecoration(color: Colors.black),
+              height: 220,
+              child: Image.asset(
+                'assets/user_splash_image.jpg',
+                fit: BoxFit.cover,
+              ),
+            ),
             SizedBox(
               height: 130,
               child: Column(
@@ -35,7 +35,7 @@ class HomeScreenWidget extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 8.0, left: 10),
                     child: Text(
-                      'Category',
+                      'Categories',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -60,12 +60,24 @@ class HomeScreenWidget extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              shape: const StadiumBorder(),
-                              elevation: 8,
-                              shadowColor: Colors.grey,
-                              backgroundColor: Colors.green),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  20), // Adjust the border radius as needed
+                            ),
+                            elevation: 8,
+                            shadowColor: Colors.grey,
+                            backgroundColor: Colors.green,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 12), // Adjust padding as needed
+                          ),
                           child: const Text(
                             'Outdoor',
+                            style: TextStyle(
+                              fontSize: 16, // Adjust the font size as needed
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white, // Text color
+                            ),
                           ),
                         ),
                       ),
@@ -81,11 +93,22 @@ class HomeScreenWidget extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder(),
-                            elevation: 8,
-                            shadowColor: Colors.grey,
-                            backgroundColor: Colors.green),
-                        child: const Text('Indoor'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          elevation: 8,
+                          shadowColor: Colors.grey,
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                        ),
+                        child: const Text(
+                          'Indoor',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
                       ),
                     ],
                   ),

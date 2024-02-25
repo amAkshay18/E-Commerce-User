@@ -4,6 +4,7 @@ import 'package:leafloom/model/cart_model.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/shared/core/constants.dart';
+import 'package:leafloom/shared/product_discription.dart';
 import 'package:provider/provider.dart';
 
 class WishlistScreen extends StatelessWidget {
@@ -43,96 +44,112 @@ class WishlistScreen extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       }
-                      return Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        margin: const EdgeInsets.all(10.0),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Image.network(
-                                  data[index]['imageUrl'] ?? 'shi' ?? '',
-                                  fit: BoxFit.cover,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProductDiscription(
+                                  name: data[index]['name'],
+                                  price: data[index]['price'],
+                                  category: data[index]['category'] ?? 'null',
+                                  discription: data[index]['description'],
+                                  img: data[index]['imageUrl'],
+                                  id: data[index]['id']),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 100,
+                                  height: 100,
+                                  child: Image.network(
+                                    data[index]['imageUrl'] ?? 'shi' ?? '',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 16.0),
-                              // Product Details
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      data[index]['name'] ?? 'name',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Text(
-                                        '₹ ${data[index]['price'] ?? '84'}',
+                                const SizedBox(width: 16.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data[index]['name'] ?? 'name',
                                         style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.green,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Text(
+                                          '₹ ${data[index]['price'] ?? '84'}',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              'Category: ${data[index]['category'] ?? '84'} '),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(
+                                          Icons.shopping_cart_outlined),
+                                      onPressed: () {
+                                        final addToCart = CartModel(
+                                          name: data[index]['name'],
+                                          price: data[index]['price'],
+                                          category: data[index]['category'],
+                                          description: data[index]
+                                              ['description'],
+                                          imageUrl: data[index]['imageUrl'],
+                                          id: data[index]['id'],
+                                          quantity: '1',
+                                        );
+                                        context.read<CartProvider>().addToCart(
+                                              context: context,
+                                              value: addToCart,
+                                            );
+                                      },
                                     ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                            'Category: ${data[index]['category'] ?? '84'} '),
-                                      ],
+                                    IconButton(
+                                      icon: const Icon(Icons.favorite),
+                                      onPressed: () async {
+                                        final String id = data[index]['id'];
+                                        await context
+                                            .read<WishlistProvider>()
+                                            .deleteWishlist(
+                                                id: id, context: context);
+                                        debugPrint(
+                                            '=========================== ${data[index]['id']}');
+                                      },
                                     ),
                                   ],
                                 ),
-                              ),
-
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(
-                                        Icons.shopping_cart_outlined),
-                                    onPressed: () {
-                                      final addToCart = CartModel(
-                                        name: data[index]['name'],
-                                        price: data[index]['price'],
-                                        category: data[index]['category'],
-                                        description: data[index]['description'],
-                                        imageUrl: data[index]['imageUrl'],
-                                        id: data[index]['id'],
-                                        quantity: '1',
-                                      );
-                                      context.read<CartProvider>().addToCart(
-                                            context: context,
-                                            value: addToCart,
-                                          );
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.favorite),
-                                    onPressed: () async {
-                                      final String id = data[index]['id'];
-                                      await context
-                                          .read<WishlistProvider>()
-                                          .deleteWishlist(
-                                              id: id, context: context);
-                                      debugPrint(
-                                          '=========================== ${data[index]['id']}');
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );
