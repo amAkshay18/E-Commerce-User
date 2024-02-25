@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:leafloom/model/address_model.dart';
+import 'package:leafloom/model/address_model/address_model.dart';
 
 class AddressProvider extends ChangeNotifier {
   Future<void> uploadAddressToFirebase({
@@ -8,18 +8,21 @@ class AddressProvider extends ChangeNotifier {
     required BuildContext? context,
   }) async {
     try {
-      await FirebaseFirestore.instance.collection('Address').doc(value.id).set(
-        {
-          'id': value.id,
-          'fullname': value.fullname,
-          'pincode': value.pincode,
-          'city': value.city,
-          'state': value.state,
-          'phone': value.phone,
-          'house': value.house,
-          'area': value.area,
-        },
-      );
+      await FirebaseFirestore.instance
+          .collection('Address')
+          .doc(value.id)
+          .set(value.toJson()
+              // {
+              //   'id': value.id,
+              //   'fullname': value.fullname,
+              //   'pincode': value.pincode,
+              //   'city': value.city,
+              //   'state': value.state,
+              //   'phone': value.phone,
+              //   'house': value.house,
+              //   'area': value.area,
+              // },
+              );
       notifyListeners();
     } on FirebaseException catch (error) {
       String errorMessage = 'An error occurred while adding the product.';

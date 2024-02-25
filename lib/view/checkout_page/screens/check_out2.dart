@@ -191,7 +191,6 @@ class CheckoutScreen2 extends StatelessWidget {
                     if (checkoutProvider.paymentCategory ==
                         PaymentCategory.paynow) {
                       final user = FirebaseAuth.instance.currentUser;
-
                       for (var product in products) {
                         int total = calculateTotalAmount(products);
                         var options = {
@@ -311,6 +310,7 @@ class CheckoutScreen2 extends StatelessWidget {
       child: const Text("Continue"),
       onPressed: () {
         Navigator.of(context).pop();
+        //==========================================================================================================>delete the items in cart, navigate to home screen.
       },
     );
     // set up the AlertDialog

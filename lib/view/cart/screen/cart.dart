@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/product_model.dart';
 import 'package:leafloom/shared/core/constants.dart';
-import 'package:leafloom/shared/product_discription.dart';
 import 'package:leafloom/view/cart/widget/cart_product_card.dart';
 import 'package:leafloom/view/checkout_page/screens/check_out2.dart';
+import 'package:leafloom/view/product/product_discription.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -28,7 +28,6 @@ class CartScreen extends StatelessWidget {
         ),
       );
     }
-
     return products;
   }
 
@@ -41,7 +40,8 @@ class CartScreen extends StatelessWidget {
           title: const Center(
             child: Text(
               'Cart',
-              style: TextStyle(color: Colors.black),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -76,7 +76,6 @@ class CartScreen extends StatelessWidget {
                               child: Text('No Products'),
                             );
                           }
-
                           return ListView.builder(
                             itemCount: data.length,
                             itemBuilder: (context, index) {
@@ -86,7 +85,6 @@ class CartScreen extends StatelessWidget {
                                   child: CircularProgressIndicator(),
                                 );
                               }
-
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(
@@ -99,20 +97,23 @@ class CartScreen extends StatelessWidget {
                                         img: data[index]['imageUrl'],
                                         name: data[index]['name'],
                                         price: data[index]['price'],
+                                        stock: data[index]['quantity'],
                                       ),
                                     ),
                                   );
                                 },
                                 child: CartCard(
-                                    name: data[index]['name'] ?? 'name',
-                                    price: data[index]['price'] ?? '84',
-                                    image: data[index]['imageUrl'] ??
-                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShiq-YDkgihdO9XD29qY3p58tiBINmzqZD8Q&usqp=CAU',
-                                    quantity:
-                                        data[index]['quantity'] ?? 'quantit',
-                                    description: data[index]['description'] ??
-                                        'quantity',
-                                    id: data[index]['id'] ?? 'null'),
+                                  name: data[index]['name'] ?? 'name',
+                                  price: data[index]['price'] ?? '84',
+                                  image: data[index]['imageUrl'] ??
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShiq-YDkgihdO9XD29qY3p58tiBINmzqZD8Q&usqp=CAU',
+                                  quantity:
+                                      data[index]['quantity'] ?? 'quantit',
+                                  description:
+                                      data[index]['description'] ?? 'quantity',
+                                  id: data[index]['id'] ?? 'null',
+                                  stock: data[index]['stock'],
+                                ),
                               );
                             },
                           );
@@ -155,8 +156,8 @@ class CartScreen extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                     shape: const StadiumBorder(),
                                     elevation: 8,
-                                    shadowColor: Colors.grey,
-                                    backgroundColor: Colors.green),
+                                    // shadowColor: Colors.grey,
+                                    backgroundColor: Colors.amber),
                                 child: const Text('Place Order'),
                               ),
                             ),

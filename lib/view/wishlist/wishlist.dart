@@ -4,7 +4,7 @@ import 'package:leafloom/model/cart_model.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/shared/core/constants.dart';
-import 'package:leafloom/shared/product_discription.dart';
+import 'package:leafloom/view/product/product_discription.dart';
 import 'package:provider/provider.dart';
 
 class WishlistScreen extends StatelessWidget {
@@ -49,12 +49,14 @@ class WishlistScreen extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => ProductDiscription(
-                                  name: data[index]['name'],
-                                  price: data[index]['price'],
-                                  category: data[index]['category'] ?? 'null',
-                                  discription: data[index]['description'],
-                                  img: data[index]['imageUrl'],
-                                  id: data[index]['id']),
+                                name: data[index]['name'],
+                                price: data[index]['price'],
+                                category: data[index]['category'] ?? 'null',
+                                discription: data[index]['description'],
+                                img: data[index]['imageUrl'],
+                                id: data[index]['id'],
+                                stock: data[index]['quantiy'],
+                              ),
                             ),
                           );
                         },

@@ -4,7 +4,7 @@ import 'package:leafloom/model/product_model.dart';
 import 'package:leafloom/model/wishlist_model.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
-import 'package:leafloom/shared/product_discription.dart';
+import 'package:leafloom/view/product/product_discription.dart';
 import 'package:provider/provider.dart';
 
 class SearchCard extends StatelessWidget {
@@ -35,6 +35,7 @@ class SearchCard extends StatelessWidget {
                   img: searchResults![index].imageUrl ?? 'null',
                   name: searchResults![index].name ?? "name",
                   price: searchResults![index].price ?? "null",
+                  stock: searchResults![index].quantity ?? "null",
                 ),
               ),
             );

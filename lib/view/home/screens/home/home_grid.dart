@@ -90,6 +90,7 @@ class HomeScreenGrid extends StatelessWidget {
                 image: productList[index].imageUrl ??
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9k33VDGg4WcrLISmAosSXtH9LnRke9pcaBQ&usqp=CAU",
                 description: productList[index].description ?? "empty",
+                stock: productList[index].quantity ?? 'Empty',
               );
             },
           );

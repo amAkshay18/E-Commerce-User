@@ -14,6 +14,7 @@ class ProductDiscription extends StatelessWidget {
     required this.discription,
     required this.img,
     required this.id,
+    required this.stock,
   });
   final String name;
   final String price;
@@ -21,6 +22,7 @@ class ProductDiscription extends StatelessWidget {
   final String discription;
   final String img;
   final String id;
+  final String stock;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class ProductDiscription extends StatelessWidget {
           category: category,
           discription: discription,
           id: id,
+          stock: stock,
         ),
       ),
     );
@@ -57,6 +60,7 @@ class Discription extends StatelessWidget {
     required this.category,
     required this.discription,
     required this.id,
+    required this.stock,
   });
   final String id;
   final String img;
@@ -64,6 +68,7 @@ class Discription extends StatelessWidget {
   final String price;
   final String category;
   final String discription;
+  final String stock;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +151,7 @@ class Discription extends StatelessWidget {
                     child: const Text(
                       'Buy',
                       style: TextStyle(
-                        color: Colors.green,
+                        color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -170,6 +175,7 @@ class Discription extends StatelessWidget {
                         imageUrl: img,
                         id: id,
                         quantity: '1',
+                        stock: stock,
                       );
                       context
                           .read<CartProvider>()
@@ -178,7 +184,7 @@ class Discription extends StatelessWidget {
                     child: const Text(
                       'Add to Cart',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),

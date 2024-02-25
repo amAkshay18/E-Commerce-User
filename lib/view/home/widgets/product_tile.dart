@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/wishlist_model.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
-import 'package:leafloom/shared/product_discription.dart';
+import 'package:leafloom/view/product/product_discription.dart';
 import 'package:provider/provider.dart';
 
 class ProductTile extends StatefulWidget {
@@ -12,15 +12,17 @@ class ProductTile extends StatefulWidget {
   final String image;
   final String description;
   final String id;
-  const ProductTile({
-    Key? key,
-    required this.id,
-    required this.name,
-    required this.subname,
-    required this.rate,
-    required this.image,
-    required this.description,
-  }) : super(key: key);
+  final String stock;
+  const ProductTile(
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.subname,
+      required this.rate,
+      required this.image,
+      required this.description,
+      required this.stock})
+      : super(key: key);
 
   @override
   State<ProductTile> createState() => _ProductTileState();
@@ -43,6 +45,7 @@ class _ProductTileState extends State<ProductTile> {
               category: widget.subname,
               discription: widget.description,
               img: widget.image,
+              stock: widget.stock,
             ),
           ),
         );

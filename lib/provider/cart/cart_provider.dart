@@ -47,6 +47,7 @@ class CartProvider extends ChangeNotifier {
           'category': value.category,
           'imageUrl': value.imageUrl,
           'id': value.id,
+          'stock': value.stock,
         },
       );
       showSnackbar(context!, "Product added to Cart");

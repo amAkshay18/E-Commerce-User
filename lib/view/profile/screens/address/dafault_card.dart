@@ -1,5 +1,8 @@
+// import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+// import 'package:leafloom/model/address_model/address_model.dart';
 import 'package:leafloom/view/profile/screens/address/add_edit_buttons.dart';
 
 class DefaultAddress extends StatelessWidget {
@@ -38,6 +41,10 @@ class DefaultAddress extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       );
                     }
+                    // List<QueryDocumentSnapshot<AddressModel?>> data =
+                    //     AddressModel.fromJson(
+                    //             jsonDecode(snapshot.data?.docs)) ??
+                    //         [];
                     List<QueryDocumentSnapshot<Object?>> data =
                         snapshot.data?.docs ?? [];
                     if (data.isEmpty) {
@@ -48,6 +55,8 @@ class DefaultAddress extends StatelessWidget {
                         ),
                       );
                     }
+                    // AddressModel addressModel =
+                    //     AddressModel.fromJson(jsonDecode(jsonEncode(data[0])));
                     return SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

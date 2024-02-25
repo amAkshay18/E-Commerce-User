@@ -136,7 +136,6 @@ class CheckoutScreen extends StatelessWidget {
                               'wallets': ['paytm']
                             }
                           };
-
                           razorpayProvider.openRazorpayPayment(
                             options: options,
                             onError: (response) {

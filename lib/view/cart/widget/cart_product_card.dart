@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +14,7 @@ class CartCard extends StatelessWidget {
     required this.quantity,
     required this.description,
     required this.id,
+    required this.stock,
   });
   final String name;
   final String image;
@@ -19,6 +22,7 @@ class CartCard extends StatelessWidget {
   final String description;
   final String price;
   final String id;
+  final String stock;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,12 @@ class CartCard extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.add),
                           onPressed: () async {
-                            context.read<CartProvider>().addK(id, quantity);
+                            if (int.parse(quantity) < int.parse(stock)) {
+                              context.read<CartProvider>().addK(id, quantity);
+                            } else {
+                              log('Out of Stock');
+                              //dialogue....out of stock
+                            }
                             // context.read<CartProvider>().fetchCart();
                           },
                         ),
