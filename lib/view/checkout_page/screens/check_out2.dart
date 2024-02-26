@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:leafloom/model/address_model/address_model.dart';
 import 'package:leafloom/model/order_model.dart';
 import 'package:leafloom/model/product_model.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
@@ -15,13 +19,21 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 Razorpay razorpay = Razorpay();
 
 // ignore: must_be_immutable
-class CheckoutScreen2 extends StatelessWidget {
-  CheckoutScreen2({
+class CheckoutScreen2 extends StatefulWidget {
+  const CheckoutScreen2({
     Key? key,
     required this.products,
   }) : super(key: key);
 
   final List<ProductClass> products;
+
+  @override
+  State<CheckoutScreen2> createState() => _CheckoutScreen2State();
+}
+
+AddressModel? selectedAddress;
+
+class _CheckoutScreen2State extends State<CheckoutScreen2> {
   int calculateTotalAmount(List<ProductClass> products) {
     int totalAmount = 0;
     for (var product in products) {
@@ -33,8 +45,11 @@ class CheckoutScreen2 extends StatelessWidget {
   }
 
   DateTime currentDate = DateTime.now();
+
   String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+
   String date = '0';
+
   @override
   Widget build(BuildContext context) {
     String formattedDate =
@@ -70,7 +85,7 @@ class CheckoutScreen2 extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ScreenAddress(),
+                      builder: (context) => const ScreenAddress(),
                     ),
                   );
                   context
@@ -81,7 +96,7 @@ class CheckoutScreen2 extends StatelessWidget {
               ),
               kHeight20,
               // Display product cards
-              for (var product in products) ...[
+              for (var product in widget.products) ...[
                 Card(
                   elevation: 5,
                   shape: RoundedRectangleBorder(
@@ -151,7 +166,7 @@ class CheckoutScreen2 extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ' ₹ ${calculateTotalAmount(products)}',
+                    ' ₹ ${calculateTotalAmount(widget.products)}',
                     style: const TextStyle(
                       fontSize: 20,
                       color: Colors.green,
@@ -187,12 +202,12 @@ class CheckoutScreen2 extends StatelessWidget {
                 elevation: 12,
                 child: CommonButton(
                   name: "Confirm order",
-                  voidCallback: () {
+                  voidCallback: () async {
                     if (checkoutProvider.paymentCategory ==
                         PaymentCategory.paynow) {
                       final user = FirebaseAuth.instance.currentUser;
-                      for (var product in products) {
-                        int total = calculateTotalAmount(products);
+                      for (var product in widget.products) {
+                        int total = calculateTotalAmount(widget.products);
                         var options = {
                           'key': 'rzp_test_EunImdr5xuJGFC',
                           'amount': total * 100,
@@ -208,21 +223,29 @@ class CheckoutScreen2 extends StatelessWidget {
                             'wallets': ['paytm']
                           }
                         };
+                        final defaultAddress = await FirebaseFirestore.instance
+                            .collection('Address')
+                            .doc(FirebaseAuth.instance.currentUser!.email)
+                            .collection('default_address')
+                            .doc('1')
+                            .get();
+                        final address =
+                            AddressModel.fromJson(defaultAddress.data()!);
                         final obj = OrderModel(
-                          orderId: uniqueFileName,
-                          status: 'Pending',
-                          quantity: context
-                              .read<CheckoutProvider>()
-                              .totalNum
-                              .toString(),
-                          id: product.id,
-                          description: product.description,
-                          category: product.category,
-                          imageUrl: product.imageUrl,
-                          productName: product.name,
-                          totalPrice: product.price,
-                          date: date,
-                        );
+                            orderId: uniqueFileName,
+                            status: 'Pending',
+                            quantity: context
+                                .read<CheckoutProvider>()
+                                .totalNum
+                                .toString(),
+                            id: product.id,
+                            description: product.description,
+                            category: product.category,
+                            imageUrl: product.imageUrl,
+                            productName: product.name,
+                            totalPrice: product.price,
+                            date: date,
+                            address: address);
                         context
                             .read<ProductPayment>()
                             .confirm(value: obj, context: context);
@@ -237,7 +260,7 @@ class CheckoutScreen2 extends StatelessWidget {
                         );
                       }
                     } else {
-                      for (var product in products) {
+                      for (var product in widget.products) {
                         final obj = OrderModel(
                           orderId: uniqueFileName,
                           status: 'Pending',

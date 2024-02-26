@@ -30,7 +30,8 @@ class ProductPayment extends ChangeNotifier {
           'category': value.category,
           'imageUrl': value.imageUrl,
           'orderId': value.orderId,
-          'date': value.date
+          'date': value.date,
+          'address': value.address!.toJson(),
         },
       );
       notifyListeners();

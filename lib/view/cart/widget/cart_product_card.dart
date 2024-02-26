@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../provider/cart/cart_provider.dart';
 
 class CartCard extends StatelessWidget {
@@ -72,21 +69,38 @@ class CartCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        const Text('quantity: '),
+                        const Text('Quantity'),
                         IconButton(
                           icon: const Icon(Icons.remove),
                           onPressed: () {
-                            context.read<CartProvider>().reduceK(id, quantity);
+                            context
+                                .read<CartProvider>()
+                                .reduceQuantiyInCart(id, quantity, context);
                           },
+                          color: quantity == '1' ? Colors.red : Colors.black,
                         ),
-                        Text(quantity),
+                        Text(
+                          quantity,
+                          style: TextStyle(
+                              color: quantity == stock
+                                  ? Colors.red
+                                  : Colors.black),
+                        ),
                         IconButton(
                           icon: const Icon(Icons.add),
                           onPressed: () async {
                             if (int.parse(quantity) < int.parse(stock)) {
-                              context.read<CartProvider>().addK(id, quantity);
+                              context.read<CartProvider>().addQuantityInCart(
+                                  id, quantity, stock, context);
                             } else {
-                              log('Out of Stock');
+                              //sow maximum stock reached message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Maximum stock limit reached for this product'),
+                                ),
+                              );
+                              // log('Out of Stock');
                               //dialogue....out of stock
                             }
                             // context.read<CartProvider>().fetchCart();
@@ -97,7 +111,6 @@ class CartCard extends StatelessWidget {
                   ],
                 ),
               ),
-
               IconButton(
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () {

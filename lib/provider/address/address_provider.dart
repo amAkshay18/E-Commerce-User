@@ -1,28 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:leafloom/model/address_model/address_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddressProvider extends ChangeNotifier {
+  String getUserData() {
+    final userData = FirebaseAuth.instance.currentUser;
+    return userData!.email!;
+  }
+
   Future<void> uploadAddressToFirebase({
     required AddressModel value,
     required BuildContext? context,
   }) async {
     try {
-      await FirebaseFirestore.instance
+      final email = getUserData();
+
+      final collection = FirebaseFirestore.instance
           .collection('Address')
-          .doc(value.id)
-          .set(value.toJson()
-              // {
-              //   'id': value.id,
-              //   'fullname': value.fullname,
-              //   'pincode': value.pincode,
-              //   'city': value.city,
-              //   'state': value.state,
-              //   'phone': value.phone,
-              //   'house': value.house,
-              //   'area': value.area,
-              // },
-              );
+          .doc(email)
+          .collection('UserAddress');
+      collection.add({
+        'id': value.id,
+        'fullname': value.fullname,
+        'pincode': value.pincode,
+        'city': value.city,
+        'state': value.state,
+        'phone': value.phone,
+        'house': value.house,
+        'area': value.area,
+      });
+      // await FirebaseFirestore.instance
+      //     .collection('Address')
+      //     .doc(value.id)
+      //     .set(value.toJson()
+      //   // {
+      //   'id': value.id,
+      //   'fullname': value.fullname,
+      //   'pincode': value.pincode,
+      //   'city': value.city,
+      //   'state': value.state,
+      //   'phone': value.phone,
+      //   'house': value.house,
+      //   'area': value.area,
+      //    // },
+      // );
       notifyListeners();
     } on FirebaseException catch (error) {
       String errorMessage = 'An error occurred while adding the product.';

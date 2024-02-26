@@ -42,6 +42,7 @@ class WishlistProvider extends ChangeNotifier {
     }
   }
 
+// snackbar for product added to wishlist
   void showSnackbar(BuildContext context, String message) {
     final snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
@@ -54,14 +55,13 @@ class WishlistProvider extends ChangeNotifier {
         },
       ),
     );
-
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     notifyListeners();
   }
 
   deleteWishlist({required String id, required BuildContext context}) async {
     await FirebaseFirestore.instance.collection('wishlist').doc(id).delete();
-    showSnackbar(context, 'Removed from');
+    showSnackbar(context, 'Removed from Wishlist');
     notifyListeners();
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TermsandConditonsProvider extends ChangeNotifier {
+class TermsAndConditonsProvider extends ChangeNotifier {
   String termsAndConditionsText = '''
 Welcome to LeafLoom, an ecommerce platform for the sale of indoor and outdoor plants. By accessing or using our app, you agree to comply with and be bound by the following terms and conditions. Please read these terms carefully before using our services.
 

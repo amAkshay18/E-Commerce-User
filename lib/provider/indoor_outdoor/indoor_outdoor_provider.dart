@@ -8,9 +8,7 @@ class CategoryProvider extends ChangeNotifier {
 
   Future<void> fetchProducts() async {
     indoorProducts = await _fetchProductsByCategory('Indoor');
-
     outdoorProducts = await _fetchProductsByCategory('Outdoor');
-
     notifyListeners();
   }
 
@@ -19,7 +17,6 @@ class CategoryProvider extends ChangeNotifier {
         .collection('Products')
         .where('category', isEqualTo: category)
         .get();
-
     return querySnapshot.docs
         .map((doc) => ProductClass.fromJson(doc.data() as Map<String, dynamic>))
         .toList();

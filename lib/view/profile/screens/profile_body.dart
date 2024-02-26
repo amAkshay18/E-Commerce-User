@@ -78,7 +78,7 @@ class ProfileBody extends StatelessWidget {
                         name: 'Terms and Conditions',
                         voidCallback: () {
                           context
-                              .read<TermsandConditonsProvider>()
+                              .read<TermsAndConditonsProvider>()
                               .termsAndConditionsMethod(context);
                         },
                       ),

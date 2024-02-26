@@ -1,3 +1,5 @@
+import 'package:leafloom/model/address_model/address_model.dart';
+
 class OrderModel {
   String? id;
   String? status;
@@ -9,18 +11,19 @@ class OrderModel {
   String? imageUrl;
   String? orderId;
   String? date;
-  OrderModel({
-    this.id,
-    this.status,
-    this.productName,
-    this.quantity,
-    this.totalPrice,
-    this.category,
-    this.description,
-    this.imageUrl,
-    this.orderId,
-    this.date,
-  });
+  AddressModel? address;
+  OrderModel(
+      {this.id,
+      this.status,
+      this.productName,
+      this.quantity,
+      this.totalPrice,
+      this.category,
+      this.description,
+      this.imageUrl,
+      this.orderId,
+      this.date,
+      this.address});
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -33,6 +36,7 @@ class OrderModel {
     imageUrl = json['imageUrl'];
     orderId = json['orderId'];
     date = json['date'];
+    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +51,7 @@ class OrderModel {
     data['imageUrl'] = imageUrl;
     data['orderId'] = orderId;
     data['date'] = date;
+    data['addres'] = address;
     return data;
   }
 }

@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AboutUsProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => TermsandConditonsProvider(),
+          create: (context) => TermsAndConditonsProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => PrivacyPolicyProvider(),

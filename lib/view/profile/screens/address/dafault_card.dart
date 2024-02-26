@@ -1,6 +1,7 @@
 // import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:leafloom/model/address_model/address_model.dart';
 import 'package:leafloom/view/profile/screens/address/add_edit_buttons.dart';
@@ -9,8 +10,11 @@ class DefaultAddress extends StatelessWidget {
   DefaultAddress({required this.size, super.key});
 
   final Size size;
-  final CollectionReference _addressCollection =
-      FirebaseFirestore.instance.collection('default_address');
+  final DocumentReference _addressCollection = FirebaseFirestore.instance
+      .collection('Address')
+      .doc(FirebaseAuth.instance.currentUser!.email)
+      .collection('default_address')
+      .doc('1');
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +33,11 @@ class DefaultAddress extends StatelessWidget {
               height: size.height / 4.1,
               width: double.infinity,
               child: StreamBuilder(
-                  stream: _addressCollection.snapshots(),
+                  stream: FirebaseFirestore.instance
+                      .collection('Address')
+                      .doc(FirebaseAuth.instance.currentUser!.email)
+                      .collection('default_address')
+                      .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Center(

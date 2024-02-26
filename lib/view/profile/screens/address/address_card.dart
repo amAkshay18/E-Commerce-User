@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/view/profile/screens/address/add_edit_buttons.dart';
 
@@ -75,6 +76,8 @@ class AddressCard extends StatelessWidget {
               TextButton(
                 onPressed: () async {
                   await FirebaseFirestore.instance
+                      .collection('Address')
+                      .doc(FirebaseAuth.instance.currentUser!.email)
                       .collection('default_address')
                       .doc('1')
                       .set(
@@ -91,6 +94,7 @@ class AddressCard extends StatelessWidget {
                   );
                 },
                 child: const Text('Make this default'),
+                //=========================================================================
               ),
               AddEditAddressButtons(
                 state: state,

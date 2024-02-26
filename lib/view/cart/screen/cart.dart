@@ -12,10 +12,8 @@ class CartScreen extends StatelessWidget {
       FirebaseFirestore.instance.collection('Cart');
   List<ProductClass> getProductsFromCart(QuerySnapshot cartSnapshot) {
     List<ProductClass> products = [];
-
     for (QueryDocumentSnapshot<Object?> item in cartSnapshot.docs) {
       Map<String, dynamic> productData = item.data() as Map<String, dynamic>;
-
       products.add(
         ProductClass(
           name: productData['name'],
@@ -44,130 +42,138 @@ class CartScreen extends StatelessWidget {
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
+          // actions: [
+          //   TextButton(
+          //     onPressed: () {
+          //       context.read<CartProvider>().cartClearing();
+          //     },
+          //     child: const Text('Clear cart'),
+          //   )
+          // ],
         ),
         body: Container(
           decoration: const BoxDecoration(
             gradient: gcolor,
           ),
           child: StreamBuilder(
-              stream: cartCollection.snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Error: ${snapshot.error}'),
-                  );
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                List<QueryDocumentSnapshot<Object?>> data =
-                    snapshot.data?.docs ?? [];
-                String total = calculateTotalPrice(data);
-                return Column(
-                  children: [
-                    kHeight20,
-                    Expanded(
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          if (data.isEmpty) {
-                            return const Center(
-                              child: Text('No Products'),
-                            );
-                          }
-                          return ListView.builder(
-                            itemCount: data.length,
-                            itemBuilder: (context, index) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductDiscription(
-                                        category:
-                                            data[index]['category'] ?? 'null',
-                                        discription: data[index]['description'],
-                                        id: data[index]['id'],
-                                        img: data[index]['imageUrl'],
-                                        name: data[index]['name'],
-                                        price: data[index]['price'],
-                                        stock: data[index]['quantity'],
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: CartCard(
-                                  name: data[index]['name'] ?? 'name',
-                                  price: data[index]['price'] ?? '84',
-                                  image: data[index]['imageUrl'] ??
-                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShiq-YDkgihdO9XD29qY3p58tiBINmzqZD8Q&usqp=CAU',
-                                  quantity:
-                                      data[index]['quantity'] ?? 'quantit',
-                                  description:
-                                      data[index]['description'] ?? 'quantity',
-                                  id: data[index]['id'] ?? 'null',
-                                  stock: data[index]['stock'],
-                                ),
-                              );
-                            },
+            stream: cartCollection.snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              List<QueryDocumentSnapshot<Object?>> data =
+                  snapshot.data?.docs ?? [];
+              String total = calculateTotalPrice(data);
+              return Column(
+                children: [
+                  kHeight20,
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        if (data.isEmpty) {
+                          return const Center(
+                            child: Text('No Products'),
                           );
-                        },
-                      ),
+                        }
+                        return ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductDiscription(
+                                      category:
+                                          data[index]['category'] ?? 'null',
+                                      discription: data[index]['description'],
+                                      id: data[index]['id'],
+                                      img: data[index]['imageUrl'],
+                                      name: data[index]['name'],
+                                      price: data[index]['price'],
+                                      stock: data[index]['quantity'],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: CartCard(
+                                name: data[index]['name'] ?? 'name',
+                                price: data[index]['price'] ?? '84',
+                                image: data[index]['imageUrl'] ??
+                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShiq-YDkgihdO9XD29qY3p58tiBINmzqZD8Q&usqp=CAU',
+                                quantity: data[index]['quantity'] ?? 'quantit',
+                                description:
+                                    data[index]['description'] ?? 'quantity',
+                                id: data[index]['id'] ?? 'null',
+                                stock: data[index]['stock'] ?? '0',
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
-                    Container(
-                      color: Colors.white,
-                      height: 70,
-                      width: double.infinity,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              subtitle: Text(
-                                'Total (${snapshot.data!.docs.length} items):',
-                              ),
-                              title: Text(
-                                '₹ $total',
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              trailing: ElevatedButton(
-                                onPressed: () {
-                                  cartCollection.get().then(
-                                    (cartSnapshot) {
-                                      List<ProductClass> products =
-                                          getProductsFromCart(cartSnapshot);
-
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => CheckoutScreen2(
-                                              products: products),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: const StadiumBorder(),
-                                    elevation: 8,
-                                    // shadowColor: Colors.grey,
-                                    backgroundColor: Colors.amber),
-                                child: const Text('Place Order'),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    height: 70,
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            subtitle: Text(
+                              'Total (${snapshot.data!.docs.length} items):',
+                            ),
+                            title: Text(
+                              '₹ $total',
+                              style: const TextStyle(
+                                fontSize: 20,
                               ),
                             ),
-                          ],
-                        ),
+                            trailing: ElevatedButton(
+                              onPressed: () {
+                                cartCollection.get().then(
+                                  (cartSnapshot) {
+                                    List<ProductClass> products =
+                                        getProductsFromCart(cartSnapshot);
+
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CheckoutScreen2(products: products),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                  elevation: 8,
+                                  // shadowColor: Colors.grey,
+                                  backgroundColor: Colors.amber),
+                              child: const Text('Place Order'),
+                            ),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                );
-              }),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -175,7 +181,6 @@ class CartScreen extends StatelessWidget {
 
   String calculateTotalPrice(List<QueryDocumentSnapshot<Object?>> data) {
     double total = 0;
-
     for (var item in data) {
       try {
         double price = double.tryParse(item['price'].toString()) ?? 0;
@@ -187,7 +192,6 @@ class CartScreen extends StatelessWidget {
         print('Error calculating total price: $e');
       }
     }
-
     return total.toStringAsFixed(2);
   }
 }

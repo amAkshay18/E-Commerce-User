@@ -1,18 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/checkout_page/widget/heading_delivery.dart';
 import 'package:leafloom/view/profile/screens/address/address_card.dart';
 import 'package:leafloom/view/profile/screens/address/dafault_card.dart';
+import 'package:provider/provider.dart';
 
-class ScreenAddress extends StatelessWidget {
-  ScreenAddress({super.key});
-  final CollectionReference addressCollection =
-      FirebaseFirestore.instance.collection('Address');
+class ScreenAddress extends StatefulWidget {
+  const ScreenAddress({super.key});
+
+  @override
+  State<ScreenAddress> createState() => _ScreenAddressState();
+}
+
+String email = FirebaseAuth.instance.currentUser!.email!;
+
+class _ScreenAddressState extends State<ScreenAddress> {
+  final CollectionReference addressCollection = FirebaseFirestore.instance
+      .collection('Address')
+      .doc(email)
+      .collection('UserAddress');
+
+  @override
+  void initState() {
+    // email =
+    super.initState();
+  }
+
+  // FirebaseFirestore.instance.collection('Address');
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: Scaffold(
         body: Container(

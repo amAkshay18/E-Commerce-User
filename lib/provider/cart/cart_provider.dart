@@ -5,8 +5,18 @@ import 'package:leafloom/model/cart_model.dart';
 class CartProvider extends ChangeNotifier {
   List<CartModel> cartList = [];
 
-  addK(id, quantity) async {
+  addQuantityInCart(id, quantity, stock, BuildContext context) async {
     int num = int.parse(quantity);
+
+    if (num >= int.parse(stock)) {
+      // Show message indicating maximum stock reached
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Maximum stock limit reached for this product.'),
+        ),
+      );
+      return;
+    }
 
     num++;
     await FirebaseFirestore.instance.collection('Cart').doc(id).update(
@@ -17,21 +27,76 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  reduceK(id, quantity) async {
+  // addQuantityInCart(id, quantity) async {
+  //   int num = int.parse(quantity);
+  //   num++;
+  //   await FirebaseFirestore.instance.collection('Cart').doc(id).update(
+  //     {
+  //       'quantity': num.toString(),
+  //     },
+  //   );
+  //   notifyListeners();
+  // }
+
+  reduceQuantiyInCart(id, quantity, BuildContext context) async {
     int num = int.parse(quantity);
     num--;
-    if (num < 1) {
-      await FirebaseFirestore.instance.collection('Cart').doc(id).delete();
 
+    if (num == 0) {
+      // Show confirmation dialog
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text(
+                'Are you sure you want to delete this item from your cart?'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Delete'),
+                onPressed: () async {
+                  await FirebaseFirestore.instance
+                      .collection('Cart')
+                      .doc(id)
+                      .delete();
+                  Navigator.of(context).pop(); // Close the dialog
+                  notifyListeners();
+                },
+              ),
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Update the quantity
+      await FirebaseFirestore.instance.collection('Cart').doc(id).update(
+        {
+          'quantity': '$num',
+        },
+      );
       notifyListeners();
     }
-    await FirebaseFirestore.instance.collection('Cart').doc(id).update(
-      {
-        'quantity': '$num',
-      },
-    );
-    notifyListeners();
   }
+
+  // reduceQuantiyInCart(id, quantity) async {
+  //   int num = int.parse(quantity);
+  //   num--;
+  //   if (num < 1) {
+  //     await FirebaseFirestore.instance.collection('Cart').doc(id).delete();
+  //     notifyListeners();
+  //   }
+  //   await FirebaseFirestore.instance.collection('Cart').doc(id).update(
+  //     {
+  //       'quantity': '$num',
+  //     },
+  //   );
+  //   notifyListeners();
+  // }
 
   Future<void> addToCart({
     required CartModel value,
@@ -84,7 +149,6 @@ class CartProvider extends ChangeNotifier {
         },
       ),
     );
-
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     notifyListeners();
   }
@@ -122,4 +186,18 @@ class CartProvider extends ChangeNotifier {
       },
     );
   }
+
+  // cartClearing() async {
+  //   try {
+  //     FirebaseFirestore.instance.collection('Cart').doc().
+  //     QuerySnapshot querySnapshot = await reference.get();
+  //     for (var docsnapshot in querySnapshot.docs) {
+  //       await docsnapshot.reference.delete();
+  //       // ignore: use_build_context_synchronously
+  //       // getcartitems(context);
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 }
