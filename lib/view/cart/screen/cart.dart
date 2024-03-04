@@ -108,7 +108,7 @@ class CartScreen extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: CartCard(
+                              child: CartProductCard(
                                 name: data[index]['name'] ?? 'name',
                                 price: data[index]['price'] ?? '84',
                                 image: data[index]['imageUrl'] ??
@@ -159,11 +159,19 @@ class CartScreen extends StatelessWidget {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                  shape: const StadiumBorder(),
-                                  elevation: 8,
-                                  // shadowColor: Colors.grey,
-                                  backgroundColor: Colors.amber),
-                              child: const Text('Place Order'),
+                                backgroundColor: Colors.amber,
+                                padding: const EdgeInsets.all(10),
+                                minimumSize: const Size(150, 50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: const Text(
+                                'Place Order',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ],
@@ -186,9 +194,11 @@ class CartScreen extends StatelessWidget {
         double price = double.tryParse(item['price'].toString()) ?? 0;
         int quantity = int.tryParse(item['quantity'].toString()) ?? 0;
         total += price * quantity;
+        // ignore: avoid_print
         print(
             '=============   Price: $price, Quantity: $quantity, Total: $total');
       } catch (e) {
+        // ignore: avoid_print
         print('Error calculating total price: $e');
       }
     }

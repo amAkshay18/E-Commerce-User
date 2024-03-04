@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/product_model.dart';
 import 'package:leafloom/shared/core/constants.dart';
-import 'package:leafloom/view/home/screens/home/home_grid.dart';
+import 'package:leafloom/view/search/widget/filter_grid.dart';
 import 'package:leafloom/view/search/widget/search_card.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -12,8 +14,59 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
+//=========================================================
+Future<List<ProductClass>> fetchProducts() async {
+  List<ProductClass> productList = [];
+
+  try {
+    var productCollectionSnapshot =
+        await FirebaseFirestore.instance.collection('Products').get();
+
+    if (productCollectionSnapshot.docChanges.isNotEmpty) {
+      filteredProducts = productCollectionSnapshot.docs.map(
+        (doc) {
+          Map<String, dynamic> data = doc.data();
+          return ProductClass.fromJson(data);
+        },
+      ).toList();
+    } else {
+      debugPrint("Error: Product collection snapshot is null");
+    }
+  } catch (e) {
+    debugPrint("Error fetching products===+++++++====: $e");
+  }
+
+  return productList;
+}
+
+final filterItems = [
+  const PopupMenuItem(
+    value: 0,
+    child: Text('Price high to low'),
+  ),
+  const PopupMenuItem(
+    value: 1,
+    child: Text('Price Low to High'),
+  ),
+  const PopupMenuItem(
+    value: 2,
+    child: Text('Remove filter'),
+  )
+];
+List<ProductClass> filteredProducts = [];
+List<ProductClass> filteredProductsToList = [];
+
 class _SearchScreenState extends State<SearchScreen> {
+  @override
+  void initState() {
+    fetchProducts();
+
+    super.initState();
+    // TODO: implement initState
+  }
+
   String searchValue = '';
+
   CollectionReference productCollection =
       FirebaseFirestore.instance.collection('Products');
   List<ProductClass> productList = [];
@@ -73,16 +126,40 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
               const SizedBox(
                 height: 20,
               ),
+              PopupMenuButton(
+                itemBuilder: (context) => filterItems,
+                onSelected: (value) async {
+                  if (value == 0) {
+                    filteredProducts.sort((a, b) => int.parse(a.price ?? '0')
+                        .compareTo(int.parse(b.price ?? '0')));
+                    for (int i = 0; i < filteredProducts.length; i++) {
+                      log(filteredProducts[i].price!);
+                      log(filteredProducts.length.toString());
+                    }
+                    setState(() {});
+                  } else if (value == 1) {
+                    filteredProducts.sort((a, b) => int.parse(b.price ?? '0')
+                        .compareTo(int.parse(a.price ?? '0')));
+                    setState(() {});
+                  } else if (value == 2) {
+                    filteredProducts = await fetchSearchResults();
+                    setState(() {});
+                  }
+                },
+                child: const Icon(
+                  Icons.filter,
+                ),
+              ),
               kHeight30,
               searchValue.isEmpty
-                  ? HomeScreenGrid(productCollection: productCollection)
+                  ? FilterGrid(productCollection: filteredProducts)
                   : FutureBuilder<List<ProductClass>>(
                       future: fetchSearchResults(),
                       builder: (context, snapshot) {
@@ -93,10 +170,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           return Text('Error: ${snapshot.error}');
                         } else {
                           List<ProductClass>? searchResults = snapshot.data;
-
+                          // filteredProducts = snapshot.data ?? [];
                           return searchResults != null &&
                                   searchResults.isNotEmpty
-                              ? SearchCard(searchResults: searchResults)
+                              ? SearchCard(searchResults: filteredProducts)
                               : emptySearch();
                         }
                       })

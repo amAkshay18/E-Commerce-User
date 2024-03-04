@@ -12,7 +12,7 @@ class ScreenNavWidget extends StatelessWidget {
   const ScreenNavWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NavBarBottom>(context);
+    final NavBarBottom provider = Provider.of<NavBarBottom>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -38,7 +38,7 @@ class ScreenNavWidget extends StatelessWidget {
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               tabBackgroundColor: Colors.white,
-              color: Colors.grey,
+              color: Colors.grey.shade600,
               tabs: [
                 _buildTab(Icons.home, 'Home', 0, provider.selectedIndex),
                 _buildTab(Icons.search, 'Search', 1, provider.selectedIndex),
@@ -62,7 +62,8 @@ class ScreenNavWidget extends StatelessWidget {
     return GButton(
       icon: icon,
       text: text,
-      textColor: selectedIndex == tabIndex ? Colors.black : Colors.grey,
+      textColor:
+          selectedIndex == tabIndex ? Colors.black : Colors.grey.shade600,
     );
   }
 

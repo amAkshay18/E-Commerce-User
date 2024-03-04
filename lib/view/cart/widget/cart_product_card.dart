@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/cart/cart_provider.dart';
 
-class CartCard extends StatelessWidget {
-  const CartCard({
+class CartProductCard extends StatelessWidget {
+  const CartProductCard({
     super.key,
     required this.name,
     required this.price,
@@ -26,7 +26,7 @@ class CartCard extends StatelessWidget {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       margin: const EdgeInsets.all(10.0),
       child: Container(
@@ -93,17 +93,14 @@ class CartCard extends StatelessWidget {
                               context.read<CartProvider>().addQuantityInCart(
                                   id, quantity, stock, context);
                             } else {
-                              //sow maximum stock reached message
+                              //Showing maximum stock reached message
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text(
                                       'Maximum stock limit reached for this product'),
                                 ),
                               );
-                              // log('Out of Stock');
-                              //dialogue....out of stock
                             }
-                            // context.read<CartProvider>().fetchCart();
                           },
                         ),
                       ],

@@ -36,7 +36,8 @@ class OrderModel {
     imageUrl = json['imageUrl'];
     orderId = json['orderId'];
     date = json['date'];
-    address = json['address'];
+    address = AddressModel.fromJson(
+        json['address']); //-------------------------------
   }
 
   Map<String, dynamic> toJson() {

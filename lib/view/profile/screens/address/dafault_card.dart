@@ -3,13 +3,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:leafloom/model/address_model/address_model.dart';
 import 'package:leafloom/view/profile/screens/address/add_edit_buttons.dart';
+// import 'package:leafloom/model/address_model/address_model.dart';
 
 class DefaultAddress extends StatelessWidget {
   DefaultAddress({required this.size, super.key});
 
   final Size size;
+  // ignore: unused_field
   final DocumentReference _addressCollection = FirebaseFirestore.instance
       .collection('Address')
       .doc(FirebaseAuth.instance.currentUser!.email)

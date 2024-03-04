@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,10 @@ import 'package:leafloom/model/address_model/address_model.dart';
 import 'package:leafloom/model/order_model.dart';
 import 'package:leafloom/model/product_model.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
+import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
+import 'package:leafloom/provider/cart/cart_provider.dart';
 import 'package:leafloom/provider/checkout_provider/checkout_provider.dart';
+import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/checkout_page/widget/heading_delivery.dart';
@@ -216,7 +217,7 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
                           'retry': {'enabled': true, 'max_count': 1},
                           'send_sms_hash': true,
                           'prefill': {
-                            'contact': '8078711479',
+                            'contact': '9605298500',
                             'email': user!.email
                           },
                           'external': {
@@ -234,6 +235,7 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
                         final obj = OrderModel(
                             orderId: uniqueFileName,
                             status: 'Pending',
+                            // ignore: use_build_context_synchronously
                             quantity: context
                                 .read<CheckoutProvider>()
                                 .totalNum
@@ -246,6 +248,7 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
                             totalPrice: product.price,
                             date: date,
                             address: address);
+                        // ignore: use_build_context_synchronously
                         context
                             .read<ProductPayment>()
                             .confirm(value: obj, context: context);
@@ -329,13 +332,31 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
 
   void showAlertDialog(BuildContext context, String title, String message) {
     // set up the buttons
-    Widget continueButton = ElevatedButton(
-      child: const Text("Continue"),
-      onPressed: () {
-        Navigator.of(context).pop();
-        //==========================================================================================================>delete the items in cart, navigate to home screen.
+    Widget continueButton = Consumer<NavBarBottom>(
+      builder: (context, value, child) {
+        return ElevatedButton(
+          child: const Text("Continue"),
+          onPressed: () {
+            // Clear the cart and pop until reaching the home screen
+            context.read<CartProvider>().clearCart(context);
+            // Navigator.popUntil(context, ModalRoute.withName('/'));
+
+            // final NavBarBottom provider =
+            Provider.of<NavBarBottom>(context, listen: false).selectedIndex = 0;
+
+            // provider.selectedIndex = 0;
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ScreenNavWidget(),
+              ),
+              ((route) => false),
+            );
+          },
+        );
       },
     );
+
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),
@@ -344,6 +365,7 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
         continueButton,
       ],
     );
+
     // show the dialog
     showDialog(
       context: context,
@@ -352,4 +374,80 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
       },
     );
   }
+
+//========================================================================
+  // void showAlertDialog(BuildContext context, String title, String message) {
+  //   // set up the buttons
+  //   Widget continueButton = ElevatedButton(
+  //     child: const Text("Continue"),
+  //     onPressed: () {
+  //       // Clear the cart or perform any necessary actions
+
+  //       context.read<CartProvider>().clearCart(context);
+  //       Navigator.pop(context);
+  //       Navigator.popUntil(context, (route) => route.isActive);
+
+  //       // Navigator.popUntil(context, (route) => route.isFirst);
+
+  //       // Navigator.of(context).pushAndRemoveUntil(
+  //       //   MaterialPageRoute(
+  //       //     builder: (context) => const ScreenNavWidget(),
+  //       //   ),
+  //       //   (route) => false,
+  //       // );
+  //     },
+  //   );
+
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     title: Text(title),
+  //     content: Text(message),
+  //     actions: [
+  //       continueButton,
+  //     ],
+  //   );
+
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
+//=============================================================================================
+  // void showAlertDialog(BuildContext context, String title, String message) {
+  //   // set up the buttons
+  //   Widget continueButton = ElevatedButton(
+  //     child: const Text("Continue"),
+  //     onPressed: () {
+  //       Navigator.of(context).pop();
+
+  //       // Navigator.push(
+  //       //   context,
+  //       //   MaterialPageRoute(
+  //       //     builder: (context) =>
+  //       //     // const ScreenNavWidget(),
+  //       //     // HomeScreen(),
+  //       //   ),
+  //       // );
+  //       //==========================================================================================================>delete the items in cart, navigate to home screen.
+  //     },
+  //   );
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     title: Text(title),
+  //     content: Text(message),
+  //     actions: [
+  //       continueButton,
+  //     ],
+  //   );
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
 }

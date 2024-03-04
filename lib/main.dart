@@ -11,6 +11,7 @@ import 'package:leafloom/provider/profile/privacy_policy/Privacy_policy.dart';
 import 'package:leafloom/provider/profile/terms_conditions/terms_conditions.dart';
 import 'package:leafloom/provider/search/search_provider.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
+// import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
 import 'package:leafloom/view/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -74,6 +75,11 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
+        // routes: {
+        //   '/': (context) => const SplashScreen(),
+        //   '/home': (context) => const ScreenNavWidget(),
+        // },
+        // initialRoute: '/',
         home: SplashScreen(),
       ),
     );

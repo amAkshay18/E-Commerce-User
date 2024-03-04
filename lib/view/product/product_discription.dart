@@ -90,6 +90,7 @@ class Discription extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 12.0, left: 12),
                 child: Text(
                   name,
+                  // stock,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -130,41 +131,12 @@ class Discription extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.green,
                       padding: const EdgeInsets.all(10),
                       minimumSize: const Size(150, 50),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CheckoutScreen(
-                            category: category,
-                            id: id,
-                            discription: discription,
-                            image: img,
-                            name: name,
-                            price: price,
-                          ),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Buy',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      padding: const EdgeInsets.all(10),
-                      minimumSize: const Size(150, 50),
                     ),
                     onPressed: () {
                       final addToCart = CartModel(
@@ -184,7 +156,42 @@ class Discription extends StatelessWidget {
                     child: const Text(
                       'Add to Cart',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.amber,
+                      padding: const EdgeInsets.all(10),
+                      minimumSize: const Size(150, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CheckoutScreen(
+                            category: category,
+                            id: id,
+                            discription: discription,
+                            image: img,
+                            name: name,
+                            price: price,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Buy Now',
+                      style: TextStyle(
+                        color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),

@@ -58,7 +58,7 @@ class ProfileBody extends StatelessWidget {
                         voidCallback: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ScreenAddress(),
+                              builder: (context) => const ScreenAddress(),
                             ),
                           );
                         },

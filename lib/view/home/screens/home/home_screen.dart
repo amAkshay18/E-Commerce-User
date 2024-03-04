@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           bottom: const TabBar(
             indicatorSize: TabBarIndicatorSize.label,
             indicatorColor: Colors.green,

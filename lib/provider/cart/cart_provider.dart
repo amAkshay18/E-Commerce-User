@@ -58,6 +58,7 @@ class CartProvider extends ChangeNotifier {
                       .collection('Cart')
                       .doc(id)
                       .delete();
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop(); // Close the dialog
                   notifyListeners();
                 },
@@ -115,6 +116,7 @@ class CartProvider extends ChangeNotifier {
           'stock': value.stock,
         },
       );
+      // ignore: use_build_context_synchronously
       showSnackbar(context!, "Product added to Cart");
       notifyListeners();
     } on FirebaseException catch (error) {
@@ -127,11 +129,15 @@ class CartProvider extends ChangeNotifier {
         errorMessage = 'The requested document was not found.';
       }
 
+      // ignore: use_build_context_synchronously
       showSnackbar(context!, errorMessage);
+      // ignore: avoid_print
       print("Failed to add product: $error");
       notifyListeners();
     } catch (error) {
+      // ignore: use_build_context_synchronously
       showSnackbar(context!, 'An unexpected error occurred. Please try again.');
+      // ignore: avoid_print
       print("Failed to add product: $error");
       notifyListeners();
     }
@@ -170,6 +176,7 @@ class CartProvider extends ChangeNotifier {
                     .collection('Cart')
                     .doc(id)
                     .delete();
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
                 notifyListeners();
               },
@@ -185,6 +192,23 @@ class CartProvider extends ChangeNotifier {
         );
       },
     );
+  }
+
+  Future<void> clearCart(BuildContext context) async {
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('Cart').get();
+      for (DocumentSnapshot docSnapshot in querySnapshot.docs) {
+        await docSnapshot.reference.delete();
+      }
+      // ignore: use_build_context_synchronously
+      showSnackbar(context, 'Your order has placed successfully');
+    } catch (error) {
+      // ignore: use_build_context_synchronously
+      showSnackbar(context, 'Failed to clear cart. Please try again.');
+      // ignore: avoid_print
+      print('Failed to clear cart: $error');
+    }
   }
 
   // cartClearing() async {
