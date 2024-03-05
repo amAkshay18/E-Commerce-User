@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +22,6 @@ Future<List<ProductClass>> fetchProducts() async {
   try {
     var productCollectionSnapshot =
         await FirebaseFirestore.instance.collection('Products').get();
-
     if (productCollectionSnapshot.docChanges.isNotEmpty) {
       filteredProducts = productCollectionSnapshot.docs.map(
         (doc) {
@@ -29,40 +29,56 @@ Future<List<ProductClass>> fetchProducts() async {
           return ProductClass.fromJson(data);
         },
       ).toList();
+      allItems = filteredProducts;
     } else {
       debugPrint("Error: Product collection snapshot is null");
     }
   } catch (e) {
     debugPrint("Error fetching products===+++++++====: $e");
   }
-
+  productList = filteredProducts;
   return productList;
 }
 
 final filterItems = [
   const PopupMenuItem(
     value: 0,
-    child: Text('Price high to low'),
+    child: Text('Price Low to High'),
   ),
   const PopupMenuItem(
     value: 1,
-    child: Text('Price Low to High'),
+    child: Text('Price High to Low'),
   ),
   const PopupMenuItem(
     value: 2,
     child: Text('Remove filter'),
   )
 ];
+final filterItemsPrice = [
+  const PopupMenuItem(
+    value: 0,
+    child: Text('Under 200'),
+  ),
+  const PopupMenuItem(
+    value: 1,
+    child: Text('Under 300'),
+  ),
+  const PopupMenuItem(
+    value: 2,
+    child: Text('Remove filter'),
+  )
+];
+
 List<ProductClass> filteredProducts = [];
-List<ProductClass> filteredProductsToList = [];
+
+List<ProductClass> allItems = [];
 
 class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     fetchProducts();
-
+    setState(() {});
     super.initState();
-    // TODO: implement initState
   }
 
   String searchValue = '';
@@ -133,29 +149,57 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(
                 height: 20,
               ),
-              PopupMenuButton(
-                itemBuilder: (context) => filterItems,
-                onSelected: (value) async {
-                  if (value == 0) {
-                    filteredProducts.sort((a, b) => int.parse(a.price ?? '0')
-                        .compareTo(int.parse(b.price ?? '0')));
-                    for (int i = 0; i < filteredProducts.length; i++) {
-                      log(filteredProducts[i].price!);
-                      log(filteredProducts.length.toString());
-                    }
-                    setState(() {});
-                  } else if (value == 1) {
-                    filteredProducts.sort((a, b) => int.parse(b.price ?? '0')
-                        .compareTo(int.parse(a.price ?? '0')));
-                    setState(() {});
-                  } else if (value == 2) {
-                    filteredProducts = await fetchSearchResults();
-                    setState(() {});
-                  }
-                },
-                child: const Icon(
-                  Icons.filter,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  PopupMenuButton(
+                    itemBuilder: (context) => filterItems,
+                    onSelected: (value) async {
+                      if (value == 0) {
+                        filteredProducts.sort((a, b) =>
+                            int.parse(a.price ?? '0')
+                                .compareTo(int.parse(b.price ?? '0')));
+                        for (int i = 0; i < filteredProducts.length; i++) {
+                          // log(filteredProducts[i].price!);
+                          // log(filteredProducts.length.toString());
+                        }
+                        setState(() {});
+                      } else if (value == 1) {
+                        filteredProducts.sort((a, b) =>
+                            int.parse(b.price ?? '0')
+                                .compareTo(int.parse(a.price ?? '0')));
+                        setState(() {});
+                      } else if (value == 2) {
+                        filteredProducts = await fetchSearchResults();
+                        setState(() {});
+                      }
+                    },
+                    child: const Text('Sort'),
+                  ),
+                  //====================================
+                  PopupMenuButton(
+                    itemBuilder: (context) => filterItemsPrice,
+                    onSelected: (value) async {
+                      if (value == 0) {
+                        filteredProducts = await fetchSearchResults();
+                        filteredProducts.removeWhere(
+                          (element) => double.parse(element.price ?? '0') > 200,
+                        );
+                        setState(() {});
+                      } else if (value == 1) {
+                        filteredProducts = await fetchSearchResults();
+                        filteredProducts.removeWhere(
+                          (element) => double.parse(element.price ?? '0') > 300,
+                        );
+                        setState(() {});
+                      } else if (value == 2) {
+                        filteredProducts = await fetchSearchResults();
+                        setState(() {});
+                      }
+                    },
+                    child: const Text('Filter'),
+                  ),
+                ],
               ),
               kHeight30,
               searchValue.isEmpty
@@ -176,7 +220,8 @@ class _SearchScreenState extends State<SearchScreen> {
                               ? SearchCard(searchResults: filteredProducts)
                               : emptySearch();
                         }
-                      })
+                      },
+                    ),
             ],
           ),
         ),
@@ -200,6 +245,7 @@ class _SearchScreenState extends State<SearchScreen> {
         },
       ).toList();
     } catch (e) {
+      // ignore: avoid_print
       print("Error fetching search results: $e");
       return [];
     }
