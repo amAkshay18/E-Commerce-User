@@ -210,7 +210,7 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
                       for (var product in widget.products) {
                         int total = calculateTotalAmount(widget.products);
                         var options = {
-                          'key': 'rzp_test_EunImdr5xuJGFC',
+                          'key': 'rzp_test_pUzi5U4xQ2GSYV',
                           'amount': total * 100,
                           'name': 'LeafLoom',
                           'description': product.name ?? '',
@@ -221,7 +221,11 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
                             'email': user!.email
                           },
                           'external': {
-                            'wallets': ['paytm']
+                            'bank_account': {
+                              'account_number': '99980113744705',
+                              'ifsc': 'FDRL0001089',
+                              'name': 'Akshay P'
+                            }
                           }
                         };
                         final defaultAddress = await FirebaseFirestore.instance
@@ -331,7 +335,6 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
   }
 
   void showAlertDialog(BuildContext context, String title, String message) {
-    // set up the buttons
     Widget continueButton = Consumer<NavBarBottom>(
       builder: (context, value, child) {
         return ElevatedButton(
@@ -339,12 +342,7 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
           onPressed: () {
             // Clear the cart and pop until reaching the home screen
             context.read<CartProvider>().clearCart(context);
-            // Navigator.popUntil(context, ModalRoute.withName('/'));
-
-            // final NavBarBottom provider =
             Provider.of<NavBarBottom>(context, listen: false).selectedIndex = 0;
-
-            // provider.selectedIndex = 0;
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -374,80 +372,4 @@ class _CheckoutScreen2State extends State<CheckoutScreen2> {
       },
     );
   }
-
-//========================================================================
-  // void showAlertDialog(BuildContext context, String title, String message) {
-  //   // set up the buttons
-  //   Widget continueButton = ElevatedButton(
-  //     child: const Text("Continue"),
-  //     onPressed: () {
-  //       // Clear the cart or perform any necessary actions
-
-  //       context.read<CartProvider>().clearCart(context);
-  //       Navigator.pop(context);
-  //       Navigator.popUntil(context, (route) => route.isActive);
-
-  //       // Navigator.popUntil(context, (route) => route.isFirst);
-
-  //       // Navigator.of(context).pushAndRemoveUntil(
-  //       //   MaterialPageRoute(
-  //       //     builder: (context) => const ScreenNavWidget(),
-  //       //   ),
-  //       //   (route) => false,
-  //       // );
-  //     },
-  //   );
-
-  //   // set up the AlertDialog
-  //   AlertDialog alert = AlertDialog(
-  //     title: Text(title),
-  //     content: Text(message),
-  //     actions: [
-  //       continueButton,
-  //     ],
-  //   );
-
-  //   // show the dialog
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return alert;
-  //     },
-  //   );
-  // }
-//=============================================================================================
-  // void showAlertDialog(BuildContext context, String title, String message) {
-  //   // set up the buttons
-  //   Widget continueButton = ElevatedButton(
-  //     child: const Text("Continue"),
-  //     onPressed: () {
-  //       Navigator.of(context).pop();
-
-  //       // Navigator.push(
-  //       //   context,
-  //       //   MaterialPageRoute(
-  //       //     builder: (context) =>
-  //       //     // const ScreenNavWidget(),
-  //       //     // HomeScreen(),
-  //       //   ),
-  //       // );
-  //       //==========================================================================================================>delete the items in cart, navigate to home screen.
-  //     },
-  //   );
-  //   // set up the AlertDialog
-  //   AlertDialog alert = AlertDialog(
-  //     title: Text(title),
-  //     content: Text(message),
-  //     actions: [
-  //       continueButton,
-  //     ],
-  //   );
-  //   // show the dialog
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return alert;
-  //     },
-  //   );
-  // }
 }
