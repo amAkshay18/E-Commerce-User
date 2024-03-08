@@ -2,17 +2,16 @@
 
 import 'package:flutter/material.dart';
 
-///********************Heading fontsize
+//==================================     Heading Fontsize   ========================================
 const TextStyle kTitle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
-/// *********************Colors************************************************
-
+//======================================    Colors    ================================================
 const LinearGradient gcolor = LinearGradient(colors: [
   Color.fromARGB(255, 36, 211, 124),
   Color.fromARGB(255, 112, 161, 137),
 ], begin: Alignment.topLeft);
 
-///*********sizedbox */
+//======================================    Height   ===================================================
 const kHeight50 = SizedBox(
   height: 50,
 );
@@ -26,8 +25,7 @@ const kHeight20 = SizedBox(
   height: 20,
 );
 
-/*==============texfield===================================================*/
-
+//=======================================  TextField  ===================================================
 class CommonTextFields extends StatelessWidget {
   const CommonTextFields({
     super.key,
@@ -60,7 +58,7 @@ class CommonTextFields extends StatelessWidget {
   }
 }
 
-/// ========================commonbutton two=======================================
+// ======================================  CommonButton 2  =======================================
 class CommonButtonTwo extends StatelessWidget {
   CommonButtonTwo(
       {super.key,

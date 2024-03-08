@@ -184,23 +184,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     );
   }
 
-  Widget _buildOrderActions() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            // Handle Cancel
-          },
-          child: const Text('Cancel Product'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            // Handle Return
-          },
-          child: const Text('Return'),
-        ),
-      ],
-    );
-  }
+  // ignore: unused_element
+  // Widget _buildOrderActions() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       ElevatedButton(
+  //         onPressed: () {
+  //           // Handle Cancel
+  //         },
+  //         child: const Text('Cancel Product'),
+  //       ),
+  //       ElevatedButton(
+  //         onPressed: () {
+  //           // Handle Return
+  //         },
+  //         child: const Text('Return'),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

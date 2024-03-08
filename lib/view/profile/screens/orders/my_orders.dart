@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/order_model.dart';
-import 'package:leafloom/view/profile/screens/orders/order_detiles.dart';
+import 'package:leafloom/view/profile/screens/orders/order_details.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../widgets/order_status_card.dart';
 
@@ -12,13 +12,16 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order Screen'),
+        centerTitle: true,
+        title: const Text(
+          'My Orders',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('Order').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // Shimmer loading state
             return Shimmer.fromColors(
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,

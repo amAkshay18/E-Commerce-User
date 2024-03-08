@@ -7,7 +7,7 @@ import 'package:leafloom/provider/profile/terms_conditions/terms_conditions.dart
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/profile/screens/address/main_address_screen.dart';
-import 'package:leafloom/view/profile/screens/orders/my_order.dart';
+import 'package:leafloom/view/profile/screens/orders/my_orders.dart';
 import 'package:leafloom/view/profile/widgets/accountile.dart';
 import 'package:provider/provider.dart';
 

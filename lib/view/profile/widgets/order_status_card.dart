@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:leafloom/model/order_model.dart';
 import 'package:leafloom/shared/core/constants.dart';
 
@@ -12,6 +13,9 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateFormat = DateFormat('dd-MMM-yyyy');
+    final dateParsed = DateFormat('dd-MM-yyyy').parse(order.date ?? '');
+
     return Card(
       elevation: 4,
       margin: const EdgeInsets.all(8.0),
@@ -42,7 +46,8 @@ class OrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 8.0),
-              Text('Date: ${order.date ?? ''}'),
+              // Text('Date: ${order.date ?? ''}'),
+              Text('Date: ${dateFormat.format(dateParsed)}'),
               Text('Status: ${order.status ?? ''}'),
             ],
           ),

@@ -75,11 +75,6 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        // routes: {
-        //   '/': (context) => const SplashScreen(),
-        //   '/home': (context) => const ScreenNavWidget(),
-        // },
-        // initialRoute: '/',
         home: SplashScreen(),
       ),
     );

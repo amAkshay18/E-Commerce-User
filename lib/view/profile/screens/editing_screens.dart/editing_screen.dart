@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/address_model/address_model.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
@@ -150,7 +152,8 @@ class AddressEditForm extends StatelessWidget {
                         state: provider.stateController.text.trim(),
                         id: id,
                       );
-                      print(provider.fullNameController.text);
+                      log(provider.fullNameController.text);
+                      // ignore: avoid_print
                       print(addressModel.city);
                       context.read<AddressProvider>().editAddress(addressModel);
                       debugPrint(

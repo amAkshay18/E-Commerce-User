@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             HomeScreenWidget(productCollection: productCollection),
-            WishlistScreen()
+            WishlistScreen(),
           ],
         ),
       ),

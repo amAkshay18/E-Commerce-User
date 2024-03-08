@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/wishlist_model.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
@@ -57,7 +56,7 @@ class _ProductTileState extends State<ProductTile> {
             width: size.width / 2.2,
             height: size.height / 4.5,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
                 image: NetworkImage(widget.image),
                 fit: BoxFit.cover,
@@ -71,8 +70,8 @@ class _ProductTileState extends State<ProductTile> {
                   child: IconButton(
                     icon: Icon(
                       provider.isAddedToWishlist
-                          ? CupertinoIcons.suit_heart_fill
-                          : CupertinoIcons.heart,
+                          ? Icons.favorite
+                          : Icons.favorite_border,
                       color: Colors.black,
                       size: 24,
                     ),

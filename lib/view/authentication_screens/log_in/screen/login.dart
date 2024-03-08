@@ -22,10 +22,6 @@ class _ScreenLoginState extends State<ScreenLogin> {
   var _enteredEmail = '';
   var _enteredPassword = '';
 
-  // recoverPasswordByMail() async {
-  //   await _firebase.sendPasswordResetEmail(email: 'akshayfabz321@gmail.com');
-  // }
-
   void _submit() async {
     final isValid = _form.currentState!.validate();
 
@@ -114,15 +110,6 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         keyboardType: TextInputType.emailAddress,
                         autocorrect: false,
                         textCapitalization: TextCapitalization.none,
-                        // validator: (value) {
-                        //   if (value == null ||
-                        //       value.trim().isEmpty ||
-                        //       !value.contains('@')) {
-                        //     return 'Please enter a valid email address.';
-                        //   }
-
-                        //   return null;
-                        // },
                         onSaved: (value) {
                           _enteredEmail = value!;
                         },
@@ -182,7 +169,6 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                   builder: (context) => const ForgotPassword(),
                                 ),
                               );
-                              // recoverPasswordByMail();
                             },
                             child: const Text(
                               'Forgot password?',
@@ -217,15 +203,16 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       ),
                     ),
                     Visibility(
-                        visible: !_isLogin, child: const SizedBox(height: 15)),
+                      visible: !_isLogin,
+                      child: const SizedBox(height: 15),
+                    ),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _submit,
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor:
-                              const Color.fromARGB(255, 235, 201, 89),
+                          foregroundColor: Colors.black,
+                          backgroundColor: Colors.amber,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 40, vertical: 15),
                           shape: RoundedRectangleBorder(

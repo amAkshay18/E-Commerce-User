@@ -14,11 +14,9 @@ class HomeScreenGrid extends StatelessWidget {
 
   Future<List<ProductClass>> fetchProducts() async {
     List<ProductClass> productList = [];
-
     try {
       var productCollectionSnapshot =
           await FirebaseFirestore.instance.collection('Products').get();
-
       if (productCollectionSnapshot.docChanges.isNotEmpty) {
         productList = productCollectionSnapshot.docs.map(
           (doc) {
@@ -32,7 +30,6 @@ class HomeScreenGrid extends StatelessWidget {
     } catch (e) {
       debugPrint("Error fetching products===+++++++====: $e");
     }
-
     return productList;
   }
 
