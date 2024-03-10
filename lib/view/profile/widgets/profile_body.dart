@@ -6,9 +6,9 @@ import 'package:leafloom/provider/profile/privacy_policy/Privacy_policy.dart';
 import 'package:leafloom/provider/profile/terms_conditions/terms_conditions.dart';
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
-import 'package:leafloom/view/profile/screens/address/main_address_screen.dart';
-import 'package:leafloom/view/profile/screens/orders/my_orders.dart';
-import 'package:leafloom/view/profile/widgets/accountile.dart';
+import 'package:leafloom/view/profile/address/screens/main_address_screen.dart';
+import 'package:leafloom/view/profile/orders/my_orders.dart';
+import 'package:leafloom/view/profile/widgets/accoun_tile.dart';
 import 'package:provider/provider.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -33,7 +33,7 @@ class ProfileBody extends StatelessWidget {
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(25),
+                      Radius.circular(8),
                     ),
                   ),
                   height: 340,

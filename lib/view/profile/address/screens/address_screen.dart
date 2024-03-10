@@ -56,15 +56,13 @@ class AddressFormState extends State<AddressForm> {
                   _fullNameController,
                   'Full Name(required)',
                   'Enter your full name',
+                  TextInputType.name,
                 ),
               ),
               const SizedBox(width: 16.0),
               Expanded(
-                child: _buildTextField(
-                  _pincodeController,
-                  'Pincode (required)',
-                  'Enter Pincode',
-                ),
+                child: _buildTextField(_pincodeController, 'Pincode (required)',
+                    'Enter Pincode', TextInputType.number),
               ),
             ],
           ),
@@ -72,48 +70,38 @@ class AddressFormState extends State<AddressForm> {
           Row(
             children: [
               Expanded(
-                child: _buildTextField(
-                  _cityController,
-                  'City Name(required)',
-                  'Enter your home city',
-                ),
+                child: _buildTextField(_cityController, 'City Name(required)',
+                    'Enter your home city', TextInputType.streetAddress),
               ),
               const SizedBox(width: 16.0),
               Expanded(
-                child: _buildTextField(
-                  _stateController,
-                  'State (required)',
-                  'Enter your State',
-                ),
+                child: _buildTextField(_stateController, 'State (required)',
+                    'Enter your State', TextInputType.text),
               ),
             ],
           ),
           kHeight20,
-          _buildTextField(
-            _phoneController,
-            'Phone Number(required)',
-            'Enter your phone number',
-          ),
+          _buildTextField(_phoneController, 'Phone Number(required)',
+              'Enter your phone number', TextInputType.number),
           kHeight20,
           _buildTextField(
-            _landmarkController,
-            'House no. Building name(required)',
-            'Enter your landmark',
-          ),
+              _landmarkController,
+              'House no. Building name(required)',
+              'Enter your landmark',
+              TextInputType.text),
           kHeight20,
           _buildTextField(
             _houseController,
             'House name',
             'Enter your House name',
-            obscureText: true,
+            TextInputType.text,
+            // obscureText: true,
           ),
           kHeight20,
           _buildTextField(
-            _areaController,
-            'Area',
-            'Enter your Area',
-            obscureText: true,
-          ),
+              _areaController, 'Area', 'Enter your Area', TextInputType.text
+              // obscureText: true,
+              ),
           kHeight50,
           CommonButton(
               name: 'Save Address',
@@ -146,16 +134,13 @@ class AddressFormState extends State<AddressForm> {
   Widget _buildTextField(
     TextEditingController controller,
     String label,
-    String hint, {
-    bool obscureText = false,
-  }) {
-    TextInputType keyboardType = TextInputType.text;
-    if (label == 'Age' || label == 'Phone Number') {
-      keyboardType = TextInputType.number;
-    }
+    String hint,
+    // bool obscureText = false,
+    TextInputType type,
+  ) {
     return TextFormField(
       controller: controller,
-      keyboardType: keyboardType,
+      keyboardType: type,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

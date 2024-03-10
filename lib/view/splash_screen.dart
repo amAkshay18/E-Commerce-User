@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
-import 'package:leafloom/view/authentication_screens/log_in/screen/login.dart';
+import 'package:leafloom/view/authentication/log_in/screen/login.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

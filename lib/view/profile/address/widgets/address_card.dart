@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/view/profile/screens/address/add_edit_buttons.dart';
+import 'package:leafloom/view/profile/address/widgets/add_edit_buttons.dart';
 
 // ignore: must_be_immutable
 class AddressCard extends StatelessWidget {
@@ -94,7 +94,6 @@ class AddressCard extends StatelessWidget {
                   );
                 },
                 child: const Text('Make this default'),
-                //=========================================================================
               ),
               AddEditAddressButtons(
                 state: state,

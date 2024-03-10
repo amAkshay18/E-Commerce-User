@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/view/profile/screens/profile_body.dart';
+import 'package:leafloom/view/profile/widgets/profile_body.dart';
 
 class ScreenProfile extends StatelessWidget {
   const ScreenProfile({super.key});

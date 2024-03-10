@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:leafloom/model/address_model/address_model.dart';
@@ -85,14 +86,22 @@ class AddressProvider extends ChangeNotifier {
   }
 
   void deleteAddress(String id) async {
+    final emailId = FirebaseAuth.instance.currentUser!.email;
     int check = int.parse(id);
     if (check == 1) {
       await FirebaseFirestore.instance
+          .collection('Address')
+          .doc(emailId)
           .collection('default_address')
-          .doc(id)
+          .doc('1')
           .delete();
     } else {
-      await FirebaseFirestore.instance.collection('Address').doc(id).delete();
+      await FirebaseFirestore.instance
+          .collection('Address')
+          .doc(emailId)
+          .collection('default_address')
+          .doc('1')
+          .delete();
     }
   }
 

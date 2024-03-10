@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
-import 'package:leafloom/view/profile/screens/editing_screens.dart/editing_screen.dart';
+import 'package:leafloom/view/profile/address/screens/edit_address.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -51,18 +51,23 @@ class AddEditAddressButtons extends StatelessWidget {
               debugPrint('======== pressed');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.amber,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.edit,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 Text(
                   '  Edit Address',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
               ],
             ),
@@ -75,17 +80,24 @@ class AddEditAddressButtons extends StatelessWidget {
               context.read<AddressProvider>().deleteAddress(id);
               debugPrint('$id================== =');
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.amber,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.delete,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 Text(
                   ' Remove Address',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
               ],
             ),

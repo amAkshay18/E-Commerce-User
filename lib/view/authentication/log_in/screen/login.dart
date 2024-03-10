@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:leafloom/view/authentication_screens/log_in/screen/forgot_passord.dart';
+import 'package:leafloom/view/authentication/log_in/screen/forgot_passord.dart';
 
 final _firebase = FirebaseAuth.instance;
 
