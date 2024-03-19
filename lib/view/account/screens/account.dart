@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/view/profile/widgets/profile_body.dart';
+import 'package:leafloom/view/account/widgets/account_body.dart';
 
-class ScreenProfile extends StatelessWidget {
-  const ScreenProfile({super.key});
+class ScreenAccount extends StatelessWidget {
+  const ScreenAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +12,11 @@ class ScreenProfile extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.white,
           title: const Text(
-            'My Profile',
+            'My Account',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
-        body: const ProfileBody(),
+        body: const AccountBody(),
       ),
     );
   }

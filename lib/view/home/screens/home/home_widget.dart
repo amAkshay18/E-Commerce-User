@@ -21,14 +21,6 @@ class HomeScreenWidget extends StatelessWidget {
         builder: (context, constraints) {
           return ListView(
             children: [
-              Container(
-                decoration: const BoxDecoration(color: Colors.black),
-                height: 220,
-                child: Image.asset(
-                  'assets/user_splash_image.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
               SizedBox(
                 height: 130,
                 child: Column(
@@ -66,23 +58,20 @@ class HomeScreenWidget extends StatelessWidget {
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      8), // Adjust the border radius as needed
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 elevation: 8,
                                 shadowColor: Colors.grey,
                                 backgroundColor: Colors.amber,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 12), // Adjust padding as needed
+                                    horizontal: 20, vertical: 12),
                               ),
                               child: const Text(
                                 'Outdoor',
                                 style: TextStyle(
-                                  fontSize:
-                                      16, // Adjust the font size as needed
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Text color
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -93,7 +82,6 @@ class HomeScreenWidget extends StatelessWidget {
                         ),
                         SizedBox(
                           width: 180,
-                          // height: 60,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).push(

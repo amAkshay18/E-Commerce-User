@@ -1,10 +1,7 @@
-// import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/view/profile/address/widgets/add_edit_buttons.dart';
-// import 'package:leafloom/model/address_model/address_model.dart';
+import 'package:leafloom/view/account/address/widgets/add_edit_buttons.dart';
 
 class DefaultAddress extends StatelessWidget {
   DefaultAddress({required this.size, super.key});

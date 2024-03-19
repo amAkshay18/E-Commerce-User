@@ -11,9 +11,9 @@ import 'package:leafloom/provider/checkout_provider/checkout_provider.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
+import 'package:leafloom/view/account/address/screens/main_address_screen.dart';
+import 'package:leafloom/view/account/address/widgets/dafault_card.dart';
 import 'package:leafloom/view/checkout_page/widget/heading_delivery.dart';
-import 'package:leafloom/view/profile/address/screens/main_address_screen.dart';
-import 'package:leafloom/view/profile/address/widgets/dafault_card.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 

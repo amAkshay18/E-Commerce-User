@@ -15,12 +15,8 @@ Future<List<ProductClass>> fetchProducts() async {
           return ProductClass.fromJson(data);
         },
       ).toList();
-    } else {
-      print("Error: Product collection snapshot is null");
-    }
-  } catch (e) {
-    print("Error fetching products=======: $e");
-  }
+    } else {}
+  } catch (e) {}
 
   return productList;
 }

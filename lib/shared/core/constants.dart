@@ -2,6 +2,43 @@
 
 import 'package:flutter/material.dart';
 
+double screenHeight = 0.0;
+double screenWidth = 0.0;
+
+void initializeScreenSize(BuildContext context) {
+  screenHeight = MediaQuery.of(context).size.height;
+  screenWidth = MediaQuery.of(context).size.width;
+}
+
+//Custom heights
+final kHeight1 = SizedBox(
+  height: screenHeight * 0.01,
+);
+final kHeight2 = SizedBox(
+  height: screenHeight * 0.02,
+);
+final kHeight3 = SizedBox(
+  height: screenHeight * 0.03,
+);
+
+final kHeight4 = SizedBox(
+  height: screenHeight * 0.04,
+);
+
+//Custom widths
+final kWidth1 = SizedBox(
+  width: screenWidth * 0.01,
+);
+
+final kWidth2 = SizedBox(
+  width: screenWidth * 0.02,
+);
+final kWidth3 = SizedBox(
+  width: screenWidth * 0.03,
+);
+
+// ------------------------------------------------------------------------------------------------------------
+
 //==================================     Heading Fontsize   ========================================
 const TextStyle kTitle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 

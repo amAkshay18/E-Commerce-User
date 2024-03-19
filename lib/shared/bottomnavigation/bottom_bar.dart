@@ -3,9 +3,9 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
 import 'package:leafloom/view/cart/screen/cart.dart';
 import 'package:leafloom/view/home/screens/home/home_screen.dart';
-import 'package:leafloom/view/profile/screens/profile.dart';
 import 'package:leafloom/view/search/screen/search.dart';
 import 'package:flutter/material.dart';
+import 'package:leafloom/view/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
 
 class ScreenNavWidget extends StatelessWidget {
@@ -42,9 +42,10 @@ class ScreenNavWidget extends StatelessWidget {
               tabs: [
                 _buildTab(Icons.home, 'Home', 0, provider.selectedIndex),
                 _buildTab(Icons.search, 'Search', 1, provider.selectedIndex),
-                _buildTab(Icons.shopping_cart_outlined, 'Cart', 2,
-                    provider.selectedIndex),
-                _buildTab(Icons.person, 'Profile', 3, provider.selectedIndex),
+                _buildTab(
+                    Icons.favorite, 'Wishlist', 2, provider.selectedIndex),
+                _buildTab(Icons.shopping_cart_outlined, 'Cart', 3,
+                    provider.selectedIndex)
               ],
               selectedIndex: provider.selectedIndex,
               onTabChange: (index) {
@@ -74,9 +75,9 @@ class ScreenNavWidget extends StatelessWidget {
       case 1:
         return const SearchScreen();
       case 2:
-        return CartScreen();
+        return WishlistScreen();
       case 3:
-        return const ScreenProfile();
+        return CartScreen();
       default:
         return HomeScreen();
     }

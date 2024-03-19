@@ -1,18 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/provider/profile/about_us/about_us.dart';
-import 'package:leafloom/provider/profile/privacy_policy/Privacy_policy.dart';
-import 'package:leafloom/provider/profile/terms_conditions/terms_conditions.dart';
+import 'package:leafloom/provider/account/about_us/about_us.dart';
+import 'package:leafloom/provider/account/privacy_policy/privacy_policy.dart';
+import 'package:leafloom/provider/account/terms_conditions/terms_conditions.dart';
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
-import 'package:leafloom/view/profile/address/screens/main_address_screen.dart';
-import 'package:leafloom/view/profile/orders/my_orders.dart';
-import 'package:leafloom/view/profile/widgets/accoun_tile.dart';
+import 'package:leafloom/view/account/address/screens/main_address_screen.dart';
+import 'package:leafloom/view/account/orders/my_orders.dart';
+import 'package:leafloom/view/account/widgets/accoun_tile.dart';
+// import 'package:leafloom/view/authentication/log_in/screen/login.dart';
 import 'package:provider/provider.dart';
 
-class ProfileBody extends StatelessWidget {
-  const ProfileBody({
+class AccountBody extends StatelessWidget {
+  const AccountBody({
     super.key,
   });
 
@@ -103,6 +104,13 @@ class ProfileBody extends StatelessWidget {
               name: 'Log Out',
               voidCallback: () {
                 FirebaseAuth.instance.signOut();
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const ScreenLogin(),
+                //   ),
+                //   (route) => false,
+                // );
               },
             ),
             const SizedBox(height: 160),
