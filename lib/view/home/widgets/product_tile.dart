@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/wishlist_model.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/view/product/product_discription.dart';
 import 'package:provider/provider.dart';
@@ -67,28 +66,7 @@ class _ProductTileState extends State<ProductTile> {
                 Positioned(
                   left: size.width / 3.2,
                   top: 2,
-                  child: IconButton(
-                    icon: Icon(
-                      provider.isAddedToWishlist
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: Colors.black,
-                      size: 24,
-                    ),
-                    onPressed: () async {
-                      final value = WishlistModel(
-                        category: widget.subname,
-                        description: widget.description,
-                        id: widget.id,
-                        imageUrl: widget.image,
-                        name: widget.name,
-                        price: widget.rate,
-                      );
-                      context
-                          .read<WishlistProvider>()
-                          .addToWishlist(value: value, context: context);
-                    },
-                  ),
+                  child: WishlistIcon(provider: provider, id: widget.id),
                 ),
               ],
             ),
@@ -125,5 +103,43 @@ class _ProductTileState extends State<ProductTile> {
         ],
       ),
     );
+  }
+}
+
+class WishlistIcon extends StatelessWidget {
+  const WishlistIcon({
+    super.key,
+    required this.provider,
+    required this.id,
+  });
+
+  final WishlistProvider provider;
+  final dynamic id;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<WishlistProvider>(builder: (context, value, _) {
+      return IconButton(
+        icon: Icon(
+          value.wishlistProductIds.contains(id)
+              ? Icons.favorite
+              : Icons.favorite_border,
+          color:
+              value.wishlistProductIds.contains(id) ? Colors.red : Colors.black,
+          size: 24,
+        ),
+        onPressed: () async {
+          if (value.wishlistProductIds.contains(id)) {
+            context
+                .read<WishlistProvider>()
+                .removeWishlistButtonClicked(id, context);
+          } else {
+            context
+                .read<WishlistProvider>()
+                .addWishlistButtonClicked(id, context);
+          }
+        },
+      );
+    });
   }
 }

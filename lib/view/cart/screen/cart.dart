@@ -1,32 +1,21 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/product_model.dart';
-import 'package:leafloom/shared/core/constants.dart';
+import 'package:leafloom/provider/cart/cart_provider.dart';
 import 'package:leafloom/view/cart/widget/cart_product_card.dart';
-import 'package:leafloom/view/checkout_page/screens/check_out2.dart';
-import 'package:leafloom/view/product/product_discription.dart';
+import 'package:leafloom/view/checkout_page/screens/checkout_page.dart';
+import 'package:provider/provider.dart';
 
-class CartScreen extends StatelessWidget {
-  CartScreen({super.key});
-  final CollectionReference cartCollection =
-      FirebaseFirestore.instance.collection('Cart');
-  List<ProductClass> getProductsFromCart(QuerySnapshot cartSnapshot) {
-    List<ProductClass> products = [];
-    for (QueryDocumentSnapshot<Object?> item in cartSnapshot.docs) {
-      Map<String, dynamic> productData = item.data() as Map<String, dynamic>;
-      products.add(
-        ProductClass(
-          name: productData['name'],
-          price: productData['price'],
-          quantity: productData['quantity'],
-          description: productData['description'],
-          category: productData['category'],
-          imageUrl: productData['imageUrl'],
-          id: productData['id'],
-        ),
-      );
-    }
-    return products;
+class CartScreen extends StatefulWidget {
+  const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => context.read<CartProvider>().getCart(context));
   }
 
   @override
@@ -34,174 +23,83 @@ class CartScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Center(
-            child: Text(
-              'Cart',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-          ),
-          // actions: [
-          //   TextButton(
-          //     onPressed: () {
-          //       context.read<CartProvider>().cartClearing();
-          //     },
-          //     child: const Text('Clear cart'),
-          //   )
-          // ],
+          title: const Text('Cart'),
+          centerTitle: true,
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: gcolor,
-          ),
-          child: StreamBuilder(
-            stream: cartCollection.snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
-                );
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              List<QueryDocumentSnapshot<Object?>> data =
-                  snapshot.data?.docs ?? [];
-              String total = calculateTotalPrice(data);
-              return Column(
-                children: [
-                  kHeight20,
-                  Expanded(
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        if (data.isEmpty) {
-                          return const Center(
-                            child: Text('No Products'),
-                          );
-                        }
-                        return ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductDiscription(
-                                      category:
-                                          data[index]['category'] ?? 'null',
-                                      discription: data[index]['description'],
-                                      id: data[index]['id'],
-                                      img: data[index]['imageUrl'],
-                                      name: data[index]['name'],
-                                      price: data[index]['price'],
-                                      stock: data[index]['quantity'],
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: CartProductCard(
-                                name: data[index]['name'] ?? 'name',
-                                price: data[index]['price'] ?? '84',
-                                image: data[index]['imageUrl'] ??
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShiq-YDkgihdO9XD29qY3p58tiBINmzqZD8Q&usqp=CAU',
-                                quantity: data[index]['quantity'] ?? 'quantit',
-                                description:
-                                    data[index]['description'] ?? 'quantity',
-                                id: data[index]['id'] ?? 'null',
-                                stock: data[index]['stock'] ?? '0',
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    height: 70,
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          ListTile(
-                            subtitle: Text(
-                              'Total (${snapshot.data!.docs.length} items):',
-                            ),
-                            title: Text(
-                              '₹ $total',
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                            trailing: ElevatedButton(
-                              onPressed: () {
-                                cartCollection.get().then(
-                                  (cartSnapshot) {
-                                    List<ProductClass> products =
-                                        getProductsFromCart(cartSnapshot);
-
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            CheckoutScreen2(products: products),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.amber,
-                                padding: const EdgeInsets.all(10),
-                                minimumSize: const Size(150, 50),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: const Text(
-                                'Place Order',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Consumer<CartProvider>(builder: (context, value, _) {
+                if (value.cartList.isEmpty) {
+                  return const Center(
+                    child: Text("Cart is empty"),
+                  );
+                }
+                return ListView.builder(
+                    itemCount: value.cartList.length,
+                    itemBuilder: (context, index) {
+                      final cartProduct = value.cartList[index];
+                      return CartProductCard(
+                        cartModel: cartProduct,
+                      );
+                    });
+              }),
+            ),
+            Consumer<CartProvider>(builder: (context, value, _) {
+              final total = value.getPrice(value.cartList);
+              return Visibility(
+                visible: value.cartList.isNotEmpty,
+                child: Container(
+                  color: Colors.white,
+                  height: 70,
+                  width: double.infinity,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          subtitle: Text(
+                            'Total (${value.cartList.length} items):',
+                          ),
+                          title: Text(
+                            '₹ $total',
+                            style: const TextStyle(
+                              fontSize: 20,
                             ),
                           ),
-                        ],
-                      ),
+                          trailing: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      CheckoutScreen(products: value.cartList),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber,
+                              padding: const EdgeInsets.all(10),
+                              minimumSize: const Size(150, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: const Text(
+                              'Place Order',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               );
-            },
-          ),
+            }),
+          ],
         ),
       ),
     );
-  }
-
-  String calculateTotalPrice(List<QueryDocumentSnapshot<Object?>> data) {
-    double total = 0;
-    for (var item in data) {
-      try {
-        double price = double.tryParse(item['price'].toString()) ?? 0;
-        int quantity = int.tryParse(item['quantity'].toString()) ?? 0;
-        total += price * quantity;
-        // ignore: avoid_print
-        print(
-            '=============   Price: $price, Quantity: $quantity, Total: $total');
-      } catch (e) {
-        // ignore: avoid_print
-        print('Error calculating total price: $e');
-      }
-    }
-    return total.toStringAsFixed(2);
   }
 }

@@ -39,7 +39,7 @@ class _ScreenAddressState extends State<ScreenAddress> {
             child: Column(
               children: [
                 kHeight20,
-                DeliveryHeading(size: size),
+                const DeliveryHeading(),
                 kHeight20,
                 DefaultAddress(size: size),
                 Padding(

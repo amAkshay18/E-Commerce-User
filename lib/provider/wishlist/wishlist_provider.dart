@@ -1,45 +1,43 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: use_build_context_synchronously
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/wishlist_model.dart';
+import 'package:leafloom/data/wishlist/wishlist.dart';
+import 'package:leafloom/model/product_model.dart';
 
 class WishlistProvider extends ChangeNotifier {
   bool isAddedToWishlist = false;
-  Future<void> addToWishlist({
-    required WishlistModel value,
-    required BuildContext? context,
-  }) async {
-    try {
-      await FirebaseFirestore.instance.collection('wishlist').doc(value.id).set(
-        {
-          'name': value.name,
-          'price': value.price,
-          'quantity': value.quantity,
-          'description': value.description,
-          'category': value.category,
-          'imageUrl': value.imageUrl,
-          'id': value.id,
-        },
-      );
-      notifyListeners();
-      showSnackbar(context!, 'Product added to Wishlist');
-    } on FirebaseException catch (error) {
-      String errorMessage = 'An error occurred while adding the product.';
+  List<ProductClass> wishlistProducts = [];
+  List<dynamic> wishlistProductIds = [];
 
-      if (error.code == 'permission-denied') {
-        errorMessage =
-            'Permission denied. You do not have the necessary permissions.';
-      } else if (error.code == 'not-found') {
-        errorMessage = 'The requested document was not found.';
-      }
+  Future<void> initFavorites(BuildContext context) async {
+    wishlistProductIds = await _services
+        .getFavoriteIds(FirebaseAuth.instance.currentUser!.email!);
+    getWishListProducts(context);
+  }
 
-      showSnackbar(context!, errorMessage);
-      print("Failed to add product: $error");
+  void addWishlistButtonClicked(String productId, BuildContext context) async {
+    if (!wishlistProductIds.contains(productId)) {
+      wishlistProductIds.add(productId);
       notifyListeners();
-    } catch (error) {
-      showSnackbar(context!, 'An unexpected error occurred. Please try again.');
-      print("Failed to add product: $error");
-      notifyListeners();
+      addToWishlist(id: productId, context: context);
     }
+  }
+
+  void removeWishlistButtonClicked(String productId, BuildContext context) {
+    if (wishlistProductIds.contains(productId)) {
+      wishlistProductIds.remove(productId);
+      deleteWishlist(id: productId, context: context);
+    }
+  }
+
+  final WishListServices _services = WishListServices();
+  Future<void> addToWishlist(
+      {required String id, required BuildContext context}) async {
+    final response = await _services.addToWishlist(id);
+    response.fold((l) => showSnackbar(context, l), (r) {
+      showSnackbar(context, r);
+      notifyListeners();
+    });
   }
 
 // snackbar for product added to wishlist
@@ -48,35 +46,34 @@ class WishlistProvider extends ChangeNotifier {
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.only(bottom: 10.0),
       content: Text(message),
-      action: SnackBarAction(
-        label: 'Dismiss',
-        onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        },
-      ),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
     notifyListeners();
   }
 
   deleteWishlist({required String id, required BuildContext context}) async {
-    await FirebaseFirestore.instance.collection('wishlist').doc(id).delete();
-    showSnackbar(context, 'Removed from Wishlist');
-    notifyListeners();
+    final response = await _services.deleteWishlist(id);
+    response.fold(
+        (l) => showSnackbar(context, l), (r) => showSnackbar(context, r));
+    if (wishlistProducts.length == 1) {
+      wishlistProducts.clear();
+      notifyListeners();
+      return;
+    }
+    getWishListProducts(context);
   }
 
-  checkIfIdExists(String id) async {
-    try {
-      CollectionReference collectionReference =
-          FirebaseFirestore.instance.collection('wishlist');
-
-      DocumentSnapshot documentSnapshot =
-          await collectionReference.doc(id).get();
-
-      isAddedToWishlist = documentSnapshot.exists;
-    } catch (e) {
-      print("Error checking if id exists: $e");
-      isAddedToWishlist = false;
-    }
+  getWishListProducts(BuildContext context) async {
+    initFavorites(context);
+    final response = await _services.getWishListProducts();
+    response.fold((l) {
+      if (l.isEmpty) return;
+      showSnackbar(context, l);
+    }, (r) {
+      wishlistProducts = r;
+      notifyListeners();
+    });
   }
 }

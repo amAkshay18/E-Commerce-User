@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:leafloom/model/cart_model.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/cart/cart_provider.dart';
 
 class CartProductCard extends StatelessWidget {
   const CartProductCard({
     super.key,
-    required this.name,
-    required this.price,
-    required this.image,
-    required this.quantity,
-    required this.description,
-    required this.id,
-    required this.stock,
+    required this.cartModel,
   });
-  final String name;
-  final String image;
-  final String quantity;
-  final String description;
-  final String price;
-  final String id;
-  final String stock;
+  final CartModel cartModel;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +29,7 @@ class CartProductCard extends StatelessWidget {
                 width: 100,
                 height: 100,
                 child: Image.network(
-                  image,
+                  cartModel.imageUrl!,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -51,7 +40,7 @@ class CartProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      cartModel.name!,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -60,7 +49,7 @@ class CartProductCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
-                        '₹ $price',
+                        '₹ ${cartModel.price}',
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.green,
@@ -73,34 +62,35 @@ class CartProductCard extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.remove),
                           onPressed: () {
+                            final cart = cartModel;
                             context
                                 .read<CartProvider>()
-                                .reduceQuantiyInCart(id, quantity, context);
+                                .updateQuantity(cart, context, false);
+                            context.read<CartProvider>().getCart(context);
+                            context.read<CartProvider>().getPrice(
+                                context.read<CartProvider>().cartList);
                           },
-                          color: quantity == '1' ? Colors.red : Colors.black,
+                          color: cartModel.quantity == '1'
+                              ? Colors.red
+                              : Colors.black,
                         ),
                         Text(
-                          quantity,
+                          cartModel.quantity!,
                           style: TextStyle(
-                              color: quantity == stock
+                              color: cartModel.quantity == cartModel.stock
                                   ? Colors.red
                                   : Colors.black),
                         ),
                         IconButton(
                           icon: const Icon(Icons.add),
                           onPressed: () async {
-                            if (int.parse(quantity) < int.parse(stock)) {
-                              context.read<CartProvider>().addQuantityInCart(
-                                  id, quantity, stock, context);
-                            } else {
-                              //Showing maximum stock reached message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      'Maximum stock limit reached for this product'),
-                                ),
-                              );
-                            }
+                            final cart = cartModel;
+                            context
+                                .read<CartProvider>()
+                                .updateQuantity(cart, context, true);
+                            context.read<CartProvider>().getCart(context);
+                            context.read<CartProvider>().getPrice(
+                                context.read<CartProvider>().cartList);
                           },
                         ),
                       ],
@@ -111,9 +101,30 @@ class CartProductCard extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () {
-                  context
-                      .read<CartProvider>()
-                      .deleteCart(id: id, context: context);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Remove from cart'),
+                      content: const Text('Are you sure want to cart'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              context.read<CartProvider>().deleteCart(
+                                  context: context, id: cartModel.id!);
+                              context.read<CartProvider>().getCart(context);
+                              context.read<CartProvider>().getPrice(
+                                  context.read<CartProvider>().cartList);
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Remove")),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Cancel")),
+                      ],
+                    ),
+                  );
                 },
               ),
             ],

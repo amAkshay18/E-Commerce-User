@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/view/home/widgets/product_tile.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreenGrid extends StatelessWidget {
@@ -35,6 +37,7 @@ class HomeScreenGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<WishlistProvider>().initFavorites(context);
     return FutureBuilder(
       future: fetchProducts(),
       builder: (context, AsyncSnapshot<List<ProductClass>> snapshot) {

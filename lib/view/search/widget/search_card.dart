@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/cart_model.dart';
 import 'package:leafloom/model/product_model.dart';
-import 'package:leafloom/model/wishlist_model.dart';
-import 'package:leafloom/provider/cart/cart_provider.dart';
-import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/view/product/product_discription.dart';
-import 'package:provider/provider.dart';
+import 'package:leafloom/view/wishlist/wishlist.dart';
 
 class SearchCard extends StatelessWidget {
   const SearchCard({
@@ -24,7 +20,6 @@ class SearchCard extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            // final er = searchResults![index];
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => ProductDiscription(
@@ -40,113 +35,15 @@ class SearchCard extends StatelessWidget {
               ),
             );
           },
-          child: Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            margin: const EdgeInsets.all(10.0),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Image.network(
-                      searchResults![index].imageUrl ?? '',
-                      fit: BoxFit.cover,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      (loadingProgress.expectedTotalBytes ?? 1)
-                                  : null,
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          searchResults![index].name ?? 'name',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            '₹ ${searchResults![index].price}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.green,
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                                'Category: ${searchResults![index].category ?? 'category'} '),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.shopping_cart_outlined),
-                        onPressed: () {
-                          final addToCart = CartModel(
-                            name: searchResults![index].name,
-                            price: searchResults![index].price,
-                            category: searchResults![index].category,
-                            description: searchResults![index].description,
-                            imageUrl: searchResults![index].imageUrl,
-                            id: "324",
-                            quantity: '1',
-                          );
-                          context
-                              .read<CartProvider>()
-                              .addToCart(context: context, value: addToCart);
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.favorite),
-                        onPressed: () {
-                          final value = WishlistModel(
-                            name: searchResults![index].name,
-                            price: searchResults![index].price,
-                            category: searchResults![index].category,
-                            description: searchResults![index].description,
-                            imageUrl: searchResults![index].imageUrl,
-                            id: "324",
-                            quantity: '1',
-                          );
-                          context
-                              .read<WishlistProvider>()
-                              .addToWishlist(value: value, context: context);
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+          child: WishlitTileWidget(
+            product: ProductClass(
+              category: searchResults![index].category ?? "outdoor",
+              description: searchResults![index].description ?? "description",
+              id: searchResults![index].id ?? "null",
+              imageUrl: searchResults![index].imageUrl ?? "null",
+              name: searchResults![index].name ?? "null",
+              price: searchResults![index].price ?? "null",
+              quantity: searchResults![index].quantity ?? "null",
             ),
           ),
         );

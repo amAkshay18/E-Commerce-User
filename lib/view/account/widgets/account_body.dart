@@ -9,6 +9,7 @@ import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/account/address/screens/main_address_screen.dart';
 import 'package:leafloom/view/account/orders/my_orders.dart';
 import 'package:leafloom/view/account/widgets/accoun_tile.dart';
+import 'package:leafloom/view/authentication/log_in/screen/login.dart';
 // import 'package:leafloom/view/authentication/log_in/screen/login.dart';
 import 'package:provider/provider.dart';
 
@@ -103,14 +104,33 @@ class AccountBody extends StatelessWidget {
             CommonButton(
               name: 'Log Out',
               voidCallback: () {
-                FirebaseAuth.instance.signOut();
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const ScreenLogin(),
-                //   ),
-                //   (route) => false,
-                // );
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Logout'),
+                    content: const Text("Are you sure want to logout"),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Cancel")),
+                      TextButton(
+                          onPressed: () {
+                            FirebaseAuth.instance.signOut().whenComplete(() {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ScreenLogin(),
+                                ),
+                                (route) => false,
+                              );
+                            });
+                          },
+                          child: const Text("Logout")),
+                    ],
+                  ),
+                );
               },
             ),
             const SizedBox(height: 160),

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
 import 'package:leafloom/view/authentication/log_in/screen/forgot_passord.dart';
 
 final _firebase = FirebaseAuth.instance;
@@ -39,8 +41,25 @@ class _ScreenLoginState extends State<ScreenLogin> {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim());
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredentials.user!.email)
+            .set({
+          'name': _nameController.text.trim(),
+          'email': _emailController.text.trim(),
+          'wishlist': [],
+        });
         // userCredentials.user!.uid
       }
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ScreenNavWidget(),
+          ),
+          (route) => false);
+
+      _emailController.clear();
+      _passwordController.clear();
     } on FirebaseAuthException catch (error) {
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -66,24 +85,6 @@ class _ScreenLoginState extends State<ScreenLogin> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // const Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text(
-                    //       'LeafLoom',
-                    //       style: TextStyle(
-                    //         fontSize: 30,
-                    //         fontWeight: FontWeight.bold,
-                    //         color: Colors.green,
-                    //       ),
-                    //     ),
-                    //     Icon(
-                    //       Icons.eco,
-                    //       color: Colors.green,
-                    //     ),
-                    //   ],
-                    // ),
-                    // const SizedBox(height: 20),
                     Text(
                       _isLogin ? 'Welcome Back!' : 'Sign Up',
                       style: const TextStyle(
@@ -120,6 +121,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       controller: _emailController,
                       decoration: const InputDecoration(
                         labelText: 'Email Address',
+                        hintText: 'user@gmail.com',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.emailAddress,
@@ -143,6 +145,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       controller: _passwordController,
                       decoration: const InputDecoration(
                         labelText: 'Password',
+                        hintText: 'password',
                         border: OutlineInputBorder(),
                       ),
                       obscureText: true,
