@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/provider/search/search_provider.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/search/widget/filter_grid.dart';
 import 'package:leafloom/view/search/widget/search_card.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -106,6 +108,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: TextFormField(
                         controller: searchController,
                         onChanged: (value) {
+                          context.read<SearchProvider>().searchProduct(value);
                           setState(
                             () {
                               searchValue = value;
@@ -201,24 +204,11 @@ class _SearchScreenState extends State<SearchScreen> {
               kHeight30,
               searchValue.isEmpty
                   ? FilterGrid(productCollection: filteredProducts)
-                  : FutureBuilder<List<ProductClass>>(
-                      future: fetchSearchResults(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const CircularProgressIndicator();
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          List<ProductClass>? searchResults = snapshot.data;
-                          // filteredProducts = snapshot.data ?? [];
-                          return searchResults != null &&
-                                  searchResults.isNotEmpty
-                              ? SearchCard(searchResults: filteredProducts)
-                              : emptySearch();
-                        }
-                      },
-                    ),
+                  : Consumer<SearchProvider>(builder: (context, value, _) {
+                      return value.searchedProducts.isNotEmpty
+                          ? SearchCard(searchResults: value.searchedProducts)
+                          : emptySearch();
+                    }),
             ],
           ),
         ),
@@ -229,9 +219,9 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<ProductClass>> fetchSearchResults() async {
     try {
       var querySnapshot = await productCollection
-          .where('searchName',
+          .where('name',
               isGreaterThanOrEqualTo: searchValue.trim().toLowerCase())
-          .where('searchName',
+          .where('name',
               isLessThanOrEqualTo: '${searchValue.toLowerCase()}\uf8ff')
           .get();
 
