@@ -142,6 +142,7 @@ class WishlitTileWidget extends StatelessWidget {
                       imageUrl: product.imageUrl,
                       id: product.id,
                       quantity: '1',
+                      stock: product.quantity,
                     );
                     context.read<CartProvider>().addToCart(
                           context: context,
