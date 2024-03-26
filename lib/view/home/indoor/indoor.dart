@@ -14,16 +14,18 @@ class IndoorScreen extends StatelessWidget {
         title: const Text('Indoor plants'),
         centerTitle: true,
       ),
-      body: Consumer<CategoryProvider>(builder: (context, provider, widget) {
-        final indoorlist = provider.indoorProducts;
-        return ListView(
-          children: [
-            SearchCard(
-              searchResults: indoorlist,
-            )
-          ],
-        );
-      }),
+      body: Consumer<CategoryProvider>(
+        builder: (context, provider, widget) {
+          final indoorlist = provider.indoorProducts;
+          return ListView(
+            children: [
+              SearchCard(
+                searchResults: indoorlist,
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }

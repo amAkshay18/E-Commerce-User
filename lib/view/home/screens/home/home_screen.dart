@@ -15,62 +15,28 @@ class HomeScreen extends StatelessWidget {
     // ignore: unused_local_variable
     final size = MediaQuery.of(context).size;
     fetchProducts();
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ScreenAccount(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.person),
-            ),
-            // IconButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => const SampleScreen(),
-            //         ),
-            //       );
-            //     },
-            //     icon: const Icon(Icons.abc))
-          ],
-          automaticallyImplyLeading: false,
-          // bottom: const TabBar(
-          //   indicatorSize: TabBarIndicatorSize.label,
-          //   indicatorColor: Colors.green,
-          //   tabs: [
-          //     Tab(
-          //       icon: Icon(Icons.home),
-          //       text: 'Home',
-          //     ),
-          //     Tab(
-          //       icon: Icon(Icons.favorite),
-          //       text: 'Wishlist',
-          //     ),
-          //   ],
-          // ),
-          title: const Text(
-            'LeafLoom',
-            style: TextStyle(fontWeight: FontWeight.bold),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScreenAccount(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.person),
           ),
+        ],
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'LeafLoom',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: HomeScreenWidget(productCollection: productCollection),
-
-        //  TabBarView(
-        //   children: [
-        //     HomeScreenWidget(productCollection: productCollection),
-        //     WishlistScreen(),
-        //   ],
-        // ),
       ),
+      body: HomeScreenWidget(productCollection: productCollection),
     );
   }
 }

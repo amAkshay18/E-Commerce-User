@@ -40,8 +40,8 @@ class CartProvider extends ChangeNotifier {
 
   Future<void> updateQuantity(
       CartModel cartModel, BuildContext context, bool isAdd) async {
-    int quantity = int.parse(cartModel.quantity!);
-    int stock = int.parse(cartModel.stock!);
+    int quantity = int.parse(cartModel.quantity ?? '0');
+    int stock = int.parse(cartModel.stock ?? '0');
     if (isAdd && stock > quantity) {
       await cartServices.updateQuantity(cartModel, isAdd, context);
       notifyListeners();

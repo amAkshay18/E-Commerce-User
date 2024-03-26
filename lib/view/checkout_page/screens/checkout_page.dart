@@ -42,14 +42,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       int quantity = int.tryParse(product.quantity ?? '0') ?? 0;
       totalAmount += price * quantity;
     }
-    print("----------------------------------$totalAmount");
     return totalAmount;
   }
 
   DateTime currentDate = DateTime.now();
-
   String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
-
   String date = '0';
 
   @override
@@ -57,10 +54,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     String formattedDate =
         "${currentDate.day}-${currentDate.month}-${currentDate.year}";
     date = formattedDate;
-
     final checkoutProvider = Provider.of<CheckoutProvider>(context);
     final razorpayProvider = Provider.of<RazorpayProvider>(context);
-
     final size = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -101,7 +96,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: const Text('Select Address'),
               ),
               kHeight20,
-              // Display product cards
               for (var product in widget.products) ...[
                 Card(
                   elevation: 5,
@@ -189,112 +183,105 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
                 title: const Text('Pay Now'),
               ),
-              ListTile(
-                leading: Radio<PaymentCategory>(
-                  groupValue: checkoutProvider.paymentCategory,
-                  value: PaymentCategory.cashondelivery,
-                  onChanged: (PaymentCategory? value) {
-                    checkoutProvider.setPaymentCategory(value!);
-                  },
-                ),
-                title: const Text('Cash on delivery'),
-              ),
-              kHeight50,
-              CommonButton(
-                name: "Confirm order",
-                voidCallback: () async {
-                  if (checkoutProvider.paymentCategory ==
-                      PaymentCategory.paynow) {
-                    final user = FirebaseAuth.instance.currentUser;
-                    for (var product in widget.products) {
-                      int total = calculateTotalAmount(widget.products);
-                      var options = {
-                        'key': 'rzp_test_pUzi5U4xQ2GSYV',
-                        'amount': total * 100,
-                        'name': 'LeafLoom',
-                        'description': product.name ?? '',
-                        'retry': {'enabled': true, 'max_count': 1},
-                        'send_sms_hash': true,
-                        'prefill': {
-                          'contact': '9605298500',
-                          'email': user!.email
-                        },
-                        'external': {
-                          'bank_account': {
-                            'account_number': '99980113744705',
-                            'ifsc': 'FDRL0001089',
-                            'name': 'Akshay P'
-                          }
-                        }
-                      };
-                      final defaultAddress = await FirebaseFirestore.instance
-                          .collection('Address')
-                          .doc(FirebaseAuth.instance.currentUser!.email)
-                          .collection('default_address')
-                          .doc('1')
-                          .get();
-                      final address =
-                          AddressModel.fromJson(defaultAddress.data()!);
-                      final obj = OrderModel(
-                          orderId: uniqueFileName,
-                          status: 'Pending',
-                          // ignore: use_build_context_synchronously
-                          quantity: context
-                              .read<CheckoutProvider>()
-                              .totalNum
-                              .toString(),
-                          id: product.id,
-                          description: product.description,
-                          category: product.category,
-                          imageUrl: product.imageUrl,
-                          productName: product.name,
-                          totalPrice: product.price,
-                          date: date,
-                          address: address);
-                      // ignore: use_build_context_synchronously
-                      context
-                          .read<ProductPayment>()
-                          // ignore: use_build_context_synchronously
-                          .confirm(value: obj, context: context);
-                      razorpayProvider.openRazorpayPayment(
-                        options: options,
-                        onError: (response) {
-                          handlePaymentErrorResponse(response, context);
-                        },
-                        onSuccess: (response) {
-                          handlePaymentSuccessResponse(response, context);
-                        },
-                      );
-                    }
-                  } else {
-                    for (var product in widget.products) {
-                      final obj = OrderModel(
-                        orderId: uniqueFileName,
-                        status: 'Pending',
-                        quantity: context
-                            .read<CheckoutProvider>()
-                            .totalNum
-                            .toString(),
-                        id: product.id,
-                        description: product.description,
-                        category: product.category,
-                        imageUrl: product.imageUrl,
-                        productName: product.name,
-                        totalPrice: product.price,
-                        date: date,
-                      );
-                      context
-                          .read<ProductPayment>()
-                          .confirm(value: obj, context: context);
-                      context
-                          .read<CheckoutProvider>()
-                          .showPaymentCompletedDialog(context);
-                    }
-                  }
-                },
-              ),
+              //=================================cash on delivery=======================================
+              // ListTile(
+              //   leading: Radio<PaymentCategory>(
+              //     groupValue: checkoutProvider.paymentCategory,
+              //     value: PaymentCategory.cashondelivery,
+              //     onChanged: (PaymentCategory? value) {
+              //       checkoutProvider.setPaymentCategory(value!);
+              //     },
+              //   ),
+              //   title: const Text('Cash on delivery'),
+              // ),
+              // kHeight50,
             ],
           ),
+        ),
+        bottomNavigationBar: CommonButton(
+          name: "Confirm order",
+          voidCallback: () async {
+            if (checkoutProvider.paymentCategory == PaymentCategory.paynow) {
+              final user = FirebaseAuth.instance.currentUser;
+              for (var product in widget.products) {
+                int total = calculateTotalAmount(widget.products);
+                var options = {
+                  'key': 'rzp_test_pUzi5U4xQ2GSYV',
+                  'amount': total * 100,
+                  'name': 'LeafLoom',
+                  'description': product.name ?? '',
+                  'retry': {'enabled': true, 'max_count': 1},
+                  'send_sms_hash': true,
+                  'prefill': {'contact': '9605298500', 'email': user!.email},
+                  'external': {
+                    'bank_account': {
+                      'account_number': '99980113744705',
+                      'ifsc': 'FDRL0001089',
+                      'name': 'Akshay P'
+                    }
+                  }
+                };
+                final defaultAddress = await FirebaseFirestore.instance
+                    .collection('Address')
+                    .doc(FirebaseAuth.instance.currentUser!.email)
+                    .collection('default_address')
+                    .doc('1')
+                    .get();
+                final address = AddressModel.fromJson(defaultAddress.data()!);
+                final obj = OrderModel(
+                    orderId: uniqueFileName,
+                    status: 'Pending',
+                    // ignore: use_build_context_synchronously
+                    quantity:
+                        // ignore: use_build_context_synchronously
+                        context.read<CheckoutProvider>().totalNum.toString(),
+                    id: product.id,
+                    description: product.description,
+                    category: product.category,
+                    imageUrl: product.imageUrl,
+                    productName: product.name,
+                    totalPrice: product.price,
+                    date: date,
+                    address: address);
+                // ignore: use_build_context_synchronously
+                context
+                    .read<ProductPayment>()
+                    // ignore: use_build_context_synchronously
+                    .confirm(value: obj, context: context);
+                razorpayProvider.openRazorpayPayment(
+                  options: options,
+                  onError: (response) {
+                    handlePaymentErrorResponse(response, context);
+                  },
+                  onSuccess: (response) {
+                    handlePaymentSuccessResponse(response, context);
+                  },
+                );
+              }
+            } else {
+              for (var product in widget.products) {
+                final obj = OrderModel(
+                  orderId: uniqueFileName,
+                  status: 'Pending',
+                  quantity:
+                      context.read<CheckoutProvider>().totalNum.toString(),
+                  id: product.id,
+                  description: product.description,
+                  category: product.category,
+                  imageUrl: product.imageUrl,
+                  productName: product.name,
+                  totalPrice: product.price,
+                  date: date,
+                );
+                context
+                    .read<ProductPayment>()
+                    .confirm(value: obj, context: context);
+                context
+                    .read<CheckoutProvider>()
+                    .showPaymentCompletedDialog(context);
+              }
+            }
+          },
         ),
       ),
     );
@@ -308,7 +295,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     * 2. Error Description
     * 3. Metadata
      */
-    showAlertDialog(
+    showAlertDialogForPayNow(
         context, "Payment Failed", "\nDescription: ${response.message}}");
   }
 
@@ -323,23 +310,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     * 2. Payment ID
     * 3. Signature
     * */
-    showAlertDialog(
+    showAlertDialogForPayNow(
         context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
 
   void handleExternalWalletSelected(
       ExternalWalletResponse response, BuildContext context) {
-    showAlertDialog(
+    showAlertDialogForPayNow(
         context, "External Wallet Selected", "${response.walletName}");
   }
 
-  void showAlertDialog(BuildContext context, String title, String message) {
+  void showAlertDialogForPayNow(
+      BuildContext context, String title, String message) {
     Widget continueButton = Consumer<NavBarBottom>(
       builder: (context, value, child) {
         return ElevatedButton(
           child: const Text("Continue"),
           onPressed: () {
-            // Clear the cart and pop until reaching the home screen
             context.read<CartProvider>().clearCart(context);
             Provider.of<NavBarBottom>(context, listen: false).selectedIndex = 0;
             Navigator.pushAndRemoveUntil(
@@ -354,7 +341,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       },
     );
 
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),
       content: Text(message),
@@ -363,7 +349,43 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ],
     );
 
-    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void showAlertDialogForCashOnDelivery(
+      BuildContext context, String title, String message) {
+    Widget continueButton = Consumer<NavBarBottom>(
+      builder: (context, value, child) {
+        return ElevatedButton(
+          child: const Text("Continue"),
+          onPressed: () {
+            context.read<CartProvider>().clearCart(context);
+            Provider.of<NavBarBottom>(context, listen: false).selectedIndex = 0;
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ScreenNavWidget(),
+              ),
+              ((route) => false),
+            );
+          },
+        );
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        continueButton,
+      ],
+    );
+
     showDialog(
       context: context,
       builder: (BuildContext context) {

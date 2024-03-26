@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:leafloom/model/cart_model.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../checkout_page/screens/checkout_page.dart';
 
 class ProductDiscription extends StatelessWidget {

@@ -147,6 +147,12 @@ class WishlitTileWidget extends StatelessWidget {
                           context: context,
                           cartModel: addToCart,
                         );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Item added to cart'),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
                   },
                 ),
                 Consumer<WishlistProvider>(builder: (context, value, _) {

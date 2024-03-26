@@ -9,8 +9,7 @@ import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/account/address/screens/main_address_screen.dart';
 import 'package:leafloom/view/account/orders/my_orders.dart';
 import 'package:leafloom/view/account/widgets/accoun_tile.dart';
-import 'package:leafloom/view/authentication/log_in/screen/login.dart';
-// import 'package:leafloom/view/authentication/log_in/screen/login.dart';
+import 'package:leafloom/view/authentication/log_in/screens/login.dart';
 import 'package:provider/provider.dart';
 
 class AccountBody extends StatelessWidget {
@@ -55,7 +54,6 @@ class AccountBody extends StatelessWidget {
                       ),
                       AccountTile(
                         icon: Icons.article,
-                        // icon: Icons.directions_bike,
                         name: 'Addresses',
                         voidCallback: () {
                           Navigator.of(context).push(
@@ -76,7 +74,6 @@ class AccountBody extends StatelessWidget {
                       ),
                       AccountTile(
                         icon: Icons.file_copy,
-                        // icon: Icons.file_copy,
                         name: 'Terms and Conditions',
                         voidCallback: () {
                           context
@@ -116,18 +113,19 @@ class AccountBody extends StatelessWidget {
                           },
                           child: const Text("Cancel")),
                       TextButton(
-                          onPressed: () {
-                            FirebaseAuth.instance.signOut().whenComplete(() {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ScreenLogin(),
-                                ),
-                                (route) => false,
-                              );
-                            });
-                          },
-                          child: const Text("Logout")),
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut().whenComplete(() {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ScreenLogin(),
+                              ),
+                              (route) => false,
+                            );
+                          });
+                        },
+                        child: const Text("Logout"),
+                      ),
                     ],
                   ),
                 );

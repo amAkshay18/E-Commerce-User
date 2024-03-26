@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
-import 'package:leafloom/view/authentication/log_in/screen/forgot_passord.dart';
+import 'package:leafloom/view/authentication/log_in/screens/forgot_passord.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -17,6 +17,7 @@ final _nameController = TextEditingController();
 final _emailController = TextEditingController();
 final _passwordController = TextEditingController();
 final _confirmPasswordController = TextEditingController();
+bool _isLoading = false;
 
 class _ScreenLoginState extends State<ScreenLogin> {
   final _form = GlobalKey<FormState>();
@@ -32,6 +33,9 @@ class _ScreenLoginState extends State<ScreenLogin> {
     }
     _form.currentState!.save();
     try {
+      setState(() {
+        _isLoading = true;
+      });
       if (_isLogin) {
         // ignore: unused_local_variable
         final userCredential = await _firebase.signInWithEmailAndPassword(
@@ -49,9 +53,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
           'email': _emailController.text.trim(),
           'wishlist': [],
         });
-        // userCredentials.user!.uid
       }
+      setState(() {
+        _isLoading = false;
+      });
       Navigator.pushAndRemoveUntil(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
             builder: (context) => const ScreenNavWidget(),
@@ -222,10 +229,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Text(
-                          _isLogin ? 'Login' : 'Register Now',
-                          style: const TextStyle(fontSize: 18),
-                        ),
+                        child: _isLoading
+                            ? const CircularProgressIndicator()
+                            : Text(
+                                _isLogin ? 'Login' : 'Register Now',
+                                style: const TextStyle(fontSize: 18),
+                              ),
                       ),
                     ),
                     const SizedBox(
