@@ -1,65 +1,84 @@
-// import 'package:flutter/material.dart';
-// import 'package:carousel_slider/carousel_slider.dart';
-// import 'package:leafloom/shared/core/constants.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:leafloom/view/home/indoor/indoor.dart';
+import 'package:leafloom/view/home/outdoor/outdoor.dart';
 
-// List<String> assetImages = [
-//   // 'assets/images/sparx.jpg',
-//   // 'assets/images/Red tape ad.jpg',
-//   'assets/user_splash_image.jpg',
-//   'assets/user_splash_image.jpg',
-//   'assets/user_splash_image.jpg',
-//   'assets/user_splash_image.jpg',
-//   'assets/user_splash_image.jpg',
-//   // 'assets/images/Bata ad.jpeg',
-// ];
+class CarouselSliderForCategories extends StatelessWidget {
+  CarouselSliderForCategories({super.key});
 
-// class Advertisement extends StatelessWidget {
-//   const Advertisement({
-//     Key? key,
-//   }) : super(key: key);
+  final List<String> categoryTitles = ['Indoor', 'Outdoor'];
+  final List<String> categoryImages = [
+    'assets/IndoorPlants.jpg',
+    'assets/OutdoorPlants.jpg'
+  ];
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return CarouselSlider(
-//       items: assetImages.map(
-//         (image) {
-//           return Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 5),
-//             child: Container(
-//               height: screenHeight * 0.2,
-//               width: screenWidth,
-//               decoration: BoxDecoration(
-//                 boxShadow: const [
-//                   BoxShadow(
-//                     color: Colors.black,
-//                     offset: Offset(0, 3),
-//                     blurRadius: 4,
-//                   ),
-//                 ],
-//                 borderRadius: const BorderRadius.all(
-//                   Radius.circular(15),
-//                 ),
-//                 image: DecorationImage(
-//                   image: AssetImage(image),
-//                   fit: BoxFit.cover,
-//                 ),
-//               ),
-//             ),
-//           );
-//         },
-//       ).toList(),
-//       options: CarouselOptions(
-//         height: screenHeight * 0.2,
-//         aspectRatio: 16 / 9,
-//         viewportFraction: 0.9,
-//         initialPage: 0,
-//         enableInfiniteScroll: true,
-//         autoPlay: true,
-//         autoPlayInterval: const Duration(seconds: 5),
-//         autoPlayAnimationDuration: const Duration(milliseconds: 800),
-//         autoPlayCurve: Curves.fastOutSlowIn,
-//         scrollDirection: Axis.horizontal,
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CarouselSlider(
+          items: [0, 1].map((index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => index == 0
+                        ? const IndoorScreen()
+                        : const OutdoorScreen(),
+                  ),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: AssetImage(categoryImages[index]),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                      ),
+                      child: Text(
+                        categoryTitles[index],
+                        style: const TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+          options: CarouselOptions(
+            height: 200,
+            enlargeCenterPage: true,
+            aspectRatio: 16 / 9,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 3),
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enableInfiniteScroll: true,
+          ),
+        ),
+      ],
+    );
+  }
+}

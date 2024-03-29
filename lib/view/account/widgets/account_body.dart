@@ -8,7 +8,7 @@ import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/account/address/screens/main_address_screen.dart';
 import 'package:leafloom/view/account/orders/my_orders.dart';
-import 'package:leafloom/view/account/widgets/accoun_tile.dart';
+import 'package:leafloom/view/account/widgets/account_tile.dart';
 import 'package:leafloom/view/authentication/log_in/screens/login.dart';
 import 'package:provider/provider.dart';
 
@@ -96,7 +96,7 @@ class AccountBody extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 120,
+              height: 130,
             ),
             CommonButton(
               name: 'Log Out',
