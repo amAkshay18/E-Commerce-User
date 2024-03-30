@@ -1,4 +1,4 @@
-import 'package:leafloom/model/address_model/address_model.dart';
+import 'package:leafloom/model/address/address_model.dart';
 
 class OrderModel {
   String? id;

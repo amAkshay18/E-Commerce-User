@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
-import 'package:leafloom/view/authentication/log_in/screens/login.dart';
+import 'package:leafloom/view/authentication/screens/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget {
               if (snapshot.hasData) {
                 return const ScreenNavWidget();
               }
-              return const ScreenLogin();
+              return const LoginScreen();
             },
           );
         } else {

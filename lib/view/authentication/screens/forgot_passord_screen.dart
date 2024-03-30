@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 final _firebase = FirebaseAuth.instance;
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
 recoverPasswordByMail(String email) async {
@@ -16,7 +16,7 @@ recoverPasswordByMail(String email) async {
 
 final _emailController = TextEditingController();
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

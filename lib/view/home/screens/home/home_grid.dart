@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/model/product/product_model.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/home/widgets/product_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -62,11 +63,11 @@ class HomeScreenGrid extends StatelessWidget {
           );
         } else if (snapshot.hasError) {
           return Center(
-            child: Text('Error: ${snapshot.error}'),
+            child: CustomText('Error: ${snapshot.error}'),
           );
         } else if (snapshot.data == null || snapshot.data!.isEmpty) {
           return const Center(
-            child: Text('No Products'),
+            child: CustomText('No Products'),
           );
         } else {
           List<ProductClass> productList = snapshot.data!;
@@ -84,7 +85,7 @@ class HomeScreenGrid extends StatelessWidget {
               return ProductTile(
                 id: productList[index].id.toString(),
                 name: productList[index].name ?? 'Empty',
-                subname: productList[index].category ?? 'Empty',
+                category: productList[index].category ?? 'Empty',
                 rate: productList[index].price ?? 'Empty',
                 image: productList[index].imageUrl ??
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9k33VDGg4WcrLISmAosSXtH9LnRke9pcaBQ&usqp=CAU",

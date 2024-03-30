@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:leafloom/shared/core/constants.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/home/screens/home/home_grid.dart';
 import 'package:leafloom/view/home/widgets/carousel_slider.dart';
 
@@ -24,24 +26,21 @@ class HomeScreenWidget extends StatelessWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(top: 8.0, left: 10),
-                    child: Text(
+                    child: CustomText(
                       'Categories',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      // fontWeight: FontWeight.bold,
                     ),
                   ),
+                  kHeight10,
                   CarouselSliderForCategories(),
                   const Padding(
                     padding: EdgeInsets.only(
                       top: 9.0,
                       left: 14,
                     ),
-                    child: Text(
+                    child: CustomText(
                       'All Products',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      // fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

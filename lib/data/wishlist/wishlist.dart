@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
-import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/model/product/product_model.dart';
 
 class WishListServices {
   final _firebase = FirebaseFirestore.instance;

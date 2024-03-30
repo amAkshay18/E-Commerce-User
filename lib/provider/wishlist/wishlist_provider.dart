@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/data/wishlist/wishlist.dart';
-import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/model/product/product_model.dart';
 
 class WishlistProvider extends ChangeNotifier {
   bool isAddedToWishlist = false;

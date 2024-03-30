@@ -1,7 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:leafloom/model/address_model/address_model.dart';
+import 'package:leafloom/model/address/address_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddressProvider extends ChangeNotifier {
@@ -31,21 +30,6 @@ class AddressProvider extends ChangeNotifier {
         'house': value.house,
         'area': value.area,
       });
-      // await FirebaseFirestore.instance
-      //     .collection('Address')
-      //     .doc(value.id)
-      //     .set(value.toJson()
-      //   // {
-      //   'id': value.id,
-      //   'fullname': value.fullname,
-      //   'pincode': value.pincode,
-      //   'city': value.city,
-      //   'state': value.state,
-      //   'phone': value.phone,
-      //   'house': value.house,
-      //   'area': value.area,
-      //    // },
-      // );
       notifyListeners();
     } on FirebaseException catch (error) {
       String errorMessage = 'An error occurred while adding the product.';
@@ -58,12 +42,9 @@ class AddressProvider extends ChangeNotifier {
       }
 
       showSnackbar(context!, errorMessage);
-      print("Failed to add product: $error");
       notifyListeners();
     } catch (error) {
-      // Handle generic exceptions, e.g., network issues
       showSnackbar(context!, 'An unexpected error occurred. Please try again.');
-      print("Failed to add product: $error");
       notifyListeners();
     }
   }
@@ -123,9 +104,7 @@ class AddressProvider extends ChangeNotifier {
           'area': value.area,
         },
       );
-    } else {
-      print('====================error');
-    }
+    } else {}
     await FirebaseFirestore.instance.collection('Address').doc(value.id).update(
       {
         'id': value.id,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/order_model.dart';
+import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/shared/core/constants.dart';
 
 // ignore: must_be_immutable

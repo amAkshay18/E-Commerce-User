@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:leafloom/data/cart/cart_serviece.dart';
-import 'package:leafloom/model/cart_model.dart';
+import 'package:leafloom/model/cart/cart_model.dart';
 
 class CartProvider extends ChangeNotifier {
   List<CartModel> cartList = [];

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/view/account/screens/account.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
+import 'package:leafloom/view/account/screens/account_screen.dart';
 import 'package:leafloom/view/home/screens/home/home_widget.dart';
 import 'package:leafloom/view_model/fetch_product.dart';
 
@@ -12,8 +13,6 @@ class HomeScreen extends StatelessWidget {
   ValueNotifier<bool> notifier = ValueNotifier(true);
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    final size = MediaQuery.of(context).size;
     fetchProducts();
     return Scaffold(
       appBar: AppBar(
@@ -23,17 +22,18 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ScreenAccount(),
+                  builder: (context) => const AccountScreen(),
                 ),
               );
             },
             icon: const Icon(Icons.person),
           ),
         ],
-        automaticallyImplyLeading: false,
-        title: const Text(
+        // automaticallyImplyLeading: false,
+        title: const CustomText(
           'LeafLoom',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
         ),
       ),
       body: HomeScreenWidget(productCollection: productCollection),

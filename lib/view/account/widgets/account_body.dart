@@ -7,9 +7,9 @@ import 'package:leafloom/provider/account/terms_conditions/terms_conditions.dart
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/account/address/screens/main_address_screen.dart';
-import 'package:leafloom/view/account/orders/my_orders.dart';
+import 'package:leafloom/view/account/orders/orders_screen.dart';
 import 'package:leafloom/view/account/widgets/account_tile.dart';
-import 'package:leafloom/view/authentication/log_in/screens/login.dart';
+import 'package:leafloom/view/authentication/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class AccountBody extends StatelessWidget {
@@ -47,7 +47,7 @@ class AccountBody extends StatelessWidget {
                         voidCallback: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const OrderScreen(),
+                              builder: (context) => const OrdersScreen(),
                             ),
                           );
                         },
@@ -118,7 +118,7 @@ class AccountBody extends StatelessWidget {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ScreenLogin(),
+                                builder: (context) => const LoginScreen(),
                               ),
                               (route) => false,
                             );

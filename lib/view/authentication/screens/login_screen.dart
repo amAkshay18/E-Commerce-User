@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
-import 'package:leafloom/view/authentication/log_in/screens/forgot_passord.dart';
+import 'package:leafloom/view/authentication/screens/forgot_passord_screen.dart';
 
 final _firebase = FirebaseAuth.instance;
 
-class ScreenLogin extends StatefulWidget {
-  const ScreenLogin({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScreenLogin> createState() => _ScreenLoginState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 final _nameController = TextEditingController();
@@ -19,7 +19,7 @@ final _passwordController = TextEditingController();
 final _confirmPasswordController = TextEditingController();
 bool _isLoading = false;
 
-class _ScreenLoginState extends State<ScreenLogin> {
+class _LoginScreenState extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
   var _isLogin = true;
   var _enteredEmail = '';
@@ -176,7 +176,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ForgotPassword(),
+                                  builder: (context) =>
+                                      const ForgotPasswordScreen(),
                                 ),
                               );
                             },

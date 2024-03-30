@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/address_model/address_model.dart';
-import 'package:leafloom/model/cart_model.dart';
-import 'package:leafloom/model/order_model.dart';
+import 'package:leafloom/model/address/address_model.dart';
+import 'package:leafloom/model/cart/cart_model.dart';
+import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
 import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
@@ -13,7 +13,7 @@ import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/account/address/screens/main_address_screen.dart';
 import 'package:leafloom/view/account/address/widgets/dafault_card.dart';
-import 'package:leafloom/view/checkout_page/widget/heading_delivery.dart';
+import 'package:leafloom/view/checkout/widget/heading_delivery.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 

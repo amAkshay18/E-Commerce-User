@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/address_model/address_model.dart';
+import 'package:leafloom/model/address/address_model.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';

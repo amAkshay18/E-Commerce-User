@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/model/product/product_model.dart';
 
 Future<List<ProductClass>> fetchProducts() async {
   List<ProductClass> productList = [];

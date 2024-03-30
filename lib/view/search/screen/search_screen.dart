@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/model/product/product_model.dart';
 import 'package:leafloom/provider/search/search_provider.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/search/widget/filter_grid.dart';
@@ -95,7 +95,7 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               Container(
                 width: double.infinity,
-                height: 115,
+                height: 100,
                 color: Colors.black.withOpacity(0.1),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -104,7 +104,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       height: 5,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
                         controller: searchController,
                         onChanged: (value) {
@@ -159,10 +159,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         filteredProducts.sort((a, b) =>
                             int.parse(a.price ?? '0')
                                 .compareTo(int.parse(b.price ?? '0')));
-                        for (int i = 0; i < filteredProducts.length; i++) {
-                          // log(filteredProducts[i].price!);
-                          // log(filteredProducts.length.toString());
-                        }
+                        for (int i = 0; i < filteredProducts.length; i++) {}
                         setState(() {});
                       } else if (value == 1) {
                         filteredProducts.sort((a, b) =>
@@ -176,7 +173,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                     child: const Text('Sort'),
                   ),
-                  //====================================
                   PopupMenuButton(
                     itemBuilder: (context) => filterItemsPrice,
                     onSelected: (value) async {

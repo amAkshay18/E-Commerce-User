@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/cart_model.dart';
+import 'package:leafloom/model/cart/cart_model.dart';
 
 class CartServices {
   final _firebase = FirebaseFirestore.instance;

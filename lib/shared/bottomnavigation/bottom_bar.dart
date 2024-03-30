@@ -1,11 +1,13 @@
 // ignore: depend_on_referenced_packages
+import 'package:google_fonts/google_fonts.dart';
+// ignore: depend_on_referenced_packages
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
-import 'package:leafloom/view/cart/screen/cart.dart';
+import 'package:leafloom/view/cart/screen/cart_screen.dart';
 import 'package:leafloom/view/home/screens/home/home_screen.dart';
-import 'package:leafloom/view/search/screen/search.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/view/wishlist/wishlist.dart';
+import 'package:leafloom/view/search/screen/search_screen.dart';
+import 'package:leafloom/view/wishlist/wishlist_screen.dart';
 import 'package:provider/provider.dart';
 
 class ScreenNavWidget extends StatelessWidget {
@@ -60,11 +62,15 @@ class ScreenNavWidget extends StatelessWidget {
 
   GButton _buildTab(
       IconData icon, String text, int tabIndex, int selectedIndex) {
+    bool isSelected = selectedIndex == tabIndex;
     return GButton(
       icon: icon,
       text: text,
       textColor:
           selectedIndex == tabIndex ? Colors.black : Colors.grey.shade600,
+      textStyle: GoogleFonts.poppins(
+        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+      ),
     );
   }
 
@@ -75,9 +81,9 @@ class ScreenNavWidget extends StatelessWidget {
       case 1:
         return const SearchScreen();
       case 2:
-        return WishlistScreen();
+        return const WishlistScreen();
       case 3:
-        return CartScreen();
+        return const CartScreen();
       default:
         return HomeScreen();
     }

@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/order_model.dart';
+import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/view/account/orders/order_details.dart';
 import 'package:leafloom/view/account/orders/widgets/order_status_card.dart';
 import 'package:shimmer/shimmer.dart';
 
-class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key});
+class OrdersScreen extends StatelessWidget {
+  const OrdersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

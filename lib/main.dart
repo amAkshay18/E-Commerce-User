@@ -11,7 +11,7 @@ import 'package:leafloom/provider/checkout_provider/checkout_provider.dart';
 import 'package:leafloom/provider/indoor_outdoor/indoor_outdoor_provider.dart';
 import 'package:leafloom/provider/search/search_provider.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
-import 'package:leafloom/view/splash_screen.dart';
+import 'package:leafloom/view/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

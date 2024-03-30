@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/model/product/product_model.dart';
 import 'package:leafloom/view/home/widgets/product_tile.dart';
 
 class FilterGrid extends StatelessWidget {
@@ -51,7 +51,7 @@ class FilterGrid extends StatelessWidget {
         return ProductTile(
           id: productCollection[index]!.id.toString(),
           name: productCollection[index]!.name ?? 'Empty',
-          subname: productCollection[index]!.category ?? 'Empty',
+          category: productCollection[index]!.category ?? 'Empty',
           rate: productCollection[index]!.price ?? 'Empty',
           image: productCollection[index]!.imageUrl ??
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9k33VDGg4WcrLISmAosSXtH9LnRke9pcaBQ&usqp=CAU",

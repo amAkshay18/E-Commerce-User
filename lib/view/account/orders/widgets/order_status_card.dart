@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:leafloom/model/order_model.dart';
+import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/shared/core/constants.dart';
 
 class OrderCard extends StatelessWidget {

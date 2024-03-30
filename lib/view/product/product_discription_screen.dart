@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/cart_model.dart';
+import 'package:leafloom/model/cart/cart_model.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
+import 'package:leafloom/view/checkout/screens/checkout_screen.dart';
 import 'package:provider/provider.dart';
-import '../checkout_page/screens/checkout_page.dart';
 
-class ProductDiscription extends StatelessWidget {
-  const ProductDiscription({
+class ProductDescriptionScreen extends StatelessWidget {
+  const ProductDescriptionScreen({
     super.key,
     required this.name,
     required this.price,
     required this.category,
-    required this.discription,
-    required this.img,
+    required this.description,
+    required this.image,
     required this.id,
     required this.stock,
   });
   final String name;
   final String price;
   final String category;
-  final String discription;
-  final String img;
+  final String description;
+  final String image;
   final String id;
   final String stock;
 
@@ -58,7 +58,8 @@ class ProductDiscription extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.45,
       width: double.infinity,
       decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(img), fit: BoxFit.cover)),
+        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+      ),
     );
   }
 
@@ -96,7 +97,7 @@ class ProductDiscription extends StatelessWidget {
               )
             ],
           ),
-          Text(discription, textAlign: TextAlign.justify),
+          Text(description, textAlign: TextAlign.justify),
         ],
       ),
     );
@@ -122,8 +123,8 @@ class ProductDiscription extends StatelessWidget {
                 name: name,
                 price: price,
                 category: category,
-                description: discription,
-                imageUrl: img,
+                description: description,
+                imageUrl: image,
                 id: id,
                 quantity: '1',
                 stock: stock,
@@ -166,8 +167,8 @@ class ProductDiscription extends StatelessWidget {
                     CartModel(
                       category: category,
                       id: id,
-                      description: discription,
-                      imageUrl: img,
+                      description: description,
+                      imageUrl: image,
                       name: name,
                       price: price,
                       quantity: '1',

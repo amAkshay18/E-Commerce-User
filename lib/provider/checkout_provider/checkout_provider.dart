@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/order_model.dart';
+import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -46,11 +46,9 @@ class ProductPayment extends ChangeNotifier {
       }
 
       showSnackbar(context!, errorMessage);
-      print("Failed to add product: $error");
       notifyListeners();
     } catch (error) {
       showSnackbar(context!, 'An unexpected error occurred. Please try again.');
-      print("Failed to add product: $error");
       notifyListeners();
     }
   }

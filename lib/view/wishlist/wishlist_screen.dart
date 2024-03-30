@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/cart_model.dart';
-import 'package:leafloom/model/product_model.dart';
+import 'package:leafloom/model/cart/cart_model.dart';
+import 'package:leafloom/model/product/product_model.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/home/widgets/product_tile.dart';
-import 'package:leafloom/view/product/product_discription.dart';
+import 'package:leafloom/view/product/product_discription_screen.dart';
 import 'package:provider/provider.dart';
 
 class WishlistScreen extends StatelessWidget {
@@ -52,12 +52,12 @@ class WishlistScreen extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDiscription(
+              builder: (context) => ProductDescriptionScreen(
                   name: product.name ?? '',
                   price: product.price ?? '0',
                   category: product.category ?? '',
-                  discription: product.description ?? "",
-                  img: product.imageUrl ?? '',
+                  description: product.description ?? "",
+                  image: product.imageUrl ?? '',
                   id: product.id ?? '',
                   stock: product.quantity ?? ''),
             ));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/product_model.dart';
-import 'package:leafloom/view/product/product_discription.dart';
-import 'package:leafloom/view/wishlist/wishlist.dart';
+import 'package:leafloom/model/product/product_model.dart';
+import 'package:leafloom/view/product/product_discription_screen.dart';
+import 'package:leafloom/view/wishlist/wishlist_screen.dart';
 
 class SearchCard extends StatelessWidget {
   const SearchCard({
@@ -22,12 +22,12 @@ class SearchCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ProductDiscription(
+                builder: (context) => ProductDescriptionScreen(
                   category: searchResults![index].category ?? "outdoor",
-                  discription:
+                  description:
                       searchResults![index].description ?? "description",
                   id: searchResults![index].id ?? "null",
-                  img: searchResults![index].imageUrl ?? 'null',
+                  image: searchResults![index].imageUrl ?? 'null',
                   name: searchResults![index].name ?? "name",
                   price: searchResults![index].price ?? "null",
                   stock: searchResults![index].quantity ?? "null",

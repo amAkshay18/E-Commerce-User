@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/model/cart_model.dart';
+import 'package:leafloom/model/cart/cart_model.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/cart/cart_provider.dart';
 

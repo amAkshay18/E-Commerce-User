@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:leafloom/shared/core/constants.dart';
 import 'package:leafloom/view/account/address/widgets/address_card.dart';
 import 'package:leafloom/view/account/address/widgets/dafault_card.dart';
-import 'package:leafloom/view/checkout_page/widget/heading_delivery.dart';
+import 'package:leafloom/view/checkout/widget/heading_delivery.dart';
 
 class ScreenAddress extends StatefulWidget {
   const ScreenAddress({super.key});

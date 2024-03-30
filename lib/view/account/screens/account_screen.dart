@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/view/account/widgets/account_body.dart';
 
-class ScreenAccount extends StatelessWidget {
-  const ScreenAccount({super.key});
+class AccountScreen extends StatelessWidget {
+  const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
