@@ -53,10 +53,9 @@ class CarouselSliderForCategories extends StatelessWidget {
                           bottomRight: Radius.circular(10),
                         ),
                       ),
-                      child: CustomText(
+                      child: CustomTextWidget(
                         categoryTitles[index],
                         color: Colors.white,
-                        // fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -66,9 +65,9 @@ class CarouselSliderForCategories extends StatelessWidget {
             );
           }).toList(),
           options: CarouselOptions(
+            enlargeFactor: 0.5,
             height: 200,
-            enlargeCenterPage: true,
-            aspectRatio: 16 / 9,
+            aspectRatio: 20 / 10,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 3),
             autoPlayAnimationDuration: const Duration(milliseconds: 800),

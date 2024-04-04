@@ -63,36 +63,39 @@ class HomeScreenGrid extends StatelessWidget {
           );
         } else if (snapshot.hasError) {
           return Center(
-            child: CustomText('Error: ${snapshot.error}'),
+            child: CustomTextWidget('Error: ${snapshot.error}'),
           );
         } else if (snapshot.data == null || snapshot.data!.isEmpty) {
           return const Center(
-            child: CustomText('No Products'),
+            child: CustomTextWidget('No Products'),
           );
         } else {
           List<ProductClass> productList = snapshot.data!;
-          return GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 3.0 / 4.0,
-              crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-              crossAxisSpacing: 1.0,
-              mainAxisSpacing: 1.0,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 9),
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 3.0 / 4.0,
+                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                crossAxisSpacing: 1.0,
+                mainAxisSpacing: 1.0,
+              ),
+              itemCount: productList.length,
+              itemBuilder: (context, index) {
+                return ProductTile(
+                  id: productList[index].id.toString(),
+                  name: productList[index].name ?? 'Empty',
+                  category: productList[index].category ?? 'Empty',
+                  rate: productList[index].price ?? 'Empty',
+                  image: productList[index].imageUrl ??
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9k33VDGg4WcrLISmAosSXtH9LnRke9pcaBQ&usqp=CAU",
+                  description: productList[index].description ?? "empty",
+                  stock: productList[index].quantity ?? 'Empty',
+                );
+              },
             ),
-            itemCount: productList.length,
-            itemBuilder: (context, index) {
-              return ProductTile(
-                id: productList[index].id.toString(),
-                name: productList[index].name ?? 'Empty',
-                category: productList[index].category ?? 'Empty',
-                rate: productList[index].price ?? 'Empty',
-                image: productList[index].imageUrl ??
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9k33VDGg4WcrLISmAosSXtH9LnRke9pcaBQ&usqp=CAU",
-                description: productList[index].description ?? "empty",
-                stock: productList[index].quantity ?? 'Empty',
-              );
-            },
           );
         }
       },

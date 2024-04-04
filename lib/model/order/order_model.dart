@@ -11,19 +11,22 @@ class OrderModel {
   String? imageUrl;
   String? orderId;
   String? date;
+  String? email;
   AddressModel? address;
-  OrderModel(
-      {this.id,
-      this.status,
-      this.productName,
-      this.quantity,
-      this.totalPrice,
-      this.category,
-      this.description,
-      this.imageUrl,
-      this.orderId,
-      this.date,
-      this.address});
+  OrderModel({
+    this.id,
+    this.status,
+    this.productName,
+    this.quantity,
+    this.totalPrice,
+    this.category,
+    this.description,
+    this.imageUrl,
+    this.orderId,
+    this.date,
+    this.address,
+    this.email,
+  });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -36,6 +39,7 @@ class OrderModel {
     imageUrl = json['imageUrl'];
     orderId = json['orderId'];
     date = json['date'];
+    email = json['email'];
     address = AddressModel.fromJson(
         json['address']); //-------------------------------
   }
@@ -53,6 +57,7 @@ class OrderModel {
     data['orderId'] = orderId;
     data['date'] = date;
     data['addres'] = address;
+    data['email'] = email;
     return data;
   }
 }

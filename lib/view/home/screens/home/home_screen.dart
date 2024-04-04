@@ -29,9 +29,9 @@ class HomeScreen extends StatelessWidget {
             icon: const Icon(Icons.person),
           ),
         ],
-        // automaticallyImplyLeading: false,
-        title: const CustomText(
+        title: const CustomTextWidget(
           'LeafLoom',
+          fontSize: 26,
           color: Colors.green,
           fontWeight: FontWeight.bold,
         ),

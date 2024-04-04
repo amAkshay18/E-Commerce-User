@@ -33,4 +33,24 @@ class SearchProvider extends ChangeNotifier {
     searchedProducts = a;
     notifyListeners();
   }
+
+  // void fetchProducts() async {
+  //   try {
+  //     var productCollectionSnapshot =
+  //         await FirebaseFirestore.instance.collection('Products').get();
+  //     if (productCollectionSnapshot.docChanges.isNotEmpty) {
+  //       searchedProducts = productCollectionSnapshot.docs.map(
+  //         (doc) {
+  //           Map<String, dynamic> data = doc.data();
+  //           return ProductClass.fromJson(data);
+  //         },
+  //       ).toList();
+  //       notifyListeners();
+  //     } else {
+  //       debugPrint("Error: Product collection snapshot is null");
+  //     }
+  //   } catch (e) {
+  //     debugPrint("Error fetching products===+++++++====: $e");
+  //   }
+  // }
 }

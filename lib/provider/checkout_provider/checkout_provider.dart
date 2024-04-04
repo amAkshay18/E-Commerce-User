@@ -31,6 +31,7 @@ class ProductPayment extends ChangeNotifier {
           'imageUrl': value.imageUrl,
           'orderId': value.orderId,
           'date': value.date,
+          'email': value.email,
           'address': value.address!.toJson(),
         },
       );

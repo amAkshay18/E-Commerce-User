@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/view/account/orders/order_details.dart';
@@ -19,7 +20,10 @@ class OrdersScreen extends StatelessWidget {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('Order').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('Order')
+            .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Shimmer.fromColors(

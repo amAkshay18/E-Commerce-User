@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -229,20 +231,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     .get();
                 final address = AddressModel.fromJson(defaultAddress.data()!);
                 final obj = OrderModel(
-                    orderId: uniqueFileName,
-                    status: 'Pending',
-                    // ignore: use_build_context_synchronously
-                    quantity:
-                        // ignore: use_build_context_synchronously
-                        context.read<CheckoutProvider>().totalNum.toString(),
-                    id: product.id,
-                    description: product.description,
-                    category: product.category,
-                    imageUrl: product.imageUrl,
-                    productName: product.name,
-                    totalPrice: product.price,
-                    date: date,
-                    address: address);
+                  orderId: uniqueFileName,
+                  status: 'Pending',
+                  // ignore: use_build_context_synchronously
+                  quantity:
+                      // ignore: use_build_context_synchronously
+                      context.read<CheckoutProvider>().totalNum.toString(),
+                  id: product.id,
+                  description: product.description,
+                  category: product.category,
+                  imageUrl: product.imageUrl,
+                  productName: product.name,
+                  totalPrice: product.price,
+                  date: date,
+                  address: address,
+                  email: FirebaseAuth.instance.currentUser!.email,
+                );
                 // ignore: use_build_context_synchronously
                 context
                     .read<ProductPayment>()
@@ -272,6 +276,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   productName: product.name,
                   totalPrice: product.price,
                   date: date,
+                  email: FirebaseAuth.instance.currentUser!.email,
                 );
                 context
                     .read<ProductPayment>()

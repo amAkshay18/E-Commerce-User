@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/provider/indoor_outdoor/indoor_outdoor_provider.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/search/widget/search_card.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,7 @@ class IndoorScreen extends StatelessWidget {
     context.read<CategoryProvider>().fetchProducts();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Indoor plants'),
+        title: const CustomTextWidget('Indoor plants'),
         centerTitle: true,
       ),
       body: Consumer<CategoryProvider>(
