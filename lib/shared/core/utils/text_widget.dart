@@ -13,7 +13,7 @@ class CustomTextWidget extends StatelessWidget {
 
   const CustomTextWidget(this.text,
       {super.key,
-      this.fontFamily = 'Poppins',
+      this.fontFamily = 'Open Sans',
       this.color = Colors.black,
       this.fontWeight,
       this.fontSize = 20,

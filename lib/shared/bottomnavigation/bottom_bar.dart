@@ -68,7 +68,7 @@ class ScreenNavWidget extends StatelessWidget {
       text: text,
       textColor:
           selectedIndex == tabIndex ? Colors.black : Colors.grey.shade600,
-      textStyle: GoogleFonts.poppins(
+      textStyle: GoogleFonts.openSans(
         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
       ),
     );

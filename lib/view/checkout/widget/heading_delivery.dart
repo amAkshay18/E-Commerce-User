@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/view/account/address/screens/address_screen.dart';
+import 'package:leafloom/view/address/screens/address_screen.dart';
 
 class DeliveryHeading extends StatelessWidget {
   const DeliveryHeading({

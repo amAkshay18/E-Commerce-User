@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
-
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -24,7 +23,10 @@ class _CartScreenState extends State<CartScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const CustomTextWidget('Cart'),
+          title: const CustomTextWidget(
+            'Cart',
+            fontWeight: FontWeight.bold,
+          ),
           centerTitle: true,
         ),
         body: Column(
@@ -61,14 +63,13 @@ class _CartScreenState extends State<CartScreen> {
                     child: Column(
                       children: [
                         ListTile(
-                          subtitle: Text(
+                          subtitle: CustomTextWidget(
                             'Total (${value.cartList.length} items):',
+                            fontSize: 16,
                           ),
-                          title: Text(
-                            '₹ $total',
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
+                          title: CustomTextWidget(
+                            '₹$total',
+                            fontWeight: FontWeight.bold,
                           ),
                           trailing: ElevatedButton(
                             onPressed: () {
@@ -87,11 +88,10 @@ class _CartScreenState extends State<CartScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: const Text(
+                            child: const CustomTextWidget(
                               'Place Order',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
                         ),

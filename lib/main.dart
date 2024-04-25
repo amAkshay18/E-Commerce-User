@@ -1,9 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/firebase_options.dart';
-import 'package:leafloom/provider/account/about_us/about_us.dart';
-import 'package:leafloom/provider/account/privacy_policy/privacy_policy.dart';
-import 'package:leafloom/provider/account/terms_conditions/terms_conditions.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
 import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
@@ -57,15 +54,6 @@ class MyApp extends StatelessWidget {
           create: (context) => ProductPayment(),
         ),
         ChangeNotifierProvider(
-          create: (context) => AboutUsProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => TermsAndConditonsProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => PrivacyPolicyProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
         ),
         ChangeNotifierProvider(
@@ -75,6 +63,8 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
+        // theme: lightMode,
+        // darkTheme: darkMode,
       ),
     );
   }

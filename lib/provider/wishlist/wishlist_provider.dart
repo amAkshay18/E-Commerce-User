@@ -44,7 +44,7 @@ class WishlistProvider extends ChangeNotifier {
   void showSnackbar(BuildContext context, String message) {
     final snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.only(bottom: 10.0),
+      margin: const EdgeInsets.only(bottom: 10.0, left: 10, right: 10, top: 10),
       content: Text(message),
     );
     ScaffoldMessenger.of(context)

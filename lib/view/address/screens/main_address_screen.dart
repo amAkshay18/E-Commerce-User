@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/shared/core/constants.dart';
-import 'package:leafloom/view/account/address/widgets/address_card.dart';
-import 'package:leafloom/view/account/address/widgets/dafault_card.dart';
+import 'package:leafloom/view/address/widgets/address_card.dart';
+import 'package:leafloom/view/address/widgets/dafault_card.dart';
 import 'package:leafloom/view/checkout/widget/heading_delivery.dart';
 
 class ScreenAddress extends StatefulWidget {

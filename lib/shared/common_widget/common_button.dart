@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 
 // ignore: must_be_immutable
 class CommonButton extends StatelessWidget {
@@ -23,9 +24,10 @@ class CommonButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: Text(
+          child: CustomTextWidget(
             name,
-            style: const TextStyle(fontSize: 20, color: Colors.black),
+            fontSize: 18,
+            // fontWeight: FontWeight.bold,
           ),
         ),
       ),

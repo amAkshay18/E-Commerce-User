@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/order/order_model.dart';
-import 'package:leafloom/view/account/orders/order_details.dart';
-import 'package:leafloom/view/account/orders/widgets/order_status_card.dart';
+import 'package:leafloom/view/orders/order_details.dart';
+import 'package:leafloom/view/orders/widgets/order_status_card.dart';
 import 'package:shimmer/shimmer.dart';
 
 class OrdersScreen extends StatelessWidget {

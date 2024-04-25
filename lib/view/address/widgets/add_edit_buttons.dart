@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
-import 'package:leafloom/view/account/address/screens/edit_address.dart';
+import 'package:leafloom/view/address/screens/edit_address.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
