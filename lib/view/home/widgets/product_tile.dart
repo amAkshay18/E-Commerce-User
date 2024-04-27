@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/shared/core/utils/text_widget.dart';
-import 'package:leafloom/view/product/product_discription_screen.dart';
+import 'package:leafloom/view/product/product_description_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductTile extends StatelessWidget {

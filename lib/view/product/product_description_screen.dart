@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/cart/cart_model.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/checkout/screens/checkout_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +28,14 @@ class ProductDescriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(),
+        appBar: AppBar(
+          title: CustomTextWidget(
+            name,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+          centerTitle: true,
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -38,18 +46,6 @@ class ProductDescriptionScreen extends StatelessWidget {
         ),
         bottomNavigationBar: _buildBottomButtons(context),
       ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      iconTheme: const IconThemeData(color: Colors.black),
-      backgroundColor: Colors.white,
-      title: Text(
-        name,
-        style: const TextStyle(color: Colors.black),
-      ),
-      centerTitle: true,
     );
   }
 
@@ -70,30 +66,24 @@ class ProductDescriptionScreen extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
+            child: CustomTextWidget(
               name,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              CustomTextWidget(
                 "₹$price",
-                style: const TextStyle(
-                  color: Colors.green,
-                  fontSize: 24,
-                ),
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
-              const SizedBox(
-                width: 30,
-              ),
-              Text(
+              CustomTextWidget(
                 "Category :$category",
-                style: const TextStyle(
-                    color: Color.fromARGB(255, 133, 133, 133), fontSize: 20),
+                fontWeight: FontWeight.w200,
+                fontSize: 16,
               )
             ],
           ),
@@ -134,18 +124,18 @@ class ProductDescriptionScreen extends StatelessWidget {
                   .addToCart(context: context, cartModel: addToCart);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Item added to cart'),
+                  content: CustomTextWidget(
+                    'Item added to cart',
+                    fontSize: 18,
+                  ),
                   duration: Duration(seconds: 1),
                 ),
               );
             },
-            child: const Text(
+            child: const CustomTextWidget(
               'Add to Cart',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(
@@ -177,13 +167,10 @@ class ProductDescriptionScreen extends StatelessWidget {
                 ),
               );
             },
-            child: const Text(
+            child: const CustomTextWidget(
               'Buy Now',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],

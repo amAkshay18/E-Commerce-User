@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/product/product_model.dart';
-import 'package:leafloom/view/product/product_discription_screen.dart';
+import 'package:leafloom/view/product/product_description_screen.dart';
 import 'package:leafloom/view/wishlist/wishlist_screen.dart';
 
 class SearchCard extends StatelessWidget {
