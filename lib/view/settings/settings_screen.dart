@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/shared/core/utils/text_widget.dart';
-import 'package:leafloom/view/settings/new/about_us/about_us.dart';
-import 'package:leafloom/view/settings/new/privacy_policy/privacy_policy.dart';
-import 'package:leafloom/view/settings/new/terms_and_conditions/terms_and_conditions.dart';
+import 'package:leafloom/view/settings/about_us/about_us.dart';
+import 'package:leafloom/view/settings/privacy_policy/privacy_policy.dart';
+import 'package:leafloom/view/settings/terms_and_conditions/terms_and_conditions.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);

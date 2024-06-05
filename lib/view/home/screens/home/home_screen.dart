@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// import 'package:leafloom/provider/theme/theme_provider.dart';
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/address/screens/main_address_screen.dart';
@@ -10,8 +9,9 @@ import 'package:leafloom/view/authentication/screens/login_screen.dart';
 import 'package:leafloom/view/home/screens/home/home_grid.dart';
 import 'package:leafloom/view/home/widgets/carousel_slider.dart';
 import 'package:leafloom/view/orders/orders_screen.dart';
-import 'package:leafloom/view/settings/screens/settings_screen.dart';
+import 'package:leafloom/view/settings/settings_screen.dart';
 import 'package:leafloom/view_model/fetch_product.dart';
+// import 'package:provider/provider.dart';
 
 ValueNotifier<Map<String, dynamic>> userDetailsNotifier =
     ValueNotifier({'name': '', 'email': ''});
@@ -28,7 +28,6 @@ class HomeScreen extends StatelessWidget {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.email)
         .get();
-    log(user.data()!['email']);
     userDetailsNotifier.value = {
       'name': user.data()!['name'],
       'email': user.data()!['email']
@@ -51,8 +50,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   DrawerHeader(
                     decoration: const BoxDecoration(
-                        // color: Colors.green,
-                        ),
+                      color: Colors.grey,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -62,6 +61,7 @@ class HomeScreen extends StatelessWidget {
                             return Row(
                               children: [
                                 CircleAvatar(
+                                  backgroundColor: Colors.white,
                                   child: CustomTextWidget(
                                     (value['name'] as String)
                                         .substring(0, 1)
@@ -94,7 +94,10 @@ class HomeScreen extends StatelessWidget {
                           },
                         ),
                         // IconButton(
-                        //   onPressed: () {},
+                        //   onPressed: () {
+                        //     Provider.of<ThemeProvider>(context, listen: false)
+                        //         .toggleTheme();
+                        //   },
                         //   icon: const Icon(
                         //     Icons.dark_mode,
                         //     color: Colors.white,
@@ -159,19 +162,33 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             CommonButton(
-              name: 'Log Out',
+              name: 'Log out',
               voidCallback: () {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Logout'),
-                    content: const Text("Are you sure want to logout"),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        8,
+                      ),
+                    ),
+                    title: const CustomTextWidget(
+                      'Log out',
+                      fontSize: 16,
+                    ),
+                    content: const CustomTextWidget(
+                      "Are you sure want to logout",
+                      fontSize: 16,
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text("Cancel"),
+                        child: const CustomTextWidget(
+                          "cancel",
+                          fontSize: 16,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
@@ -185,7 +202,10 @@ class HomeScreen extends StatelessWidget {
                             );
                           });
                         },
-                        child: const CustomTextWidget("Logout"),
+                        child: const CustomTextWidget(
+                          "Logout",
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -199,7 +219,7 @@ class HomeScreen extends StatelessWidget {
         title: const CustomTextWidget(
           'LeafLoom',
           fontSize: 26,
-          color: Colors.green,
+          // color: Colors.green,
           fontWeight: FontWeight.bold,
         ),
       ),

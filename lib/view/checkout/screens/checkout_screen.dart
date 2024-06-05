@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +7,11 @@ import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
 import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
-import 'package:leafloom/provider/checkout_provider/checkout_provider.dart';
+import 'package:leafloom/provider/checkout/checkout_provider.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
 import 'package:leafloom/shared/common_widget/common_button.dart';
 import 'package:leafloom/shared/core/constants.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/address/screens/main_address_screen.dart';
 import 'package:leafloom/view/address/widgets/dafault_card.dart';
 import 'package:leafloom/view/checkout/widget/heading_delivery.dart';
@@ -63,7 +62,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Delivery Address'),
+          title: const CustomTextWidget(
+            'Check out',
+            fontWeight: FontWeight.bold,
+          ),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -95,14 +97,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       .read<AddressProvider>()
                       .showSnackbar(context, 'Change address default');
                 },
-                child: const Text('Select Address'),
+                child: const CustomTextWidget(
+                  'Select Address',
+                  fontSize: 16,
+                ),
               ),
               kHeight20,
               for (var product in widget.products) ...[
                 Card(
                   elevation: 5,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                   margin: const EdgeInsets.all(10.0),
                   child: Container(
@@ -126,27 +131,29 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              CustomTextWidget(
                                 product.name ?? '',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
-                                child: Text(
+                                child: CustomTextWidget(
                                   '₹ ${product.price ?? ''}',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.green,
-                                  ),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Row(
                                 children: [
-                                  const Text('quantity: '),
-                                  Text(product.quantity ?? ''),
+                                  const CustomTextWidget(
+                                    'Qty: ',
+                                    fontSize: 12,
+                                  ),
+                                  CustomTextWidget(
+                                    product.quantity ?? '',
+                                    fontSize: 14,
+                                  ),
                                 ],
                               ),
                             ],
@@ -160,18 +167,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
+                  const CustomTextWidget(
                     'Total : ',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
                   ),
-                  Text(
-                    ' ₹ ${calculateTotalAmount(widget.products)}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.green,
-                    ),
+                  CustomTextWidget(
+                    ' ₹${calculateTotalAmount(widget.products)}',
                   ),
                 ],
               ),
@@ -183,7 +183,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     checkoutProvider.setPaymentCategory(value!);
                   },
                 ),
-                title: const Text('Pay Now'),
+                title: const CustomTextWidget(
+                  'Pay Now',
+                  fontSize: 16,
+                ),
               ),
               //=================================cash on delivery=======================================
               // ListTile(
@@ -194,7 +197,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               //       checkoutProvider.setPaymentCategory(value!);
               //     },
               //   ),
-              //   title: const Text('Cash on delivery'),
+              //   title: const CustomTextWidget('Cash on delivery',fontsize: 16,),
               // ),
               // kHeight50,
             ],
@@ -330,7 +333,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     Widget continueButton = Consumer<NavBarBottom>(
       builder: (context, value, child) {
         return ElevatedButton(
-          child: const Text("Continue"),
+          child: const CustomTextWidget(
+            "Continue",
+            fontSize: 16,
+          ),
           onPressed: () {
             context.read<CartProvider>().clearCart(context);
             Provider.of<NavBarBottom>(context, listen: false).selectedIndex = 0;
@@ -347,8 +353,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text(title),
-      content: Text(message),
+      title: CustomTextWidget(
+        title,
+        fontSize: 16,
+      ),
+      content: CustomTextWidget(
+        message,
+        fontSize: 16,
+      ),
       actions: [
         continueButton,
       ],
@@ -367,7 +379,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     Widget continueButton = Consumer<NavBarBottom>(
       builder: (context, value, child) {
         return ElevatedButton(
-          child: const Text("Continue"),
+          child: const CustomTextWidget(
+            "Continue",
+            fontSize: 16,
+          ),
           onPressed: () {
             context.read<CartProvider>().clearCart(context);
             Provider.of<NavBarBottom>(context, listen: false).selectedIndex = 0;
@@ -384,8 +399,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text(title),
-      content: Text(message),
+      title: CustomTextWidget(
+        title,
+        fontSize: 16,
+      ),
+      content: CustomTextWidget(
+        message,
+        fontSize: 16,
+      ),
       actions: [
         continueButton,
       ],

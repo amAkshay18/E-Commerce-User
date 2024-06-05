@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:leafloom/model/order/order_model.dart';
-import 'package:leafloom/shared/core/constants.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({
@@ -21,20 +20,22 @@ class OrderCard extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       child: Container(
         decoration: const BoxDecoration(
-          gradient: gcolor,
           borderRadius: BorderRadius.all(
             Radius.circular(12),
           ),
         ),
         child: ListTile(
           contentPadding: const EdgeInsets.all(16.0),
-          leading: Container(
-            width: 70.0,
-            height: 100.0,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(order.imageUrl ?? ''),
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              width: 70.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(order.imageUrl ?? ''),
+                ),
               ),
             ),
           ),

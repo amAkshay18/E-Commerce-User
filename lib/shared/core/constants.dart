@@ -42,12 +42,6 @@ final kWidth3 = SizedBox(
 //==================================     Heading Fontsize   ========================================
 const TextStyle kTitle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
-//======================================    Colors    ================================================
-const LinearGradient gcolor = LinearGradient(colors: [
-  Color.fromARGB(255, 36, 211, 124),
-  Color.fromARGB(255, 112, 161, 137),
-], begin: Alignment.topLeft);
-
 //======================================    Height   ===================================================
 const kHeight50 = SizedBox(
   height: 50,
@@ -118,13 +112,13 @@ class CommonButtonTwo extends StatelessWidget {
         Navigator.of(context).pop();
       },
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
         ),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-        minimumSize: MaterialStateProperty.all<Size>(
+        backgroundColor: WidgetStateProperty.all<Color>(Colors.black),
+        minimumSize: WidgetStateProperty.all<Size>(
           const Size(350, 60),
         ),
       ),

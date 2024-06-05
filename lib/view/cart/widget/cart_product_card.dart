@@ -18,7 +18,7 @@ class CartProductCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      margin: const EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(16.0),
@@ -109,24 +109,49 @@ class CartProductCard extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text('Remove from cart'),
-                      content: const Text('Are you sure want to cart'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      title: const CustomTextWidget(
+                        'Delete product from cart',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      content: const CustomTextWidget(
+                        'Are you sure want to delete the product from cart?',
+                        maxLines: 2,
+                        fontSize: 14,
+                      ),
                       actions: [
-                        TextButton(
-                            onPressed: () {
-                              context.read<CartProvider>().deleteCart(
-                                  context: context, id: cartModel.id!);
-                              context.read<CartProvider>().getCart(context);
-                              context.read<CartProvider>().getPrice(
-                                  context.read<CartProvider>().cartList);
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Remove")),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Cancel")),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                context.read<CartProvider>().deleteCart(
+                                    context: context, id: cartModel.id!);
+                                context.read<CartProvider>().getCart(context);
+                                context.read<CartProvider>().getPrice(
+                                    context.read<CartProvider>().cartList);
+                                Navigator.pop(context);
+                              },
+                              child: const CustomTextWidget(
+                                "Delete",
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const CustomTextWidget(
+                                "Cancel",
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   );

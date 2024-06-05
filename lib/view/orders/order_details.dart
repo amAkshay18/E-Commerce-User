@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/order/order_model.dart';
 import 'package:leafloom/shared/core/constants.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 
 // ignore: must_be_immutable
 class OrderDetailsScreen extends StatefulWidget {
@@ -39,7 +40,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order Details'),
+        title: const CustomTextWidget(
+          'Order Details',
+          fontWeight: FontWeight.bold,
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -53,11 +58,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 decoration: BoxDecoration(border: Border.all(width: 0.1)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
+                  child: CustomTextWidget(
                     'Order ID: OD${widget.order.orderId}',
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 106, 106, 106),
-                    ),
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -68,33 +71,26 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Column(
                       children: [
-                        Text(
+                        CustomTextWidget(
                           ' ${widget.order.productName} ',
-                          style: const TextStyle(fontSize: 20),
                         ),
-                        Text(
+                        CustomTextWidget(
                           '₹ ${widget.order.totalPrice} ',
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.green),
                         ),
-                        Text(
+                        CustomTextWidget(
                           'Category: ${widget.order.category}',
-                          style:
-                              const TextStyle(fontSize: 16, color: Colors.grey),
+                          fontSize: 16,
                         ),
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Text(
+                            const CustomTextWidget(
                               'Status: ',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
+                              fontSize: 16,
                             ),
-                            Text(
+                            CustomTextWidget(
                               '${widget.order.status}',
-                              style: const TextStyle(
-                                  fontSize: 16, color: Colors.orange),
+                              fontSize: 16,
                             ),
                           ],
                         ),
@@ -117,30 +113,30 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                 ],
               ),
-              TextButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          content: const Text(
-                              'Request will be proceded with in few days'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Ok'),
-                            )
-                          ],
-                        );
-                      });
-                },
-                child: Text(widget.buttonName),
-              ),
+              // TextButton(
+              //   onPressed: () {
+              //     showDialog(
+              //         context: context,
+              //         builder: (context) {
+              //           return AlertDialog(
+              //             shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(16),
+              //             ),
+              //             content: const Text(
+              //                 'Request will be proceded with in few days'),
+              //             actions: [
+              //               TextButton(
+              //                 onPressed: () {
+              //                   Navigator.of(context).pop();
+              //                 },
+              //                 child: const Text('Ok'),
+              //               )
+              //             ],
+              //           );
+              //         });
+              //   },
+              //   child: Text(widget.buttonName),
+              // ),
               Stepper(
                 steps: [
                   Step(
@@ -213,43 +209,43 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    const CustomTextWidget(
                       'Shipping details',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                     const SizedBox(height: 8),
-                    Text(
+                    CustomTextWidget(
                       '${widget.order.address!.fullname}',
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      fontSize: 16,
                     ),
-                    Text(
+                    CustomTextWidget(
                       '${widget.order.address!.house}',
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      fontSize: 16,
                     ),
-                    Text(
+                    CustomTextWidget(
                       '${widget.order.address!.city}',
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      fontSize: 16,
                     ),
-                    Text(
+                    CustomTextWidget(
                       '${widget.order.address!.pincode}',
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      fontSize: 16,
                     ),
-                    Text(
+                    CustomTextWidget(
                       '${widget.order.address!.area}',
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      fontSize: 16,
                     ),
-                    Text(
+                    CustomTextWidget(
                       '${widget.order.address!.state}',
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      fontSize: 16,
                     ),
-                    Text(
+                    CustomTextWidget(
                       '${widget.order.address!.phone}',
-                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      fontSize: 16,
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

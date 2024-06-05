@@ -46,9 +46,11 @@ class ProductPayment extends ChangeNotifier {
         errorMessage = 'The requested document was not found.';
       }
 
+      // ignore: use_build_context_synchronously
       showSnackbar(context!, errorMessage);
       notifyListeners();
     } catch (error) {
+      // ignore: use_build_context_synchronously
       showSnackbar(context!, 'An unexpected error occurred. Please try again.');
       notifyListeners();
     }
@@ -78,6 +80,7 @@ class CheckoutProvider extends ChangeNotifier {
     _totalNum = value;
   }
 
+  // ignore: unnecessary_getters_setters
   int get totalNum => _totalNum;
   void addNum() {
     _totalNum++;

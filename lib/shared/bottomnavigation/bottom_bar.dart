@@ -15,6 +15,7 @@ class ScreenNavWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NavBarBottom provider = Provider.of<NavBarBottom>(context);
+    // final themeData = Provider.of<ThemeProvider>(context).themeData;
 
     return Scaffold(
       backgroundColor: Colors.white,

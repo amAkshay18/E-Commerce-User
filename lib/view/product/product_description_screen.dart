@@ -127,6 +127,9 @@ class ProductDescriptionScreen extends StatelessWidget {
                   content: CustomTextWidget(
                     'Item added to cart',
                     fontSize: 18,
+                    // color: Theme.of(context).brightness == Brightness.dark
+                    //     ? Colors.white
+                    //     : Colors.black,
                   ),
                   duration: Duration(seconds: 1),
                 ),
