@@ -168,44 +168,47 @@ class HomeScreen extends StatelessWidget {
                   context: context,
                   builder: (context) => AlertDialog(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        8,
-                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     title: const CustomTextWidget(
                       'Log out',
                       fontSize: 16,
                     ),
                     content: const CustomTextWidget(
-                      "Are you sure want to logout",
+                      "Are you sure you want to logout?",
                       fontSize: 16,
                     ),
                     actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const CustomTextWidget(
-                          "cancel",
-                          fontSize: 16,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          FirebaseAuth.instance.signOut().whenComplete(() {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ),
-                              (route) => false,
-                            );
-                          });
-                        },
-                        child: const CustomTextWidget(
-                          "Logout",
-                          fontSize: 16,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const CustomTextWidget(
+                              "Cancel",
+                              fontSize: 16,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              FirebaseAuth.instance.signOut().whenComplete(() {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              });
+                            },
+                            child: const CustomTextWidget(
+                              "Log out",
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
