@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:leafloom/shared/core/utils/text_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:leafloom/view/home/indoor/indoor.dart';
 import 'package:leafloom/view/home/outdoor/outdoor.dart';
 
@@ -53,9 +53,12 @@ class CarouselSliderForCategories extends StatelessWidget {
                           bottomRight: Radius.circular(10),
                         ),
                       ),
-                      child: CustomTextWidget(
+                      child: Text(
                         categoryTitles[index],
-                        color: Colors.white,
+                        style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),

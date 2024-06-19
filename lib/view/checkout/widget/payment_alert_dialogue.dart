@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/provider/checkout_provider/checkout_provider.dart';
+import 'package:leafloom/provider/checkout/checkout_provider.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/home/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +11,14 @@ class PaymentSuccessAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final alertDialogProvider = Provider.of<AlertDialogProvider>(context);
     return AlertDialog(
-      title: const Text('Payment Successful'),
-      content: const Text('Your payment has been successfully processed.'),
+      title: const CustomTextWidget(
+        'Payment Successful',
+        fontSize: 16,
+      ),
+      content: const CustomTextWidget(
+        'Your payment has been successfully processed.',
+        fontSize: 16,
+      ),
       actions: <Widget>[
         TextButton(
           onPressed: () {
@@ -25,7 +32,10 @@ class PaymentSuccessAlertDialog extends StatelessWidget {
               ),
             );
           },
-          child: const Text('Ok'),
+          child: const CustomTextWidget(
+            'Ok',
+            fontSize: 16,
+          ),
         ),
       ],
     );

@@ -1,15 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/firebase_options.dart';
-import 'package:leafloom/provider/account/about_us/about_us.dart';
-import 'package:leafloom/provider/account/privacy_policy/privacy_policy.dart';
-import 'package:leafloom/provider/account/terms_conditions/terms_conditions.dart';
 import 'package:leafloom/provider/address/address_provider.dart';
 import 'package:leafloom/provider/bottomnavbar/bottom_nav_bar_provider.dart';
 import 'package:leafloom/provider/cart/cart_provider.dart';
-import 'package:leafloom/provider/checkout_provider/checkout_provider.dart';
+import 'package:leafloom/provider/checkout/checkout_provider.dart';
 import 'package:leafloom/provider/indoor_outdoor/indoor_outdoor_provider.dart';
 import 'package:leafloom/provider/search/search_provider.dart';
+import 'package:leafloom/provider/theme/theme_provider.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
 import 'package:leafloom/view/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +16,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    const MyApp(),
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -57,24 +58,21 @@ class MyApp extends StatelessWidget {
           create: (context) => ProductPayment(),
         ),
         ChangeNotifierProvider(
-          create: (context) => AboutUsProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => TermsAndConditonsProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => PrivacyPolicyProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => SearchProvider(),
         ),
+        // ChangeNotifierProvider(
+        //   create: (context) => ThemeProvider(),
+        // ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: const SplashScreen(),
+        theme: Provider.of<ThemeProvider>(context).themeData,
+        // darkTheme: darkMode,
+        // themeMode: ThemeMode.system,
       ),
     );
   }

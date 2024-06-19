@@ -118,13 +118,13 @@ class CommonButtonTwo extends StatelessWidget {
         Navigator.of(context).pop();
       },
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
         ),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-        minimumSize: MaterialStateProperty.all<Size>(
+        backgroundColor: WidgetStateProperty.all<Color>(Colors.black),
+        minimumSize: WidgetStateProperty.all<Size>(
           const Size(350, 60),
         ),
       ),

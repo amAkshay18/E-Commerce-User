@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:leafloom/model/product/product_model.dart';
 import 'package:leafloom/provider/search/search_provider.dart';
 import 'package:leafloom/shared/core/constants.dart';
@@ -15,10 +17,8 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-//=========================================================
 Future<List<ProductClass>> fetchProducts() async {
   List<ProductClass> productList = [];
-
   try {
     var productCollectionSnapshot =
         await FirebaseFirestore.instance.collection('Products').get();
@@ -70,7 +70,6 @@ final filterItemsPrice = [
 ];
 
 List<ProductClass> filteredProducts = [];
-
 List<ProductClass> allItems = [];
 
 class _SearchScreenState extends State<SearchScreen> {
@@ -82,7 +81,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   String searchValue = '';
-
   CollectionReference productCollection =
       FirebaseFirestore.instance.collection('Products');
   List<ProductClass> productList = [];
@@ -98,7 +96,7 @@ class _SearchScreenState extends State<SearchScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 100,
+                  height: 85,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -128,10 +126,13 @@ class _SearchScreenState extends State<SearchScreen> {
                               },
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             border: InputBorder.none,
                             labelText: "Search",
+                            labelStyle: TextStyle(
+                              fontFamily: GoogleFonts.openSans().fontFamily,
+                            ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15.0),
                               borderSide: const BorderSide(
@@ -145,66 +146,92 @@ class _SearchScreenState extends State<SearchScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    PopupMenuButton(
-                      itemBuilder: (context) => filterItems,
-                      onSelected: (value) async {
-                        if (value == 0) {
-                          filteredProducts.sort((a, b) =>
-                              int.parse(a.price ?? '0')
-                                  .compareTo(int.parse(b.price ?? '0')));
-                          for (int i = 0; i < filteredProducts.length; i++) {}
-                          setState(() {});
-                        } else if (value == 1) {
-                          filteredProducts.sort((a, b) =>
-                              int.parse(b.price ?? '0')
-                                  .compareTo(int.parse(a.price ?? '0')));
-                          setState(() {});
-                        } else if (value == 2) {
-                          filteredProducts = await fetchSearchResults();
-                          setState(() {});
-                        }
-                      },
-                      child: const CustomTextWidget(
-                        'Sort',
-                        fontSize: 16,
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        height: MediaQuery.of(context).size.height / 20,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            final value = await showMenu(
+                              context: context,
+                              position:
+                                  const RelativeRect.fromLTRB(100, 100, 0, 0),
+                              items: filterItems,
+                            );
+                            if (value == 0) {
+                              filteredProducts.sort((a, b) =>
+                                  int.parse(a.price ?? '0')
+                                      .compareTo(int.parse(b.price ?? '0')));
+                              for (int i = 0;
+                                  i < filteredProducts.length;
+                                  i++) {}
+                              setState(() {});
+                            } else if (value == 1) {
+                              filteredProducts.sort((a, b) =>
+                                  int.parse(b.price ?? '0')
+                                      .compareTo(int.parse(a.price ?? '0')));
+                              setState(() {});
+                            } else if (value == 2) {
+                              filteredProducts = await fetchSearchResults();
+                              setState(() {});
+                            }
+                          },
+                          child: const CustomTextWidget(
+                            'Sort',
+                            fontSize: 14,
+                          ),
+                        ),
                       ),
                     ),
-                    PopupMenuButton(
-                      itemBuilder: (context) => filterItemsPrice,
-                      onSelected: (value) async {
-                        if (value == 0) {
-                          filteredProducts = await fetchSearchResults();
-                          filteredProducts.removeWhere(
-                            (element) =>
-                                double.parse(element.price ?? '0') > 200,
-                          );
-                          setState(() {});
-                        } else if (value == 1) {
-                          filteredProducts = await fetchSearchResults();
-                          filteredProducts.removeWhere(
-                            (element) =>
-                                double.parse(element.price ?? '0') > 300,
-                          );
-                          setState(() {});
-                        } else if (value == 2) {
-                          filteredProducts = await fetchSearchResults();
-                          setState(() {});
-                        }
-                      },
-                      child: const CustomTextWidget(
-                        'Filter',
-                        fontSize: 16,
+                    Container(
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        height: MediaQuery.of(context).size.height / 20,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            final value = await showMenu(
+                              context: context,
+                              position:
+                                  const RelativeRect.fromLTRB(100, 100, 0, 0),
+                              items: filterItemsPrice,
+                            );
+                            if (value == 0) {
+                              filteredProducts = await fetchSearchResults();
+                              filteredProducts.removeWhere(
+                                (element) =>
+                                    double.parse(element.price ?? '0') > 200,
+                              );
+                              setState(() {});
+                            } else if (value == 1) {
+                              filteredProducts = await fetchSearchResults();
+                              filteredProducts.removeWhere(
+                                (element) =>
+                                    double.parse(element.price ?? '0') > 300,
+                              );
+                              setState(() {});
+                            } else if (value == 2) {
+                              filteredProducts = await fetchSearchResults();
+                              setState(() {});
+                            }
+                          },
+                          child: const CustomTextWidget(
+                            'Filter',
+                            fontSize: 14,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                kHeight30,
+                kHeight20,
                 searchValue.isEmpty
                     ? FilterGrid(productCollection: filteredProducts)
                     : Consumer<SearchProvider>(builder: (context, value, _) {
@@ -236,8 +263,7 @@ class _SearchScreenState extends State<SearchScreen> {
         },
       ).toList();
     } catch (e) {
-      // ignore: avoid_print
-      print("Error fetching search results: $e");
+      log("Error fetching search results: $e");
       return [];
     }
   }

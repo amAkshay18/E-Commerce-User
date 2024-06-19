@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leafloom/model/cart/cart_model.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/cart/cart_provider.dart';
 
@@ -13,11 +14,11 @@ class CartProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
+      elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(8.0),
       ),
-      margin: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(16.0),
@@ -28,9 +29,12 @@ class CartProductCard extends StatelessWidget {
               SizedBox(
                 width: 100,
                 height: 100,
-                child: Image.network(
-                  cartModel.imageUrl!,
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    cartModel.imageUrl!,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(width: 16.0),
@@ -39,28 +43,29 @@ class CartProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    CustomTextWidget(
                       cartModel.name!,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      fontSize: 18,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        '₹ ${cartModel.price}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.green,
-                        ),
+                      child: CustomTextWidget(
+                        '₹${cartModel.price}',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Row(
                       children: [
-                        const Text('Quantity'),
+                        const CustomTextWidget(
+                          'Quantity',
+                          fontSize: 12,
+                        ),
                         IconButton(
-                          icon: const Icon(Icons.remove),
+                          icon: const Icon(
+                            Icons.remove,
+                            size: 14,
+                          ),
                           onPressed: () {
                             final cart = cartModel;
                             context
@@ -70,9 +75,6 @@ class CartProductCard extends StatelessWidget {
                             context.read<CartProvider>().getPrice(
                                 context.read<CartProvider>().cartList);
                           },
-                          color: cartModel.quantity == '1'
-                              ? Colors.red
-                              : Colors.black,
                         ),
                         Text(
                           cartModel.quantity!,
@@ -82,7 +84,10 @@ class CartProductCard extends StatelessWidget {
                                   : Colors.black),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.add),
+                          icon: const Icon(
+                            Icons.add,
+                            size: 14,
+                          ),
                           onPressed: () async {
                             final cart = cartModel;
                             context
@@ -104,24 +109,49 @@ class CartProductCard extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text('Remove from cart'),
-                      content: const Text('Are you sure want to cart'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      title: const CustomTextWidget(
+                        'Delete product from cart',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      content: const CustomTextWidget(
+                        'Are you sure want to delete the product from cart?',
+                        maxLines: 2,
+                        fontSize: 14,
+                      ),
                       actions: [
-                        TextButton(
-                            onPressed: () {
-                              context.read<CartProvider>().deleteCart(
-                                  context: context, id: cartModel.id!);
-                              context.read<CartProvider>().getCart(context);
-                              context.read<CartProvider>().getPrice(
-                                  context.read<CartProvider>().cartList);
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Remove")),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Cancel")),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                context.read<CartProvider>().deleteCart(
+                                    context: context, id: cartModel.id!);
+                                context.read<CartProvider>().getCart(context);
+                                context.read<CartProvider>().getPrice(
+                                    context.read<CartProvider>().cartList);
+                                Navigator.pop(context);
+                              },
+                              child: const CustomTextWidget(
+                                "Delete",
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const CustomTextWidget(
+                                "Cancel",
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   );

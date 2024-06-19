@@ -16,6 +16,7 @@ Future<List<ProductClass>> fetchProducts() async {
         },
       ).toList();
     } else {}
+    // ignore: empty_catches
   } catch (e) {}
 
   return productList;

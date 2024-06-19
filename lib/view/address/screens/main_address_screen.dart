@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leafloom/shared/core/constants.dart';
-import 'package:leafloom/view/account/address/widgets/address_card.dart';
-import 'package:leafloom/view/account/address/widgets/dafault_card.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
+import 'package:leafloom/view/address/widgets/address_card.dart';
+import 'package:leafloom/view/address/widgets/default_card.dart';
 import 'package:leafloom/view/checkout/widget/heading_delivery.dart';
 
 class ScreenAddress extends StatefulWidget {
@@ -33,6 +34,14 @@ class _ScreenAddressState extends State<ScreenAddress> {
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: const CustomTextWidget(
+            'My Addresses',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+          centerTitle: true,
+        ),
         body: Container(
           decoration: const BoxDecoration(),
           child: SingleChildScrollView(
@@ -50,14 +59,20 @@ class _ScreenAddressState extends State<ScreenAddress> {
                       List<QueryDocumentSnapshot<Object?>> data = [];
                       if (snapshot.data == null) {
                         return const Center(
-                          child: Text('Add Address'),
+                          child: CustomTextWidget(
+                            'Add Address',
+                            fontSize: 16,
+                          ),
                         );
                       }
 
                       data = snapshot.data!.docs;
                       if (snapshot.data!.docs.isEmpty || data.isEmpty) {
                         return const Center(
-                          child: Text('Empty'),
+                          child: CustomTextWidget(
+                            'Empty',
+                            fontSize: 16,
+                          ),
                         );
                       }
 

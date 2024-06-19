@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 
-class TermsAndConditonsProvider extends ChangeNotifier {
-  String termsAndConditionsText = '''
+class TermsAndConditionsScreen extends StatelessWidget {
+  const TermsAndConditionsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const CustomTextWidget(
+          'Terms and Conditions',
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '''
 Welcome to LeafLoom, an ecommerce platform for the sale of indoor and outdoor plants. By accessing or using our app, you agree to comply with and be bound by the following terms and conditions. Please read these terms carefully before using our services.
 
 1. Acceptance of Terms:  By using our app, you agree to these terms and conditions. If you do not agree with any part of these terms, you may not use our services.
@@ -37,58 +58,12 @@ Welcome to LeafLoom, an ecommerce platform for the sale of indoor and outdoor pl
 If you have any questions or concerns about these terms and conditions, please contact us at thisisakshayp18@gmail.com.
 
 Thank you for using LeafLoom
-''';
-  Future<dynamic> termsAndConditionsMethod(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Terms and Conditions',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    termsAndConditionsText,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 10),
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      height: 50,
-                      width: double.infinity,
-                      child: const Text(
-                        'OK',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              ''',
+              style: GoogleFonts.openSans(),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

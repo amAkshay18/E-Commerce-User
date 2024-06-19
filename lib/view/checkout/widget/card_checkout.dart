@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafloom/provider/checkout_provider/checkout_provider.dart';
+import 'package:leafloom/provider/checkout/checkout_provider.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutCard extends StatelessWidget {

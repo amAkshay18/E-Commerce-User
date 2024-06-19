@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:leafloom/provider/wishlist/wishlist_provider.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 import 'package:leafloom/view/product/product_discription_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +48,7 @@ class ProductTile extends StatelessWidget {
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Container(
           padding: const EdgeInsets.all(12),
@@ -71,26 +71,20 @@ class ProductTile extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              Text(
+              CustomTextWidget(
                 name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                ),
+                fontSize: 16,
               ),
-              Text(
+              CustomTextWidget(
                 category,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
               ),
-              Text(
-                "₹$rate.00",
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                ),
+              CustomTextWidget(
+                "₹$rate",
+                fontSize: 14,
               ),
             ],
           ),
