@@ -124,14 +124,10 @@ class ProductDescriptionScreen extends StatelessWidget {
                   .addToCart(context: context, cartModel: addToCart);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: CustomTextWidget(
-                    'Item added to cart',
-                    fontSize: 18,
-                    // color: Theme.of(context).brightness == Brightness.dark
-                    //     ? Colors.white
-                    //     : Colors.black,
+                  content: Text('Item added to cart'),
+                  duration: Duration(
+                    seconds: 1,
                   ),
-                  duration: Duration(seconds: 1),
                 ),
               );
             },
@@ -156,17 +152,19 @@ class ProductDescriptionScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => CheckoutScreen(products: [
-                    CartModel(
-                      category: category,
-                      id: id,
-                      description: description,
-                      imageUrl: image,
-                      name: name,
-                      price: price,
-                      quantity: '1',
-                    )
-                  ]),
+                  builder: (context) => CheckoutScreen(
+                    products: [
+                      CartModel(
+                        category: category,
+                        id: id,
+                        description: description,
+                        imageUrl: image,
+                        name: name,
+                        price: price,
+                        quantity: '1',
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
