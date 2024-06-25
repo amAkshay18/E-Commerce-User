@@ -60,6 +60,24 @@ class HomeScreen extends StatelessWidget {
                           builder: (context, value, _) {
                             return Row(
                               children: [
+                                // CircleAvatar(
+                                //   backgroundColor: Colors.white,
+                                //   child: Builder(
+                                //     builder: (context) {
+                                //       String nameInitial = '';
+                                //       if (value['name'] != null &&
+                                //           (value['name'] as String)
+                                //               .isNotEmpty) {
+                                //         nameInitial = (value['name'] as String)
+                                //             .substring(0, 1)
+                                //             .toUpperCase();
+                                //       }
+                                //       return CustomTextWidget(
+                                //         nameInitial,
+                                //       );
+                                //     },
+                                //   ),
+                                // ),
                                 CircleAvatar(
                                   backgroundColor: Colors.white,
                                   child: CustomTextWidget(

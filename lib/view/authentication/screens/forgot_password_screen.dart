@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:leafloom/shared/core/utils/text_widget.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -57,17 +58,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: const Color.fromARGB(255, 235, 201, 89),
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.amber,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: const Text(
+                child: const CustomTextWidget(
                   'Submit',
-                  style: TextStyle(fontSize: 18),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             )

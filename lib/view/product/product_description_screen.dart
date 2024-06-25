@@ -49,46 +49,74 @@ class ProductDescriptionScreen extends StatelessWidget {
     );
   }
 
-  Container _buildProductImage(BuildContext context) {
+  Widget _buildProductImage(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+        borderRadius: BorderRadius.circular(8),
       ),
+      margin: const EdgeInsets.all(16.0),
     );
   }
 
-  Padding _buildDescription() {
+  Widget _buildDescription() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: CustomTextWidget(
-              name,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: const EdgeInsets.all(16.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomTextWidget(
-                "₹$price",
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomTextWidget(
+                    name,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                  CustomTextWidget(
+                    "₹$price",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ],
               ),
-              CustomTextWidget(
-                "Category :$category",
-                fontWeight: FontWeight.w200,
-                fontSize: 16,
-              )
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const CustomTextWidget(
+                    "Description",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                  CustomTextWidget(
+                    "Category: $category",
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                description,
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[700],
+                ),
+              ),
             ],
           ),
-          Text(description, textAlign: TextAlign.justify),
-        ],
+        ),
       ),
     );
   }

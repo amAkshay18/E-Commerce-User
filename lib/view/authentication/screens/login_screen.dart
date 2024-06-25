@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leafloom/shared/bottomnavigation/bottom_bar.dart';
-import 'package:leafloom/view/authentication/screens/forgot_passord_screen.dart';
+import 'package:leafloom/view/authentication/screens/forgot_password_screen.dart';
 
 final _firebase = FirebaseAuth.instance;
 
